@@ -1,0 +1,136 @@
+.back-to-top.active {
+    visibility: visible;
+    opacity: 1;
+}
+.back-to-top {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    right: 15px;
+    bottom: 15px;
+    z-index: 998;
+    background: #67b0d1;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    transition: all 0.4s;
+}
+.navbar-brand{
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.nav{
+    color:white;
+    text-decoration: none;
+}
+.nav:hover{
+    color:white;
+}
+.active{
+    font-weight: bold;
+}
+.nav-item{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.space-between{
+    justify-content: space-between;
+}
+.pointer{
+    cursor: pointer;
+}
+.bold{
+    font-weight: bold;
+}
+.color-white{
+    color: white;
+}
+.width-100{
+    width: 100%;
+}
+.bg-cover{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.my-thumbnail{
+    border: 0px;
+}
+.big-img{
+    background-image: url('../images/1657526088.jpeg');
+    width:100%;
+    height:700px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.upper-first{
+    margin-top: 8rem;
+}
+@media (max-width : 865px){
+    .upper-second{
+        margin-top: 13rem;
+    }
+}
+
+.big-card-image{
+    width: 100%;
+    height: 250px;
+    background-image: url('../images/statement.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+}
+.military-card-image{
+    width: 100%;
+    height: 200px;
+    background-image: url('../images/news1.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+}
+.military-card-title{
+    margin-top: -8px;
+}
+.military-card-text{
+    margin-top: -5px;
+}
+.military-card-time{
+    margin-top: -15px;
+}
+.military-card-button{
+    margin-top: -8px;
+}
+.small-card{
+    width: 100%;
+    height: 300px;
+    background-image: url('../images/16589879500.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.fix-top{
+    background-color: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+.nav-up{
+    margin-top: 0px !important;
+}
+@media (max-width : 767px ){
+    .statement-header{
+        margin-top: 12px;
+    }
+}
+@media (max-width : 865px ){
+    .upper-second{
+        margin-top: 9rem;
+    }
+}
