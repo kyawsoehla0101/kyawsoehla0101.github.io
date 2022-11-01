@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100&display=swap');
+body{
+    font-family: 'Poppins', sans-serif;
+}
 .back-to-top.active {
     visibility: visible;
     opacity: 1;
@@ -52,9 +56,17 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    width: 100%;
 }
 .my-thumbnail{
     border: 0px;
+}
+.none-text-decoration{
+    text-decoration: none;
+    color: white;
+}
+.none-text-decoration:hover{
+    color: white;
 }
 .big-img{
     background-image: url('../images/1657526088.jpeg');
@@ -76,7 +88,6 @@
 .big-card-image{
     width: 100%;
     height: 250px;
-    background-image: url('../images/statement.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -86,7 +97,6 @@
 .military-card-image{
     width: 100%;
     height: 200px;
-    background-image: url('../images/news1.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

@@ -16,6 +16,7 @@ $(document).ready(function () {
 });
 
 
+
 (function() {
   "use strict";
 
@@ -49,7 +50,8 @@ $(document).ready(function () {
         selectHeader.classList.add('hide')
         selectNav.classList.add('nav-up')
         
-      } else {
+      }
+      else{
         selectHeader.classList.remove('hide')
         selectNav.classList.remove('nav-up')
       }
@@ -74,3 +76,11 @@ $(document).ready(function () {
    onscroll(document, toggleBacktotop)
  }
 })()
+
+// font
+WebFont.load({
+  google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+  active: function() {
+      sessionStorage.fonts = true;
+  }
+});

@@ -156,5 +156,13 @@
 .hide{
   display: none;
 }
+.dropdown-menu .my-dropdown-active{
+  color: red;
+  font-weight: bold !important;
+  background-color: #e9ecef;
+}
+.dropdown .dropdown-menu{
+  left: auto;
+}
 
 
