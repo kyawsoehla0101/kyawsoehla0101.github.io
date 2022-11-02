@@ -6,10 +6,7 @@ body{
     visibility: visible;
     opacity: 1;
 }
-a{
-    text-decoration: none !important;
-    color: #fff;
-}
+
 .back-to-top {
     position: fixed;
     visibility: hidden;
