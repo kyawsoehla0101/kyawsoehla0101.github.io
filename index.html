@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="my">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interactive Jobseeker Project Plan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- Chosen Palette: Warm Neutrals (Background: #f5f5f4, Primary Text: #374151, Accent: #3b82f6, Card BG: #ffffff) -->
     <!-- Application Structure Plan: A tab-based SPA dashboard structure was chosen to make the dense project plan easily digestible. Users can switch between key sections like Timeline, Features, and Risks without scrolling. This non-linear navigation improves user experience by breaking down complex information into manageable, focused views. An interactive Gantt chart for the timeline and card-based layouts for features and risks make the data more scannable and engaging than a static document. -->
     <!-- Visualization & Content Choices: 
@@ -20,373 +23,556 @@
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        body {
-            font-family: 'Pyidaungsu', sans-serif;
-            background-color: #f5f5f4; 
-        }
-        .tab-active {
-            border-bottom: 2px solid #3b82f6;
-            color: #3b82f6;
-            font-weight: 700;
-        }
-        .content-section {
-            display: none;
-        }
-        .content-section.active {
-            display: block;
-        }
-        .chart-container {
-            position: relative; 
-            width: 100%; 
-            max-width: 900px;
-            margin-left: auto; 
-            margin-right: auto; 
-            height: 400px;
-            max-height: 50vh;
-        }
+      body {
+        font-family: "Pyidaungsu", sans-serif;
+        background-color: #f5f5f4;
+      }
+      .tab-active {
+        border-bottom: 2px solid #3b82f6;
+        color: #3b82f6;
+        font-weight: 700;
+      }
+      .content-section {
+        display: none;
+      }
+      .content-section.active {
+        display: block;
+      }
+      .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 400px;
+        max-height: 50vh;
+      }
     </style>
-</head>
-<body class="text-gray-700">
-
+  </head>
+  <body class="text-gray-700">
     <div class="container mx-auto p-4 md:p-8">
-        
-        <header class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Jobseeker Website Project Plan</h1>
-            <p class="mt-2 text-lg text-gray-600">Dashboard</p>
-        </header>
+      <header class="text-center mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800">
+          Jobseeker Website Project Plan
+        </h1>
+        <p class="mt-2 text-lg text-gray-600">Dashboard</p>
+      </header>
 
-        <nav class="mb-8 border-b border-gray-200">
-            <ul class="flex flex-wrap -mb-px justify-center text-center text-gray-500">
-                <li class="mr-2">
-                    <button class="tab-button inline-block p-4 rounded-t-lg tab-active" data-tab="dashboard">ခြုံငုံသုံးသပ်ချက်</button>
-                </li>
-                <li class="mr-2">
-                    <button class="tab-button inline-block p-4 rounded-t-lg" data-tab="timeline">အချိန်ဇယား</button>
-                </li>
-                <li class="mr-2">
-                    <button class="tab-button inline-block p-4 rounded-t-lg" data-tab="features">လုပ်ဆောင်ချက်များ</button>
-                </li>
-                <li class="mr-2">
-                    <button class="tab-button inline-block p-4 rounded-t-lg" data-tab="resources">အရင်းအမြစ်များ</button>
-                </li>
-                <li class="mr-2">
-                    <button class="tab-button inline-block p-4 rounded-t-lg" data-tab="risks">အန္တရာယ်စီမံခန့်ခွဲမှု</button>
-                </li>
-            </ul>
-        </nav>
+      <nav class="mb-8 border-b border-gray-200">
+        <ul
+          class="flex flex-wrap -mb-px justify-center text-center text-gray-500"
+        >
+          <li class="mr-2">
+            <button
+              class="tab-button inline-block p-4 rounded-t-lg tab-active"
+              data-tab="dashboard"
+            >
+              ခြုံငုံသုံးသပ်ချက်
+            </button>
+          </li>
+          <li class="mr-2">
+            <button
+              class="tab-button inline-block p-4 rounded-t-lg"
+              data-tab="timeline"
+            >
+              အချိန်ဇယား
+            </button>
+          </li>
+          <li class="mr-2">
+            <button
+              class="tab-button inline-block p-4 rounded-t-lg"
+              data-tab="features"
+            >
+              လုပ်ဆောင်ချက်များ
+            </button>
+          </li>
+          <li class="mr-2">
+            <button
+              class="tab-button inline-block p-4 rounded-t-lg"
+              data-tab="resources"
+            >
+              အရင်းအမြစ်များ
+            </button>
+          </li>
+          <li class="mr-2">
+            <button
+              class="tab-button inline-block p-4 rounded-t-lg"
+              data-tab="risks"
+            >
+              အန္တရာယ်စီမံခန့်ခွဲမှု
+            </button>
+          </li>
+        </ul>
+      </nav>
 
-        <main>
-            <!-- Dashboard Section -->
-            <div id="dashboard" class="content-section active">
-                <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
-                    <h2 class="text-2xl font-bold mb-3 text-gray-800">ပရောဂျက် ရည်ရွယ်ချက်</h2>
-                    <p class="text-gray-600 leading-relaxed">ဤပရောဂျက်၏ အဓိက ရည်ရွယ်ချက်မှာ အလုပ်ရှာသူများနှင့် အလုပ်ရှင်များကို ထိရောက်စွာ ချိတ်ဆက်ပေးမည့် အသုံးပြုရလွယ်ကူသော အွန်လိုင်းပလက်ဖောင်းတစ်ခု ဖန်တီးရန်ဖြစ်သည်။ အလုပ်ရှာသူများအတွက် အခွင့်အလမ်းများ လွယ်ကူစွာရှာဖွေနိုင်ပြီး၊ အလုပ်ရှင်များအတွက် အရည်အချင်းပြည့်မီသော ဝန်ထမ်းများကို အလွယ်တကူ ရှာဖွေနိုင်စေရန် ပံ့ပိုးပေးပါမည်။</p>
-                </div>
+      <main>
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="content-section active">
+          <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+            <h2 class="text-2xl font-bold mb-3 text-gray-800">
+              ပရောဂျက် ရည်ရွယ်ချက်
+            </h2>
+            <p class="text-gray-600 leading-relaxed">
+              ဤပရောဂျက်၏ အဓိက ရည်ရွယ်ချက်မှာ အလုပ်ယှာသူများနှင့်
+              အလုပ်ရှင်များကို ထိရောက်စွာ ချိတ်ဆက်ပေးမည့် အသုံးပြုရလွယ်ကူရေ
+              အွန်လိုင်းပလက်ဖောင်းတစ်ခု ဖန်တီးရန်ဖြစ်သည်။ အလုပ်ယှာသူများအတွက်
+              အခွင့်အလမ်းများ လွယ်ကူစွာရှာဖွေနိုင်ပြီး၊ အလုပ်ရှင်များအတွက်
+              အရည်အချင်းပြည့်မီရေ ဝန်ထမ်းများကို အလွယ်တကူ ယှာဖွေနိုင်စီရန်
+              ပံ့ပိုးပီးပါမည်။
+            </p>
+          </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">စုစုပေါင်း အချိန်ကာလ</h3>
-                        <p class="text-4xl font-bold text-blue-500">21</p>
-                        <p class="text-gray-500">ပတ်</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">အဓိက အဆင့်များ</h3>
-                        <p class="text-4xl font-bold text-blue-500">7</p>
-                        <p class="text-gray-500">ခု</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">အဖွဲ့ဝင် (ခန့်မှန်း)</h3>
-                        <p class="text-4xl font-bold text-blue-500">5-7</p>
-                        <p class="text-gray-500">ဦး</p>
-                    </div>
-                </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                စုစုပေါင်း အချိန်ကာလ
+              </h3>
+              <p class="text-4xl font-bold text-blue-500">21</p>
+              <p class="text-gray-500">ပတ်</p>
             </div>
-
-            <!-- Timeline Section -->
-            <div id="timeline" class="content-section">
-                 <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h2 class="text-2xl font-bold mb-3 text-center text-gray-800">ပရောဂျက် အချိန်ဇယား (Gantt Chart)</h2>
-                     <p class="text-center text-gray-600 mb-6">ဤ Gantt chart သည် ပရောဂျက်၏ အဓိကအဆင့်များနှင့် တစ်ခုချင်းစီအတွက် သတ်မှတ်ထားသော အချိန်ကာလ (ပတ်ဖြင့်) ကို ပြသထားပါသည်။ Chart ပေါ်ရှိ bar တစ်ခုချင်းစီကို mouse တင်၍ အသေးစိတ်ကြည့်ရှုနိုင်ပါသည်။</p>
-                    <div class="chart-container">
-                        <canvas id="ganttChart"></canvas>
-                    </div>
-                </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                အဓိက အဆင့်များ
+              </h3>
+              <p class="text-4xl font-bold text-blue-500">7</p>
+              <p class="text-gray-500">ခု</p>
             </div>
-
-            <!-- Features Section -->
-            <div id="features" class="content-section">
-                <div class="text-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-800">ပရောဂျက် နယ်ပယ်နှင့် လုပ်ဆောင်ချက်များ</h2>
-                    <p class="text-gray-600 mt-2">ဤပလက်ဖောင်းတွင် အလုပ်ရှာသူများနှင့် အလုပ်ရှင်များအတွက် ခွဲခြားထားသော အဓိကလုပ်ဆောင်ချက်များကို တွေ့နိုင်ပါသည်။</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <h3 class="text-xl font-bold mb-4 text-gray-800">အလုပ်ရှာသူများအတွက် (Job Seekers)</h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-start"><span class="mr-3 text-blue-500">👤</span><span><b>ပရိုဖိုင် ဖန်တီးခြင်း:</b> ကိုယ်ရေးအချက်အလက်၊ ပညာအရည်အချင်း၊ အတွေ့အကြုံများ ထည့်သွင်းခြင်း။</span></li>
-                            <li class="flex items-start"><span class="mr-3 text-blue-500">🔍</span><span><b>အလုပ်ရှာဖွေခြင်း:</b> Keyword, Industry, Location စသည်ဖြင့် စစ်ထုတ်ရှာဖွေခြင်း။</span></li>
-                            <li class="flex items-start"><span class="mr-3 text-blue-500">📄</span><span><b>အလုပ်လျှောက်ထားခြင်း:</b> CV တင်၍ တိုက်ရိုက်လျှောက်ထားခြင်း။</span></li>
-                            <li class="flex items-start"><span class="mr-3 text-blue-500">🔔</span><span><b>အလုပ်သတိပေးချက်များ:</b> ကိုက်ညီသည့် အလုပ်သစ်များအတွက် Notification ရရှိခြင်း။</span></li>
-                            <li class="flex items-start"><span class="mr-3 text-blue-500">⭐</span><span><b>အကြိုက်ဆုံး အလုပ်များ:</b> စိတ်ဝင်စားသော အလုပ်များကို သိမ်းဆည်းထားခြင်း။</span></li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <h3 class="text-xl font-bold mb-4 text-gray-800">အလုပ်ရှင်များအတွက် (Employers)</h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-start"><span class="mr-3 text-blue-500">🏢</span><span><b>ကုမ္ပဏီ ပရိုဖိုင်:</b> ကုမ္ပဏီအချက်အလက်၊ ယဉ်ကျေးမှုများ ဖော်ပြခြင်း။</span></li>
-                            <li class="flex items-start"><span class="mr-3 text-blue-500">➕</span><span><b>အလုပ်ကြော်ငြာ တင်ခြင်း:</b> အလုပ်အကိုင် အခွင့်အလမ်းများ အသေးစိတ်တင်ခြင်း။</span></li>
-                            <li class="flex items-start"><span class="mr-3 text-blue-500">📂</span><span><b>လျှောက်ထားသူ စီမံခန့်ခွဲခြင်း:</b> CV ကြည့်ရှုခြင်း၊ စစ်ထုတ်ခြင်း၊ Status ပြောင်းလဲခြင်း။</span></li>
-                            <li class="flex items-start"><span class="mr-3 text-blue-500">💬</span><span><b>ဆက်သွယ်ခြင်း:</b> လျှောက်ထားသူများနှင့် တိုက်ရိုက်ဆက်သွယ်ခြင်း။</span></li>
-                        </ul>
-                    </div>
-                </div>
-                 <div class="bg-white p-6 rounded-lg shadow-sm mt-8">
-                    <h3 class="text-xl font-bold mb-4 text-gray-800">နယ်ပယ် ကန့်သတ်ချက်များ (Scope Limitations)</h3>
-                    <p class="text-gray-600">ဤပရောဂျက်၏ ပထမအဆင့်တွင် Payment Gateway Integration နှင့် AI-powered matching တို့ကို ထည့်သွင်းမည်မဟုတ်ပါ။ ၎င်းတို့ကို နောက်ဆက်တွဲ အဆင့်များတွင် ထည့်သွင်းရန် စဉ်းစားမည်။</p>
-                </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                အဖွဲ့ဝင် (ခန့်မှန်း)
+              </h3>
+              <p class="text-4xl font-bold text-blue-500">5-7</p>
+              <p class="text-gray-500">ဦး</p>
             </div>
+          </div>
+        </div>
 
-            <!-- Resources Section -->
-            <div id="resources" class="content-section">
-                <div class="text-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-800">အရင်းအမြစ်များ</h2>
-                    <p class="text-gray-600 mt-2">ပရောဂျက်အတွက် လိုအပ်သော လူအင်အားနှင့် နည်းပညာများကို ဤနေရာတွင် ဖော်ပြထားပါသည်။</p>
-                </div>
-                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">အဖွဲ့ဝင်များ ခွဲဝေမှု</h3>
-                        <div class="chart-container h-64 max-h-[300px]">
-                            <canvas id="teamChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <h3 class="text-xl font-bold mb-4 text-gray-800">အသုံးပြုမည့် နည်းပညာများ</h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-center"><span class="mr-3 text-blue-500 text-lg">🌐</span><b>Frontend:</b> React.js, Vue.js, or Angular</li>
-                            <li class="flex items-center"><span class="mr-3 text-blue-500 text-lg">⚙️</span><b>Backend:</b> Node.js (Express), Python (Django)</li>
-                            <li class="flex items-center"><span class="mr-3 text-blue-500 text-lg">🗃️</span><b>Database:</b> PostgreSQL or MongoDB</li>
-                            <li class="flex items-center"><span class="mr-3 text-blue-500 text-lg">☁️</span><b>Cloud Hosting:</b> AWS, Google Cloud, or DigitalOcean</li>
-                             <li class="flex items-center"><span class="mr-3 text-blue-500 text-lg">🛠️</span><b>Tools:</b> Git, Jira, Slack</li>
-                        </ul>
-                    </div>
-                </div>
+        <!-- Timeline Section -->
+        <div id="timeline" class="content-section">
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-2xl font-bold mb-3 text-center text-gray-800">
+              ပရောဂျက် အချိန်ဇယား (Gantt Chart)
+            </h2>
+            <p class="text-center text-gray-600 mb-6">
+              ဤ Gantt chart သည် ပရောဂျက်၏ အဓိကအဆင့်များနှင့် တစ်ခုချင်းစီအတွက်
+              သတ်မှတ်ထားသော အချိန်ကာလ (ပတ်ဖြင့်) ကို ပြသထားပါသည်။ Chart ပေါ်ရှိ
+              bar တစ်ခုချင်းစီကို mouse တင်၍ အသေးစိတ်ကြည့်ရှုနိုင်ပါသည်။
+            </p>
+            <div class="chart-container">
+              <canvas id="ganttChart"></canvas>
             </div>
+          </div>
+        </div>
 
-            <!-- Risks Section -->
-            <div id="risks" class="content-section">
-                <div class="text-center mb-6">
-                     <h2 class="text-2xl font-bold text-gray-800">အန္တရာယ်စီမံခန့်ခွဲမှု</h2>
-                     <p class="text-gray-600 mt-2">ဖြစ်နိုင်ခြေရှိသော အန္တရာယ်များနှင့် ၎င်းတို့ကို လျှော့ချရန် နည်းလမ်းများကို လေ့လာပါ။ Risk တစ်ခုကိုနှိပ်၍ Mitigation Strategy ကို ကြည့်ရှုနိုင်ပါသည်။</p>
-                </div>
-                <div class="space-y-4">
-                    <div class="risk-item bg-white rounded-lg shadow-sm">
-                        <button class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center">
-                            <span>Scope Creep: လုပ်ဆောင်ချက်များ တိုးပွားလာခြင်း</span>
-                            <span class="arrow transform transition-transform">▼</span>
-                        </button>
-                        <div class="risk-details p-4 border-t border-gray-200 hidden">
-                            <p><b>Mitigation:</b> တိကျသော Scope Definition ကို ထိန်းသိမ်းခြင်း၊ Change Request Process ကို သတ်မှတ်ခြင်း။</p>
-                        </div>
-                    </div>
-                    <div class="risk-item bg-white rounded-lg shadow-sm">
-                        <button class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center">
-                            <span>Timeline Delays: အချိန်ဇယားလွဲချော်ခြင်း</span>
-                            <span class="arrow transform transition-transform">▼</span>
-                        </button>
-                        <div class="risk-details p-4 border-t border-gray-200 hidden">
-                             <p><b>Mitigation:</b> အချိန်ဇယားကို လက်တွေ့ကျကျ ခန့်မှန်းခြင်း၊ Buffer Time ထည့်သွင်းခြင်း၊ ပြဿနာများကို စောစီးစွာ ဖော်ထုတ်ဖြေရှင်းခြင်း။</p>
-                        </div>
-                    </div>
-                     <div class="risk-item bg-white rounded-lg shadow-sm">
-                        <button class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center">
-                            <span>Budget Overruns: ဘတ်ဂျက်ကျော်လွန်ခြင်း</span>
-                             <span class="arrow transform transition-transform">▼</span>
-                        </button>
-                        <div class="risk-details p-4 border-t border-gray-200 hidden">
-                             <p><b>Mitigation:</b> အသေးစိတ် ဘတ်ဂျက် ရေးဆွဲခြင်း၊ ကုန်ကျစရိတ်များကို ပုံမှန်စောင့်ကြည့်ခြင်း၊ မလိုအပ်သော ကုန်ကျစရိတ်များ လျှော့ချခြင်း။</p>
-                        </div>
-                    </div>
-                    <div class="risk-item bg-white rounded-lg shadow-sm">
-                        <button class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center">
-                            <span>Security Vulnerabilities: လုံခြုံရေးအားနည်းချက်များ</span>
-                             <span class="arrow transform transition-transform">▼</span>
-                        </button>
-                        <div class="risk-details p-4 border-t border-gray-200 hidden">
-                            <p><b>Mitigation:</b> Security Best Practices များကို လိုက်နာခြင်း၊ ပုံမှန် Security Audit ပြုလုပ်ခြင်း၊ Penetration Testing လုပ်ဆောင်ခြင်း။</p>
-                        </div>
-                    </div>
-                     <div class="risk-item bg-white rounded-lg shadow-sm">
-                        <button class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center">
-                            <span>Low User Adoption: အသုံးပြုသူနည်းပါးခြင်း</span>
-                            <span class="arrow transform transition-transform">▼</span>
-                        </button>
-                        <div class="risk-details p-4 border-t border-gray-200 hidden">
-                            <p><b>Mitigation:</b> User-centric Design ကို အလေးထားခြင်း၊ Beta Testing ပြုလုပ်ခြင်း၊ Marketing Strategy ကောင်းမွန်စွာ ရေးဆွဲခြင်း။</p>
-                        </div>
-                    </div>
-                </div>
+        <!-- Features Section -->
+        <div id="features" class="content-section">
+          <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">
+              ပရောဂျက် နယ်ပယ်နှင့် လုပ်ဆောင်ချက်များ
+            </h2>
+            <p class="text-gray-600 mt-2">
+              ဤပလက်ဖောင်းတွင် အလုပ်ရှာသူများနှင့် အလုပ်ရှင်များအတွက်
+              ခွဲခြားထားသော အဓိကလုပ်ဆောင်ချက်များကို တွေ့နိုင်ပါသည်။
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-bold mb-4 text-gray-800">
+                အလုပ်ရှာသူများအတွက် (Job Seekers)
+              </h3>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <span class="mr-3 text-blue-500">👤</span
+                  ><span
+                    ><b>ပရိုဖိုင် ဖန်တီးခြင်း:</b> ကိုယ်ရေးအချက်အလက်၊
+                    ပညာအရည်အချင်း၊ အတွေ့အကြုံများ ထည့်သွင်းခြင်း။</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-3 text-blue-500">🔍</span
+                  ><span
+                    ><b>အလုပ်ရှာဖွေခြင်း:</b> Keyword, Industry, Location
+                    စသည်ဖြင့် စစ်ထုတ်ရှာဖွေခြင်း။</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-3 text-blue-500">📄</span
+                  ><span
+                    ><b>အလုပ်လျှောက်ထားခြင်း:</b> CV တင်၍
+                    တိုက်ရိုက်လျှောက်ထားခြင်း။</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-3 text-blue-500">🔔</span
+                  ><span
+                    ><b>အလုပ်သတိပေးချက်များ:</b> ကိုက်ညီသည့် အလုပ်သစ်များအတွက်
+                    Notification ရရှိခြင်း။</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-3 text-blue-500">⭐</span
+                  ><span
+                    ><b>အကြိုက်ဆုံး အလုပ်များ:</b> စိတ်ဝင်စားသော အလုပ်များကို
+                    သိမ်းဆည်းထားခြင်း။</span
+                  >
+                </li>
+              </ul>
             </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-bold mb-4 text-gray-800">
+                အလုပ်ရှင်များအတွက် (Employers)
+              </h3>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <span class="mr-3 text-blue-500">🏢</span
+                  ><span
+                    ><b>ကုမ္ပဏီ ပရိုဖိုင်:</b> ကုမ္ပဏီအချက်အလက်၊ ယဉ်ကျေးမှုများ
+                    ဖော်ပြခြင်း။</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-3 text-blue-500">➕</span
+                  ><span
+                    ><b>အလုပ်ကြော်ငြာ တင်ခြင်း:</b> အလုပ်အကိုင် အခွင့်အလမ်းများ
+                    အသေးစိတ်တင်ခြင်း။</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-3 text-blue-500">📂</span
+                  ><span
+                    ><b>လျှောက်ထားသူ စီမံခန့်ခွဲခြင်း:</b> CV ကြည့်ရှုခြင်း၊
+                    စစ်ထုတ်ခြင်း၊ Status ပြောင်းလဲခြင်း။</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <span class="mr-3 text-blue-500">💬</span
+                  ><span
+                    ><b>ဆက်သွယ်ခြင်း:</b> လျှောက်ထားသူများနှင့်
+                    တိုက်ရိုက်ဆက်သွယ်ခြင်း။</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-sm mt-8">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">
+              နယ်ပယ် ကန့်သတ်ချက်များ (Scope Limitations)
+            </h3>
+            <p class="text-gray-600">
+              ဤပရောဂျက်၏ ပထမအဆင့်တွင် Payment Gateway Integration နှင့်
+              AI-powered matching တို့ကို ထည့်သွင်းမည်မဟုတ်ပါ။ ၎င်းတို့ကို
+              နောက်ဆက်တွဲ အဆင့်များတွင် ထည့်သွင်းရန် စဉ်းစားမည်။
+            </p>
+          </div>
+        </div>
 
-        </main>
+        <!-- Resources Section -->
+        <div id="resources" class="content-section">
+          <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">အရင်းအမြစ်များ</h2>
+            <p class="text-gray-600 mt-2">
+              ပရောဂျက်အတွက် လိုအပ်သော လူအင်အားနှင့် နည်းပညာများကို ဤနေရာတွင်
+              ဖော်ပြထားပါသည်။
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">
+                အဖွဲ့ဝင်များ ခွဲဝေမှု
+              </h3>
+              <div class="chart-container h-64 max-h-[300px]">
+                <canvas id="teamChart"></canvas>
+              </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-bold mb-4 text-gray-800">
+                အသုံးပြုမည့် နည်းပညာများ
+              </h3>
+              <ul class="space-y-3">
+                <li class="flex items-center">
+                  <span class="mr-3 text-blue-500 text-lg">🌐</span
+                  ><b>Frontend:</b> React.js
+                </li>
+                <li class="flex items-center">
+                  <span class="mr-3 text-blue-500 text-lg">⚙️</span
+                  ><b>Backend:</b> Python (Django)
+                </li>
+                <li class="flex items-center">
+                  <span class="mr-3 text-blue-500 text-lg">🗃️</span
+                  ><b>Database:</b> MySQL
+                </li>
+                <li class="flex items-center">
+                  <span class="mr-3 text-blue-500 text-lg">☁️</span
+                  ><b>Cloud Hosting:</b> AWS, Google Cloud, or DigitalOcean
+                </li>
+                <li class="flex items-center">
+                  <span class="mr-3 text-blue-500 text-lg">🛠️</span
+                  ><b>Tools:</b> Git
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Risks Section -->
+        <div id="risks" class="content-section">
+          <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">
+              အန္တရာယ်စီမံခန့်ခွဲမှု
+            </h2>
+            <p class="text-gray-600 mt-2">
+              ဖြစ်နိုင်ခြေရှိသော အန္တရာယ်များနှင့် ၎င်းတို့ကို လျှော့ချရန်
+              နည်းလမ်းများကို လေ့လာပါ။ Risk တစ်ခုကိုနှိပ်၍ Mitigation Strategy
+              ကို ကြည့်ရှုနိုင်ပါသည်။
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div class="risk-item bg-white rounded-lg shadow-sm">
+              <button
+                class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center"
+              >
+                <span>Scope Creep: လုပ်ဆောင်ချက်များ တိုးပွားလာခြင်း</span>
+                <span class="arrow transform transition-transform">▼</span>
+              </button>
+              <div class="risk-details p-4 border-t border-gray-200 hidden">
+                <p>
+                  <b>Mitigation:</b> တိကျသော Scope Definition ကို
+                  ထိန်းသိမ်းခြင်း၊ Change Request Process ကို သတ်မှတ်ခြင်း။
+                </p>
+              </div>
+            </div>
+            <div class="risk-item bg-white rounded-lg shadow-sm">
+              <button
+                class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center"
+              >
+                <span>Timeline Delays: အချိန်ဇယားလွဲချော်ခြင်း</span>
+                <span class="arrow transform transition-transform">▼</span>
+              </button>
+              <div class="risk-details p-4 border-t border-gray-200 hidden">
+                <p>
+                  <b>Mitigation:</b> အချိန်ဇယားကို လက်တွေ့ကျကျ ခန့်မှန်းခြင်း၊
+                  Buffer Time ထည့်သွင်းခြင်း၊ ပြဿနာများကို စောစီးစွာ
+                  ဖော်ထုတ်ဖြေရှင်းခြင်း။
+                </p>
+              </div>
+            </div>
+            <div class="risk-item bg-white rounded-lg shadow-sm">
+              <button
+                class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center"
+              >
+                <span>Budget Overruns: ဘတ်ဂျက်ကျော်လွန်ခြင်း</span>
+                <span class="arrow transform transition-transform">▼</span>
+              </button>
+              <div class="risk-details p-4 border-t border-gray-200 hidden">
+                <p>
+                  <b>Mitigation:</b> အသေးစိတ် ဘတ်ဂျက် ရေးဆွဲခြင်း၊
+                  ကုန်ကျစရိတ်များကို ပုံမှန်စောင့်ကြည့်ခြင်း၊ မလိုအပ်သော
+                  ကုန်ကျစရိတ်များ လျှော့ချခြင်း။
+                </p>
+              </div>
+            </div>
+            <div class="risk-item bg-white rounded-lg shadow-sm">
+              <button
+                class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center"
+              >
+                <span>Security Vulnerabilities: လုံခြုံရေးအားနည်းချက်များ</span>
+                <span class="arrow transform transition-transform">▼</span>
+              </button>
+              <div class="risk-details p-4 border-t border-gray-200 hidden">
+                <p>
+                  <b>Mitigation:</b> Security Best Practices များကို
+                  လိုက်နာခြင်း၊ ပုံမှန် Security Audit ပြုလုပ်ခြင်း၊ Penetration
+                  Testing လုပ်ဆောင်ခြင်း။
+                </p>
+              </div>
+            </div>
+            <div class="risk-item bg-white rounded-lg shadow-sm">
+              <button
+                class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center"
+              >
+                <span>Low User Adoption: အသုံးပြုသူနည်းပါးခြင်း</span>
+                <span class="arrow transform transition-transform">▼</span>
+              </button>
+              <div class="risk-details p-4 border-t border-gray-200 hidden">
+                <p>
+                  <b>Mitigation:</b> User-centric Design ကို အလေးထားခြင်း၊ Beta
+                  Testing ပြုလုပ်ခြင်း၊ Marketing Strategy ကောင်းမွန်စွာ
+                  ရေးဆွဲခြင်း။
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const tabs = document.querySelectorAll('.tab-button');
-            const contents = document.querySelectorAll('.content-section');
+      document.addEventListener("DOMContentLoaded", function () {
+        const tabs = document.querySelectorAll(".tab-button");
+        const contents = document.querySelectorAll(".content-section");
 
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(item => item.classList.remove('tab-active'));
-                    tab.classList.add('tab-active');
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            tabs.forEach((item) => item.classList.remove("tab-active"));
+            tab.classList.add("tab-active");
 
-                    const target = tab.getAttribute('data-tab');
-                    contents.forEach(content => {
-                        if (content.id === target) {
-                            content.classList.add('active');
-                        } else {
-                            content.classList.remove('active');
-                        }
-                    });
-                });
+            const target = tab.getAttribute("data-tab");
+            contents.forEach((content) => {
+              if (content.id === target) {
+                content.classList.add("active");
+              } else {
+                content.classList.remove("active");
+              }
             });
-
-            const riskItems = document.querySelectorAll('.risk-item button');
-            riskItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const details = item.nextElementSibling;
-                    const arrow = item.querySelector('.arrow');
-                    details.classList.toggle('hidden');
-                    arrow.classList.toggle('rotate-180');
-                });
-            });
-
-            const ganttData = {
-                labels: [
-                    'စီစဉ်ခြင်းနှင့် သုတေသန', 
-                    'ဒီဇိုင်းနှင့် UI/UX', 
-                    'Backend Development', 
-                    'Frontend Development', 
-                    'စမ်းသပ်ခြင်း (Testing)', 
-                    'စတင်အသုံးပြုခြင်း (Deployment)', 
-                    'ထောက်ပံ့ခြင်းနှင့် ပြုပြင်ထိန်းသိမ်းခြင်း'
-                ],
-                datasets: [{
-                    label: 'ကြာချိန် (ပတ်)',
-                    data: [
-                        [0, 2],
-                        [2, 5],
-                        [5, 11],
-                        [5, 11],
-                        [11, 14],
-                        [14, 15],
-                        [15, 21] 
-                    ],
-                    backgroundColor: [
-                        'rgba(59, 130, 246, 0.5)',
-                        'rgba(16, 185, 129, 0.5)',
-                        'rgba(239, 68, 68, 0.5)',
-                        'rgba(249, 115, 22, 0.5)',
-                        'rgba(139, 92, 246, 0.5)',
-                        'rgba(217, 70, 239, 0.5)',
-                        'rgba(107, 114, 128, 0.5)',
-                    ],
-                    borderColor: [
-                        'rgb(59, 130, 246)',
-                        'rgb(16, 185, 129)',
-                        'rgb(239, 68, 68)',
-                        'rgb(249, 115, 22)',
-                        'rgb(139, 92, 246)',
-                        'rgb(217, 70, 239)',
-                        'rgb(107, 114, 128)',
-                    ],
-                    borderWidth: 1,
-                    barPercentage: 0.6,
-                }]
-            };
-
-            const ganttConfig = {
-                type: 'bar',
-                data: ganttData,
-                options: {
-                    indexAxis: 'y',
-                    maintainAspectRatio: false,
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const start = context.raw[0];
-                                    const end = context.raw[1];
-                                    const duration = end - start;
-                                    return `${context.label}: ${duration} ပတ် (ပတ် ${start+1} မှ ပတ် ${end} ထိ)`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            min: 0,
-                            max: 22,
-                            title: {
-                                display: true,
-                                text: 'အချိန်ကာလ (ပတ်)'
-                            }
-                        },
-                        y: {
-                             ticks: {
-                                autoSkip: false,
-                                callback: function(value, index, values) {
-                                    const label = this.getLabelForValue(value);
-                                    if (label.length > 16) {
-                                        return label.match(/.{1,16}/g);
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-            
-            const ganttCtx = document.getElementById('ganttChart').getContext('2d');
-            new Chart(ganttCtx, ganttConfig);
-
-
-            const teamData = {
-                labels: ['Developer (Frontend/Backend)', 'Project Manager', 'UI/UX Designer', 'QA Tester'],
-                datasets: [{
-                    data: [3, 1, 1, 1], // Assuming 2 backend, 2 frontend devs
-                    backgroundColor: [
-                        'rgba(59, 130, 246, 0.7)',
-                        'rgba(239, 68, 68, 0.7)',
-                        'rgba(16, 185, 129, 0.7)',
-                        'rgba(249, 115, 22, 0.7)'
-                    ],
-                    hoverOffset: 4
-                }]
-            };
-
-            const teamConfig = {
-                type: 'doughnut',
-                data: teamData,
-                 options: {
-                    maintainAspectRatio: false,
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                        },
-                    }
-                }
-            };
-
-            const teamCtx = document.getElementById('teamChart').getContext('2d');
-            new Chart(teamCtx, teamConfig);
+          });
         });
+
+        const riskItems = document.querySelectorAll(".risk-item button");
+        riskItems.forEach((item) => {
+          item.addEventListener("click", () => {
+            const details = item.nextElementSibling;
+            const arrow = item.querySelector(".arrow");
+            details.classList.toggle("hidden");
+            arrow.classList.toggle("rotate-180");
+          });
+        });
+
+        const ganttData = {
+          labels: [
+            "စီစဉ်ခြင်းနှင့် သုတေသန",
+            "ဒီဇိုင်းနှင့် UI/UX",
+            "Backend Development",
+            "Frontend Development",
+            "စမ်းသပ်ခြင်း (Testing)",
+            "စတင်အသုံးပြုခြင်း (Deployment)",
+            "ထောက်ပံ့ခြင်းနှင့် ပြုပြင်ထိန်းသိမ်းခြင်း",
+          ],
+          datasets: [
+            {
+              label: "ကြာချိန် (ပတ်)",
+              data: [
+                [0, 2],
+                [2, 5],
+                [5, 11],
+                [5, 11],
+                [11, 14],
+                [14, 15],
+                [15, 21],
+              ],
+              backgroundColor: [
+                "rgba(59, 130, 246, 0.5)",
+                "rgba(16, 185, 129, 0.5)",
+                "rgba(239, 68, 68, 0.5)",
+                "rgba(249, 115, 22, 0.5)",
+                "rgba(139, 92, 246, 0.5)",
+                "rgba(217, 70, 239, 0.5)",
+                "rgba(107, 114, 128, 0.5)",
+              ],
+              borderColor: [
+                "rgb(59, 130, 246)",
+                "rgb(16, 185, 129)",
+                "rgb(239, 68, 68)",
+                "rgb(249, 115, 22)",
+                "rgb(139, 92, 246)",
+                "rgb(217, 70, 239)",
+                "rgb(107, 114, 128)",
+              ],
+              borderWidth: 1,
+              barPercentage: 0.6,
+            },
+          ],
+        };
+
+        const ganttConfig = {
+          type: "bar",
+          data: ganttData,
+          options: {
+            indexAxis: "y",
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    const start = context.raw[0];
+                    const end = context.raw[1];
+                    const duration = end - start;
+                    return `${context.label}: ${duration} ပတ် (ပတ် ${
+                      start + 1
+                    } မှ ပတ် ${end} ထိ)`;
+                  },
+                },
+              },
+            },
+            scales: {
+              x: {
+                min: 0,
+                max: 22,
+                title: {
+                  display: true,
+                  text: "အချိန်ကာလ (ပတ်)",
+                },
+              },
+              y: {
+                ticks: {
+                  autoSkip: false,
+                  callback: function (value, index, values) {
+                    const label = this.getLabelForValue(value);
+                    if (label.length > 16) {
+                      return label.match(/.{1,16}/g);
+                    }
+                    return label;
+                  },
+                },
+              },
+            },
+          },
+        };
+
+        const ganttCtx = document.getElementById("ganttChart").getContext("2d");
+        new Chart(ganttCtx, ganttConfig);
+
+        const teamData = {
+          labels: [
+            "Developer (Frontend/Backend)",
+            "Project Manager",
+            "UI/UX Designer",
+            "QA Tester",
+          ],
+          datasets: [
+            {
+              data: [3, 1, 1, 1], // Assuming 2 backend, 2 frontend devs
+              backgroundColor: [
+                "rgba(59, 130, 246, 0.7)",
+                "rgba(239, 68, 68, 0.7)",
+                "rgba(16, 185, 129, 0.7)",
+                "rgba(249, 115, 22, 0.7)",
+              ],
+              hoverOffset: 4,
+            },
+          ],
+        };
+
+        const teamConfig = {
+          type: "doughnut",
+          data: teamData,
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+              legend: {
+                position: "bottom",
+              },
+            },
+          },
+        };
+
+        const teamCtx = document.getElementById("teamChart").getContext("2d");
+        new Chart(teamCtx, teamConfig);
+      });
     </script>
-</body>
+  </body>
 </html>
