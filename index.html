@@ -87,11 +87,26 @@
         #book > .relative { width: 100vw; max-width: none; margin: 0; min-height: 100vh; min-height: 100dvh; min-height: 100svh; }
         #book .book { width: 100vw; height: auto; min-height: 100vh; min-height: 100dvh; min-height: 100svh; border-radius: 0; }
         #book .pointer-events-none { display: none; }
-        #prevBook, #nextBook { position: absolute; bottom: calc(env(safe-area-inset-bottom) + 16px); width: 3.5rem; height: 3.5rem; border-radius: 9999px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
-        #prevBook { left: 12px; }
-        #nextBook { right: 12px; }
+        #prevBook, #nextBook {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 2.75rem;
+          height: 2.75rem;
+          display: grid;
+          place-items: center;
+          border-radius: 9999px;
+          touch-action: manipulation;
+        }
+        #prevBook { left: 10px; }
+        #nextBook { right: 10px; }
         #closeBook { position: absolute; top: calc(env(safe-area-inset-top) + 12px); right: 12px; }
         #bookProgress { display: inline-block; padding: 6px 10px; background: rgba(0,0,0,0.08); color: inherit; border-radius: 9999px; backdrop-filter: blur(6px); }
+        #tapLeft, #tapRight { touch-action: manipulation; }
+        #tapLeft, #tapRight { width: 35vw; }
+      }
+      @media (orientation: landscape) and (max-width: 900px) {
+        #tapLeft, #tapRight { width: 25vw; }
       }
     </style>
   </head>
@@ -102,7 +117,7 @@
           <div class="flex items-center justify-between h-16">
             <div class="flex items-center gap-3">
               <div class="size-9 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 shadow-soft animate-float"></div>
-              <div class="text-lg font-bold tracking-tight animate-fade-in-up">Aurora Catalogue</div>
+              <div class="text-lg font-bold tracking-tight animate-fade-in-up">TECTC Catalogue</div>
             </div>
             <div class="flex items-center gap-2">
               <button id="themeToggle" class="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
@@ -129,7 +144,7 @@
             </div>
             <div class="lg:justify-self-end">
               <div class="relative rounded-2xl bg-white dark:bg-neutral-900 p-1 shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800 animate-fade-in-up-slow" style="animation-delay:200ms">
-                <img class="rounded-xl w-full h-64 object-cover" src="https://picsum.photos/seed/aurora/1024/640" alt="Catalogue hero">
+                <img class="rounded-xl w-full h-64 object-cover" src="https://picsum.photos/seed/laptop/1024/640" alt="Catalogue hero">
               </div>
             </div>
           </div>
@@ -142,7 +157,7 @@
             <label for="search" class="sr-only">Search products</label>
             <div class="relative">
               <input id="search" type="text" placeholder="Search products..." class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 pl-10 focus:outline-none focus:ring-2 focus:ring-brand-500">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400">🔎</span>
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"></span>
             </div>
           </div>
           <div class="sm:col-span-3">
@@ -184,7 +199,7 @@
         <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="grid"></div>
 
         <div id="book" class="mt-6 hidden">
-          <div class="relative mx-auto max-w-5xl">
+          <div class="relative mx-auto max-w-12xl">
             <div class="book aspect-[2/3] sm:aspect-[3/2] mx-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800 overflow-hidden">
               <div id="bookStack" class="relative w-full h-full"></div>
               <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent"></div>
@@ -196,6 +211,12 @@
               </div>
               <div class="absolute top-3 right-3 sm:hidden">
                 <button id="closeBook" class="rounded-full bg-white/80 dark:bg-neutral-900/80 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-9 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors">✕</button>
+              </div>
+              <div id="tapLeft" class="sm:hidden absolute inset-y-0 left-0 w-1/3 active:bg-black/5" aria-label="Previous page">
+                <span class="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-neutral-500/80 dark:text-neutral-400/80 text-xl">‹</span>
+              </div>
+              <div id="tapRight" class="sm:hidden absolute inset-y-0 right-0 w-1/3 active:bg-black/5" aria-label="Next page">
+                <span class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-neutral-500/80 dark:text-neutral-400/80 text-xl">›</span>
               </div>
             </div>
             <div class="absolute inset-y-0 left-0 flex items-center">
@@ -216,8 +237,8 @@
       <footer class="border-t border-neutral-200/70 dark:border-neutral-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-sm text-neutral-600 dark:text-neutral-300">
           <div class="flex items-center justify-between">
-            <p>© <span id="year"></span> Aurora Catalogue</p>
-            <p>Built with TailwindCSS</p>
+            <p>© <span id="year"></span> TECTC Catalogue</p>
+            <p>All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -225,18 +246,18 @@
 
     <script>
       const products = [
-        { id: 1, name: 'AirWave Headphones', price: 129, rating: 4.6, category: 'Electronics', image: 'https://picsum.photos/seed/headphones/600/400', badge: 'Bestseller' },
-        { id: 2, name: 'Nimbus Smartwatch', price: 199, rating: 4.4, category: 'Electronics', image: 'https://picsum.photos/seed/smartwatch/600/400', badge: 'New' },
-        { id: 3, name: 'Serene Soy Candle', price: 24, rating: 4.8, category: 'Home', image: 'https://picsum.photos/seed/candle/600/400' },
-        { id: 4, name: 'Velvet Throw Blanket', price: 59, rating: 4.5, category: 'Home', image: 'https://picsum.photos/seed/blanket/600/400' },
-        { id: 5, name: 'Cascade Water Bottle', price: 38, rating: 4.3, category: 'Sports', image: 'https://picsum.photos/seed/bottle/600/400' },
-        { id: 6, name: 'Pulse Running Shoes', price: 129, rating: 4.7, category: 'Sports', image: 'https://picsum.photos/seed/shoes/600/400', badge: 'Limited' },
-        { id: 7, name: 'Lumen Table Lamp', price: 89, rating: 4.2, category: 'Home', image: 'https://picsum.photos/seed/lamp/600/400' },
-        { id: 8, name: 'Silk Scarf', price: 45, rating: 4.4, category: 'Fashion', image: 'https://picsum.photos/seed/scarf/600/400' },
-        { id: 9, name: 'Matte Lipstick', price: 22, rating: 4.1, category: 'Beauty', image: 'https://picsum.photos/seed/lipstick/600/400' },
-        { id: 10, name: 'Eco Tote Bag', price: 35, rating: 4.3, category: 'Fashion', image: 'https://picsum.photos/seed/tote/600/400' },
-        { id: 11, name: 'Zen Yoga Mat', price: 79, rating: 4.6, category: 'Sports', image: 'https://picsum.photos/seed/yoga/600/400' },
-        { id: 12, name: 'Quartz Wall Clock', price: 64, rating: 4.0, category: 'Home', image: 'https://picsum.photos/seed/clock/600/400' }
+        { id: 1, name: 'Pro Laptop', price: 1299, rating: 4.7, category: 'Computers', image: 'https://picsum.photos/seed/laptop/600/400', badge: 'Bestseller' },
+        { id: 2, name: 'Gaming Desktop', price: 1599, rating: 4.6, category: 'Computers', image: 'https://picsum.photos/seed/desktop/600/400', badge: 'Limited' },
+        { id: 3, name: 'Ultrawide Monitor', price: 399, rating: 4.5, category: 'Computers', image: 'https://picsum.photos/seed/monitor/600/400' },
+        { id: 4, name: 'Mechanical Keyboard', price: 129, rating: 4.4, category: 'Computers', image: 'https://picsum.photos/seed/keyboard/600/400' },
+        { id: 5, name: 'Wireless Mouse', price: 69, rating: 4.3, category: 'Computers', image: 'https://picsum.photos/seed/mouse/600/400' },
+        { id: 6, name: 'USB‑C Dock', price: 149, rating: 4.2, category: 'Computers', image: 'https://picsum.photos/seed/dock/600/400' },
+        { id: 7, name: 'Android Smartphone', price: 799, rating: 4.5, category: 'Phones', image: 'https://picsum.photos/seed/android/600/400', badge: 'New' },
+        { id: 8, name: 'iPhone 15', price: 999, rating: 4.6, category: 'Phones', image: 'https://picsum.photos/seed/iphone/600/400', badge: 'Bestseller' },
+        { id: 9, name: 'Tablet Pro', price: 649, rating: 4.4, category: 'Phones', image: 'https://picsum.photos/seed/tablet/600/400' },
+        { id: 10, name: 'Smartwatch', price: 249, rating: 4.3, category: 'Phones', image: 'https://picsum.photos/seed/smartwatch/600/400' },
+        { id: 11, name: 'Phone Case', price: 29, rating: 4.1, category: 'Phones', image: 'https://picsum.photos/seed/phonecase/600/400' },
+        { id: 12, name: 'Wireless Earbuds', price: 119, rating: 4.2, category: 'Phones', image: 'https://picsum.photos/seed/earbuds/600/400' }
       ]
 
       const categories = [...new Set(products.map(p => p.category))]
@@ -260,8 +281,13 @@
       const modeSingle = document.getElementById('modeSingle')
       const modeMulti = document.getElementById('modeMulti')
       const closeBook = document.getElementById('closeBook')
+      const tapLeft = document.getElementById('tapLeft')
+      const tapRight = document.getElementById('tapRight')
+      const bookDots = document.getElementById('bookDots')
       let bookIndex = 0
       let downBookX = null
+      let dragging = false
+      let dragW = 0
 
       categories.forEach(c => {
         const opt = document.createElement('option')
@@ -281,6 +307,8 @@
       modeSingle.addEventListener('click', () => { state.gallery = 'single'; render() })
       modeMulti.addEventListener('click', () => { state.gallery = 'multi'; render() })
       if (closeBook) closeBook.addEventListener('click', () => { state.view = 'grid'; render() })
+      if (tapLeft) tapLeft.addEventListener('click', () => turn(-1))
+      if (tapRight) tapRight.addEventListener('click', () => turn(1))
       let resizeTimer = null
       window.addEventListener('resize', () => {
         if (state.view !== 'book') return
@@ -334,7 +362,11 @@
           return `
             <div class="h-full p-4">
               <div class="relative rounded-2xl overflow-hidden ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft aspect-[4/3] bg-neutral-100 dark:bg-neutral-900">
-                <img src="${p.image}" alt="${p.name}" class="absolute inset-0 w-full h-full object-cover object-center">
+                <img loading="lazy" decoding="async"
+                     src="https://picsum.photos/seed/${base}/768/576"
+                     srcset="https://picsum.photos/seed/${base}/480/360 480w, https://picsum.photos/seed/${base}/768/576 768w, https://picsum.photos/seed/${base}/1200/900 1200w"
+                     sizes="(max-width: 640px) 100vw, 50vw"
+                     alt="${p.name}" class="absolute inset-0 w-full h-full object-cover object-center">
                 ${p.badge ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>` : ''}
                 <div class="absolute inset-x-0 bottom-0 p-3">
                   <div class="rounded-lg bg-black/30 dark:bg-black/30 backdrop-blur px-3 py-1.5 text-xs text-white">${p.name}</div>
@@ -400,7 +432,11 @@
               `).join('')
               return `
                 <div class="relative rounded-xl overflow-hidden ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft aspect-[4/3] bg-neutral-100 dark:bg-neutral-900">
-                  <img src="https://picsum.photos/seed/${seeds[0]}/1200/900" alt="${p.name}" class="gallery-main absolute inset-0 w-full h-full object-cover object-center">
+                  <img loading="lazy" decoding="async"
+                       src="https://picsum.photos/seed/${seeds[0]}/1200/900"
+                       srcset="https://picsum.photos/seed/${seeds[0]}/768/576 768w, https://picsum.photos/seed/${seeds[0]}/1200/900 1200w"
+                       sizes="(max-width: 640px) 100vw, 50vw"
+                       alt="${p.name}" class="gallery-main absolute inset-0 w-full h-full object-cover object-center">
                   ${badge}
                 </div>
                 <div class="mt-3 flex gap-2 overflow-x-auto pb-2">
@@ -480,7 +516,31 @@
           }
         })
         bookIndex = 0
-        bookProgress.textContent = spreads.length ? (bookIndex + 1) + ' / ' + spreads.length : ''
+          bookProgress.textContent = spreads.length ? (bookIndex + 1) + ' / ' + spreads.length : ''
+          if (bookDots) {
+          bookDots.innerHTML = spreads.map((_, i) => `<button data-i="${i}" class="${i===bookIndex?'size-3.5 bg-brand-600':'size-3 bg-neutral-300 dark:bg-neutral-700'} rounded-full"></button>`).join('')
+          Array.from(bookDots.children).forEach(btn => {
+            btn.addEventListener('click', () => {
+              const i = Number(btn.getAttribute('data-i'))
+              goto(i)
+            })
+          })
+          }
+      }
+
+      function goto(i) {
+        const spreads = Array.from(bookStack.children)
+        if (!spreads.length) return
+        spreads.forEach((s, idx) => {
+          s.style.display = idx < i ? 'none' : ''
+        })
+        bookIndex = Math.min(Math.max(i, 0), spreads.length - 1)
+        bookProgress.textContent = (bookIndex + 1) + ' / ' + spreads.length
+        if (bookDots) {
+          Array.from(bookDots.children).forEach((b, idx) => {
+            b.className = (idx===bookIndex ? 'size-3.5 bg-brand-600' : 'size-3 bg-neutral-300 dark:bg-neutral-700') + ' rounded-full'
+          })
+        }
       }
 
       function turn(dir) {
@@ -494,6 +554,11 @@
             current.style.display = 'none'
             bookIndex++
             bookProgress.textContent = (bookIndex + 1) + ' / ' + spreads.length
+            if (bookDots) {
+              Array.from(bookDots.children).forEach((b, idx) => {
+                b.className = 'size-2.5 rounded-full ' + (idx===bookIndex ? 'bg-brand-600' : 'bg-neutral-300 dark:bg-neutral-700')
+              })
+            }
           }, { once: true })
         } else if (dir < 0 && bookIndex > 0) {
           const prev = spreads[bookIndex - 1]
@@ -503,18 +568,73 @@
           left.addEventListener('animationend', () => {
             bookIndex--
             bookProgress.textContent = (bookIndex + 1) + ' / ' + spreads.length
+            if (bookDots) {
+              Array.from(bookDots.children).forEach((b, idx) => {
+                b.className = 'size-2.5 rounded-full ' + (idx===bookIndex ? 'bg-brand-600' : 'bg-neutral-300 dark:bg-neutral-700')
+              })
+            }
           }, { once: true })
         }
       }
 
       prevBook.addEventListener('click', () => turn(-1))
       nextBook.addEventListener('click', () => turn(1))
-      bookEl.addEventListener('pointerdown', e => { downBookX = e.clientX })
+      bookEl.addEventListener('pointerdown', e => {
+        downBookX = e.clientX
+        dragging = true
+        dragW = bookEl.clientWidth || 1
+      })
+      bookEl.addEventListener('pointermove', e => {
+        if (!dragging || downBookX == null) return
+        const dx = e.clientX - downBookX
+        const spreads = Array.from(bookStack.children)
+        if (!spreads.length) return
+        const current = spreads[bookIndex]
+        const right = current.querySelector('.page-right')
+        const left = current.querySelector('.page-left')
+        const t = dx < 0 ? (right || left) : (left || right)
+        if (!t) return
+        let angle = 0
+        if (dx < 0) {
+          angle = Math.max(-170, Math.min(0, (dx / dragW) * 180))
+        } else if (dx > 0) {
+          angle = Math.min(170, Math.max(0, (dx / dragW) * 180))
+        }
+        t.style.transition = 'transform 0s'
+        t.style.transform = 'rotateY(' + angle + 'deg)'
+        t.style.willChange = 'transform'
+      })
       bookEl.addEventListener('pointerup', e => {
         if (downBookX == null) return
         const dx = e.clientX - downBookX
-        if (Math.abs(dx) > 28) turn(dx < 0 ? 1 : -1)
+        const spreads = Array.from(bookStack.children)
+        const current = spreads[bookIndex]
+        const right = current?.querySelector('.page-right')
+        const left = current?.querySelector('.page-left')
+        const t = dx < 0 ? (right || left) : (left || right)
+        if (t) {
+          t.style.transition = ''
+          t.style.transform = ''
+          t.style.willChange = ''
+        }
+        const threshold = Math.min(80, Math.max(24, (dragW || bookEl.clientWidth || 320) * 0.1))
+        if (Math.abs(dx) > threshold) turn(dx < 0 ? 1 : -1)
         downBookX = null
+        dragging = false
+      })
+      bookEl.addEventListener('pointercancel', () => {
+        const spreads = Array.from(bookStack.children)
+        const current = spreads[bookIndex]
+        const right = current?.querySelector('.page-right')
+        const left = current?.querySelector('.page-left')
+        const t = right || left
+        if (t) {
+          t.style.transition = ''
+          t.style.transform = ''
+          t.style.willChange = ''
+        }
+        downBookX = null
+        dragging = false
       })
       document.addEventListener('keydown', e => {
         if (state.view !== 'book') return
