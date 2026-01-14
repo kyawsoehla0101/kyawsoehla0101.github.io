@@ -124,8 +124,8 @@
         </div>
       </section>
 
-      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div class="mt-4 grid gap-4 sm:grid-cols-12">
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex flex-col">
+        <div class="mt-4 grid gap-4 sm:grid-cols-12 order-3 lg:order-none">
           <div class="sm:col-span-5">
             <label for="search" class="sr-only">Search products</label>
             <div class="relative">
@@ -160,18 +160,18 @@
           </div>
         </div>
 
-        <div class="mt-2 flex flex-wrap gap-2" id="activeFilters"></div>
+        <div class="mt-2 flex flex-wrap gap-2 order-4 lg:order-none" id="activeFilters"></div>
 
-        <div class="mt-4 flex justify-end">
+        <div class="mt-4 flex justify-center sm:justify-end order-1 lg:order-none sticky top-16 z-20 sm:static">
           <div class="inline-flex rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden">
-            <button id="modeGrid" class="px-3 py-2 text-sm font-medium bg-brand-600 text-white">Grid</button>
-            <button id="modeBook" class="px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100">Book</button>
+            <button id="modeGrid" class="px-4 py-2.5 text-base sm:text-sm sm:px-3 sm:py-2 font-medium bg-brand-600 text-white">Grid</button>
+            <button id="modeBook" class="px-4 py-2.5 text-base sm:text-sm sm:px-3 sm:py-2 font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100">Book</button>
           </div>
         </div>
 
-        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="grid"></div>
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 order-2 lg:order-none" id="grid"></div>
 
-        <div id="book" class="mt-6 hidden">
+        <div id="book" class="mt-6 hidden order-2 lg:order-none">
           <div class="relative mx-auto max-w-5xl">
             <div class="book aspect-[3/2] mx-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800 overflow-hidden">
               <div id="bookStack" class="relative w-full h-full"></div>
