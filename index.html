@@ -81,6 +81,17 @@
       .page { position: absolute; top: 0; width: 50%; height: 100%; transform-style: preserve-3d; backface-visibility: hidden; }
       .page-left { left: 0; transform-origin: right; }
       .page-right { right: 0; transform-origin: left; }
+      @media (max-width: 640px) {
+        .page { width: 100%; }
+        #book { position: fixed; inset: 0; z-index: 40; }
+        #book > .relative { width: 100vw; height: 100dvh; max-width: none; margin: 0; }
+        #book .book { width: 100vw; height: 100dvh; border-radius: 0; }
+        #book .pointer-events-none { display: none; }
+        #prevBook, #nextBook { position: absolute; bottom: calc(env(safe-area-inset-bottom) + 12px); width: 3rem; height: 3rem; }
+        #prevBook { left: 12px; }
+        #nextBook { right: 12px; }
+        #closeBook { position: absolute; top: calc(env(safe-area-inset-top) + 12px); right: 12px; }
+      }
     </style>
   </head>
   <body class="bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
@@ -124,8 +135,8 @@
         </div>
       </section>
 
-      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex flex-col">
-        <div class="mt-4 grid gap-4 sm:grid-cols-12 order-3 lg:order-none">
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div class="mt-4 grid gap-4 sm:grid-cols-12">
           <div class="sm:col-span-5">
             <label for="search" class="sr-only">Search products</label>
             <div class="relative">
@@ -160,20 +171,20 @@
           </div>
         </div>
 
-        <div class="mt-2 flex flex-wrap gap-2 order-4 lg:order-none" id="activeFilters"></div>
+        <div class="mt-2 flex flex-wrap gap-2" id="activeFilters"></div>
 
-        <div class="mt-4 flex justify-center sm:justify-end order-1 lg:order-none sticky top-16 z-20 sm:static">
+        <div class="mt-4 flex justify-end">
           <div class="inline-flex rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden">
-            <button id="modeGrid" class="px-4 py-2.5 text-base sm:text-sm sm:px-3 sm:py-2 font-medium bg-brand-600 text-white">Grid</button>
-            <button id="modeBook" class="px-4 py-2.5 text-base sm:text-sm sm:px-3 sm:py-2 font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100">Book</button>
+            <button id="modeGrid" class="px-3 py-2 text-sm font-medium bg-brand-600 text-white">Grid</button>
+            <button id="modeBook" class="px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100">Book</button>
           </div>
         </div>
 
-        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 order-2 lg:order-none" id="grid"></div>
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="grid"></div>
 
-        <div id="book" class="mt-6 hidden order-2 lg:order-none">
+        <div id="book" class="mt-6 hidden">
           <div class="relative mx-auto max-w-5xl">
-            <div class="book aspect-[3/2] mx-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800 overflow-hidden">
+            <div class="book aspect-[2/3] sm:aspect-[3/2] mx-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800 overflow-hidden">
               <div id="bookStack" class="relative w-full h-full"></div>
               <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent"></div>
               <div class="absolute top-3 inset-x-0 flex justify-center">
@@ -181,6 +192,9 @@
                   <button id="modeSingle" class="px-3 py-1.5 text-xs font-medium bg-brand-600 text-white">Single</button>
                   <button id="modeMulti" class="px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-100">Gallery</button>
                 </div>
+              </div>
+              <div class="absolute top-3 right-3 sm:hidden">
+                <button id="closeBook" class="rounded-full bg-white/80 dark:bg-neutral-900/80 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-9 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors">✕</button>
               </div>
             </div>
             <div class="absolute inset-y-0 left-0 flex items-center">
@@ -244,6 +258,7 @@
       const bookProgress = document.getElementById('bookProgress')
       const modeSingle = document.getElementById('modeSingle')
       const modeMulti = document.getElementById('modeMulti')
+      const closeBook = document.getElementById('closeBook')
       let bookIndex = 0
       let downBookX = null
 
@@ -264,6 +279,8 @@
       modeBook.addEventListener('click', () => { state.view = 'book'; render() })
       modeSingle.addEventListener('click', () => { state.gallery = 'single'; render() })
       modeMulti.addEventListener('click', () => { state.gallery = 'multi'; render() })
+      if (closeBook) closeBook.addEventListener('click', () => { state.view = 'grid'; render() })
+      window.addEventListener('resize', () => { if (state.view === 'book') render() })
 
       function applyFilters(list) {
         let result = list.filter(p => p.name.toLowerCase().includes(state.search))
@@ -361,6 +378,63 @@
           </div>
         `
       }
+      function pageMobile(p) {
+        if (!p) {
+          return `<div class="h-full grid place-items-center text-neutral-500 dark:text-neutral-400 text-sm">End</div>`
+        }
+        const badge = p.badge ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>` : ''
+        const stars = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating))
+        const m = p.image.match(/seed\/([^/]+)\//)
+        const base = m ? m[1] : 'photo'
+        const imageBlock = state.gallery === 'multi'
+          ? (() => {
+              const seeds = [base, base + '-1', base + '-2', base + '-3']
+              const thumbs = seeds.map((s, i) => `
+                <img data-seed="${s}" src="https://picsum.photos/seed/${s}/200/150" alt="${p.name}" class="gallery-thumb ${i===0 ? 'ring-2 ring-brand-500' : ''} w-16 h-16 rounded-lg object-cover cursor-pointer">
+              `).join('')
+              return `
+                <div class="relative rounded-xl overflow-hidden ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft aspect-[4/3] bg-neutral-100 dark:bg-neutral-900">
+                  <img src="https://picsum.photos/seed/${seeds[0]}/1200/900" alt="${p.name}" class="gallery-main absolute inset-0 w-full h-full object-cover object-center">
+                  ${badge}
+                </div>
+                <div class="mt-3 flex gap-2 overflow-x-auto pb-2">
+                  ${thumbs}
+                </div>
+              `
+            })()
+          : `
+            <div class="relative rounded-xl overflow-hidden ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft aspect-[4/3] bg-neutral-100 dark:bg-neutral-900">
+              <img src="${p.image}" alt="${p.name}" class="absolute inset-0 w-full h-full object-cover object-center">
+              ${badge}
+            </div>
+          `
+        return `
+          <div class="h-full overflow-auto p-4">
+            ${imageBlock}
+            <div class="mt-4">
+              <h2 class="text-2xl font-bold tracking-tight">${p.name}</h2>
+              <div class="mt-2 inline-flex items-center gap-2">
+                <span class="rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-xs">${p.category}</span>
+                <span class="inline-flex items-center text-amber-400 text-xs">${stars}</span>
+              </div>
+              <div class="mt-3 grid grid-cols-2 gap-3">
+                <div class="rounded-lg bg-neutral-100 dark:bg-neutral-800/60 p-3 text-sm">
+                  <div class="text-neutral-500 dark:text-neutral-400">Price</div>
+                  <div class="text-xl font-bold">$${p.price}</div>
+                </div>
+                <div class="rounded-lg bg-neutral-100 dark:bg-neutral-800/60 p-3 text-sm">
+                  <div class="text-neutral-500 dark:text-neutral-400">Rating</div>
+                  <div class="font-semibold">${p.rating.toFixed(1)} / 5</div>
+                </div>
+              </div>
+              <div class="mt-4 flex items-center gap-2">
+                <button class="rounded-lg px-4 py-2 text-sm font-medium bg-brand-600 text-white">Buy</button>
+                <button class="rounded-lg px-4 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800">Wishlist</button>
+              </div>
+            </div>
+          </div>
+        `
+      }
 
       function chunk(arr, size) {
         const out = []
@@ -371,16 +445,17 @@
       function buildBook(list) {
         bookStack.innerHTML = ''
         const spreads = chunk(list, 1)
+        const isMobile = window.matchMedia('(max-width: 640px)').matches
         spreads.forEach((group, idx) => {
           const p = group[0]
-          const leftItem = pageImage(p)
-          const rightItem = pageText(p)
+          const leftItem = isMobile ? pageMobile(p) : pageImage(p)
+          const rightItem = isMobile ? '' : pageText(p)
           const spread = document.createElement('div')
           spread.className = 'spread'
           spread.style.zIndex = String(spreads.length - idx)
           spread.innerHTML = `
             <div class="page page-left bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_rgba(0,0,0,0.06)]">${leftItem}</div>
-            <div class="page page-right bg-white dark:bg-neutral-900 border-l border-neutral-200 dark:border-neutral-800 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_rgba(0,0,0,0.06)]">${rightItem}</div>
+            ${rightItem ? `<div class="page page-right bg-white dark:bg-neutral-900 border-l border-neutral-200 dark:border-neutral-800 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_rgba(0,0,0,0.06)]">${rightItem}</div>` : ''}
           `
           bookStack.appendChild(spread)
           const main = spread.querySelector('.gallery-main')
@@ -405,9 +480,9 @@
         if (!spreads.length) return
         if (dir > 0 && bookIndex < spreads.length - 1) {
           const current = spreads[bookIndex]
-          const right = current.querySelector('.page-right')
-          right.classList.add('animate-flip-right')
-          right.addEventListener('animationend', () => {
+          const target = current.querySelector('.page-right') || current.querySelector('.page-left')
+          target.classList.add('animate-flip-right')
+          target.addEventListener('animationend', () => {
             current.style.display = 'none'
             bookIndex++
             bookProgress.textContent = (bookIndex + 1) + ' / ' + spreads.length
@@ -485,6 +560,7 @@
         const list = applyFilters(products)
         renderFilters()
         if (state.view === 'grid') {
+          document.body.style.overflow = 'auto'
           modeGrid.className = 'px-3 py-2 text-sm font-medium bg-brand-600 text-white'
           modeBook.className = 'px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100'
           bookEl.classList.add('hidden')
@@ -500,6 +576,7 @@
           })
           empty.hidden = list.length !== 0
         } else {
+          document.body.style.overflow = 'hidden'
           modeBook.className = 'px-3 py-2 text-sm font-medium bg-brand-600 text-white'
           modeGrid.className = 'px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100'
           grid.classList.add('hidden')
