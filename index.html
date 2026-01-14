@@ -1,578 +1,542 @@
-<!DOCTYPE html>
-<html lang="my">
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Jobseeker Project Plan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Catalogue</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Chosen Palette: Warm Neutrals (Background: #f5f5f4, Primary Text: #374151, Accent: #3b82f6, Card BG: #ffffff) -->
-    <!-- Application Structure Plan: A tab-based SPA dashboard structure was chosen to make the dense project plan easily digestible. Users can switch between key sections like Timeline, Features, and Risks without scrolling. This non-linear navigation improves user experience by breaking down complex information into manageable, focused views. An interactive Gantt chart for the timeline and card-based layouts for features and risks make the data more scannable and engaging than a static document. -->
-    <!-- Visualization & Content Choices: 
-        - Project Goal -> Inform -> Key Metric Cards -> Static display -> Highlights core stats for quick understanding.
-        - Timeline -> Show Change -> Gantt Chart (Horizontal Bar) -> Interaction: Hover tooltips -> Justification: Visually represents project duration and phases effectively. Library: Chart.js.
-        - Features -> Organize -> Two-column Card Layout with icons -> Static display with hover effects -> Justification: Clearly separates job seeker and employer features for easy comparison. Method: HTML/CSS/Tailwind.
-        - Resources -> Compare/Inform -> Donut Chart + List -> Interaction: Hover tooltips -> Justification: Shows team composition breakdown visually alongside a clear list of technologies. Library: Chart.js.
-        - Risks -> Show Relationships -> Click-to-reveal Cards -> Interaction: Click to expand -> Justification: Presents risks concisely, with mitigation strategies available on demand to prevent information overload. Method: HTML/JS.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#eef9ff',
+                100: '#d9f0ff',
+                200: '#b9e4ff',
+                300: '#87d3ff',
+                400: '#4fbaff',
+                500: '#1f9eff',
+                600: '#0f7fe3',
+                700: '#1063b5',
+                800: '#124f8f',
+                900: '#123f72'
+              }
+            },
+            boxShadow: {
+              soft: '0 10px 30px rgba(2, 132, 199, 0.15)'
+            },
+            keyframes: {
+              'fade-in-up': {
+                '0%': { opacity: '0', transform: 'translateY(8px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' }
+              },
+              'scale-in': {
+                '0%': { opacity: '0', transform: 'scale(0.96)' },
+                '100%': { opacity: '1', transform: 'scale(1)' }
+              },
+              'flip-right': {
+                '0%': { transform: 'rotateY(0deg)' },
+                '100%': { transform: 'rotateY(-180deg)' }
+              },
+              'flip-left': {
+                '0%': { transform: 'rotateY(0deg)' },
+                '100%': { transform: 'rotateY(180deg)' }
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-8px)' }
+              },
+              shimmer: {
+                '0%': { backgroundPosition: '-200% 0' },
+                '100%': { backgroundPosition: '200% 0' }
+              },
+              'rotate-in': {
+                '0%': { transform: 'rotate(-90deg)', opacity: '0' },
+                '100%': { transform: 'rotate(0deg)', opacity: '1' }
+              }
+            },
+            animation: {
+              'fade-in-up': 'fade-in-up 500ms ease-out both',
+              'fade-in-up-slow': 'fade-in-up 800ms ease-out both',
+              'scale-in': 'scale-in 300ms ease-out both',
+              'flip-right': 'flip-right 700ms ease-in-out both',
+              'flip-left': 'flip-left 700ms ease-in-out both',
+              float: 'float 6s ease-in-out infinite',
+              shimmer: 'shimmer 2s linear infinite',
+              'rotate-in': 'rotate-in 300ms ease-out both'
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      body {
-        font-family: "Pyidaungsu", sans-serif;
-        background-color: #f5f5f4;
-      }
-      .tab-active {
-        border-bottom: 2px solid #3b82f6;
-        color: #3b82f6;
-        font-weight: 700;
-      }
-      .content-section {
-        display: none;
-      }
-      .content-section.active {
-        display: block;
-      }
-      .chart-container {
-        position: relative;
-        width: 100%;
-        max-width: 900px;
-        margin-left: auto;
-        margin-right: auto;
-        height: 400px;
-        max-height: 50vh;
-      }
+      html, body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+      .book { perspective: 1400px; }
+      .spread { position: absolute; inset: 0; }
+      .page { position: absolute; top: 0; width: 50%; height: 100%; transform-style: preserve-3d; backface-visibility: hidden; }
+      .page-left { left: 0; transform-origin: right; }
+      .page-right { right: 0; transform-origin: left; }
     </style>
   </head>
-  <body class="text-gray-700">
-    <div class="container mx-auto p-4 md:p-8">
-      <header class="text-center mb-8">
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-800">
-          Jobseeker Website Project Plan
-        </h1>
-        <p class="mt-2 text-lg text-gray-600">Dashboard</p>
+  <body class="bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
+    <div class="min-h-screen">
+      <header class="sticky top-0 z-30 backdrop-blur bg-white/70 dark:bg-neutral-950/70 border-b border-neutral-200/70 dark:border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between h-16">
+            <div class="flex items-center gap-3">
+              <div class="size-9 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 shadow-soft animate-float"></div>
+              <div class="text-lg font-bold tracking-tight animate-fade-in-up">Aurora Catalogue</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="themeToggle" class="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
+                <span id="themeIcon" aria-hidden="true" class="inline-block">🌙</span>
+                <span>Toggle theme</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </header>
 
-      <nav class="mb-8 border-b border-gray-200">
-        <ul
-          class="flex flex-wrap -mb-px justify-center text-center text-gray-500"
-        >
-          <li class="mr-2">
-            <button
-              class="tab-button inline-block p-4 rounded-t-lg tab-active"
-              data-tab="dashboard"
-            >
-              ခြုံငုံသုံးသပ်ချက်
-            </button>
-          </li>
-          <li class="mr-2">
-            <button
-              class="tab-button inline-block p-4 rounded-t-lg"
-              data-tab="timeline"
-            >
-              အချိန်ဇယား
-            </button>
-          </li>
-          <li class="mr-2">
-            <button
-              class="tab-button inline-block p-4 rounded-t-lg"
-              data-tab="features"
-            >
-              လုပ်ဆောင်ချက်များ
-            </button>
-          </li>
-          <li class="mr-2">
-            <button
-              class="tab-button inline-block p-4 rounded-t-lg"
-              data-tab="resources"
-            >
-              အရင်းအမြစ်များ
-            </button>
-          </li>
-          <li class="mr-2">
-            <button
-              class="tab-button inline-block p-4 rounded-t-lg"
-              data-tab="risks"
-            >
-              အန္တရာယ်စီမံခန့်ခွဲမှု
-            </button>
-          </li>
-        </ul>
-      </nav>
-
-      <main>
-        <!-- Dashboard Section -->
-        <div id="dashboard" class="content-section active">
-          <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
-            <h2 class="text-2xl font-bold mb-3 text-gray-800">
-              ပရောဂျက် ရည်ရွယ်ချက်
-            </h2>
-            <p class="text-gray-600 leading-relaxed">
-              ဤပရောဂျက်၏ အဓိက ရည်ရွယ်ချက်မှာ အလုပ်ယှာသူများနှင့်
-              အလုပ်ရှင်များကို ထိရောက်စွာ ချိတ်ဆက်ပေးမည့် အသုံးပြုရလွယ်ကူရေ
-              အွန်လိုင်းပလက်ဖောင်းတစ်ခု ဖန်တီးရန်ဖြစ်သည်။ အလုပ်ယှာသူများအတွက်
-              အခွင့်အလမ်းများ လွယ်ကူစွာရှာဖွေနိုင်ပြီး၊ အလုပ်ရှင်များအတွက်
-              အရည်အချင်းပြည့်မီရေ ဝန်ထမ်းများကို အလွယ်တကူ ယှာဖွေနိုင်စီရန်
-              ပံ့ပိုးပီးပါမည်။
-            </p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            <div class="bg-white p-6 rounded-lg shadow-sm">
-              <h3 class="text-xl font-bold text-gray-800 mb-2">
-                စုစုပေါင်း အချိန်ကာလ
-              </h3>
-              <p class="text-4xl font-bold text-blue-500">21</p>
-              <p class="text-gray-500">ပတ်</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm">
-              <h3 class="text-xl font-bold text-gray-800 mb-2">
-                အဓိက အဆင့်များ
-              </h3>
-              <p class="text-4xl font-bold text-blue-500">7</p>
-              <p class="text-gray-500">ခု</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm">
-              <h3 class="text-xl font-bold text-gray-800 mb-2">
-                အဖွဲ့ဝင် (ခန့်မှန်း)
-              </h3>
-              <p class="text-4xl font-bold text-blue-500">5-7</p>
-              <p class="text-gray-500">ဦး</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Timeline Section -->
-        <div id="timeline" class="content-section">
-          <div class="bg-white p-6 rounded-lg shadow-sm">
-            <h2 class="text-2xl font-bold mb-3 text-center text-gray-800">
-              ပရောဂျက် အချိန်ဇယား (Gantt Chart)
-            </h2>
-            <p class="text-center text-gray-600 mb-6">
-              ဤ Gantt chart သည် ပရောဂျက်၏ အဓိကအဆင့်များနှင့် တစ်ခုချင်းစီအတွက်
-              သတ်မှတ်ထားသော အချိန်ကာလ (ပတ်ဖြင့်) ကို ပြသထားပါသည်။ Chart ပေါ်ရှိ
-              bar တစ်ခုချင်းစီကို mouse တင်၍ အသေးစိတ်ကြည့်ရှုနိုင်ပါသည်။
-            </p>
-            <div class="chart-container">
-              <canvas id="ganttChart"></canvas>
-            </div>
-          </div>
-        </div>
-
-        <!-- Features Section -->
-        <div id="features" class="content-section">
-          <div class="text-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">
-              ပရောဂျက် နယ်ပယ်နှင့် လုပ်ဆောင်ချက်များ
-            </h2>
-            <p class="text-gray-600 mt-2">
-              ဤပလက်ဖောင်းတွင် အလုပ်ရှာသူများနှင့် အလုပ်ရှင်များအတွက်
-              ခွဲခြားထားသော အဓိကလုပ်ဆောင်ချက်များကို တွေ့နိုင်ပါသည်။
-            </p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-white p-6 rounded-lg shadow-sm">
-              <h3 class="text-xl font-bold mb-4 text-gray-800">
-                အလုပ်ရှာသူများအတွက် (Job Seekers)
-              </h3>
-              <ul class="space-y-3">
-                <li class="flex items-start">
-                  <span class="mr-3 text-blue-500">👤</span
-                  ><span
-                    ><b>ပရိုဖိုင် ဖန်တီးခြင်း:</b> ကိုယ်ရေးအချက်အလက်၊
-                    ပညာအရည်အချင်း၊ အတွေ့အကြုံများ ထည့်သွင်းခြင်း။</span
-                  >
-                </li>
-                <li class="flex items-start">
-                  <span class="mr-3 text-blue-500">🔍</span
-                  ><span
-                    ><b>အလုပ်ရှာဖွေခြင်း:</b> Keyword, Industry, Location
-                    စသည်ဖြင့် စစ်ထုတ်ရှာဖွေခြင်း။</span
-                  >
-                </li>
-                <li class="flex items-start">
-                  <span class="mr-3 text-blue-500">📄</span
-                  ><span
-                    ><b>အလုပ်လျှောက်ထားခြင်း:</b> CV တင်၍
-                    တိုက်ရိုက်လျှောက်ထားခြင်း။</span
-                  >
-                </li>
-                <li class="flex items-start">
-                  <span class="mr-3 text-blue-500">🔔</span
-                  ><span
-                    ><b>အလုပ်သတိပေးချက်များ:</b> ကိုက်ညီသည့် အလုပ်သစ်များအတွက်
-                    Notification ရရှိခြင်း။</span
-                  >
-                </li>
-                <li class="flex items-start">
-                  <span class="mr-3 text-blue-500">⭐</span
-                  ><span
-                    ><b>အကြိုက်ဆုံး အလုပ်များ:</b> စိတ်ဝင်စားသော အလုပ်များကို
-                    သိမ်းဆည်းထားခြင်း။</span
-                  >
-                </li>
-              </ul>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm">
-              <h3 class="text-xl font-bold mb-4 text-gray-800">
-                အလုပ်ရှင်များအတွက် (Employers)
-              </h3>
-              <ul class="space-y-3">
-                <li class="flex items-start">
-                  <span class="mr-3 text-blue-500">🏢</span
-                  ><span
-                    ><b>ကုမ္ပဏီ ပရိုဖိုင်:</b> ကုမ္ပဏီအချက်အလက်၊ ယဉ်ကျေးမှုများ
-                    ဖော်ပြခြင်း။</span
-                  >
-                </li>
-                <li class="flex items-start">
-                  <span class="mr-3 text-blue-500">➕</span
-                  ><span
-                    ><b>အလုပ်ကြော်ငြာ တင်ခြင်း:</b> အလုပ်အကိုင် အခွင့်အလမ်းများ
-                    အသေးစိတ်တင်ခြင်း။</span
-                  >
-                </li>
-                <li class="flex items-start">
-                  <span class="mr-3 text-blue-500">📂</span
-                  ><span
-                    ><b>လျှောက်ထားသူ စီမံခန့်ခွဲခြင်း:</b> CV ကြည့်ရှုခြင်း၊
-                    စစ်ထုတ်ခြင်း၊ Status ပြောင်းလဲခြင်း။</span
-                  >
-                </li>
-                <li class="flex items-start">
-                  <span class="mr-3 text-blue-500">💬</span
-                  ><span
-                    ><b>ဆက်သွယ်ခြင်း:</b> လျှောက်ထားသူများနှင့်
-                    တိုက်ရိုက်ဆက်သွယ်ခြင်း။</span
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-sm mt-8">
-            <h3 class="text-xl font-bold mb-4 text-gray-800">
-              နယ်ပယ် ကန့်သတ်ချက်များ (Scope Limitations)
-            </h3>
-            <p class="text-gray-600">
-              ဤပရောဂျက်၏ ပထမအဆင့်တွင် Payment Gateway Integration နှင့်
-              AI-powered matching တို့ကို ထည့်သွင်းမည်မဟုတ်ပါ။ ၎င်းတို့ကို
-              နောက်ဆက်တွဲ အဆင့်များတွင် ထည့်သွင်းရန် စဉ်းစားမည်။
-            </p>
-          </div>
-        </div>
-
-        <!-- Resources Section -->
-        <div id="resources" class="content-section">
-          <div class="text-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">အရင်းအမြစ်များ</h2>
-            <p class="text-gray-600 mt-2">
-              ပရောဂျက်အတွက် လိုအပ်သော လူအင်အားနှင့် နည်းပညာများကို ဤနေရာတွင်
-              ဖော်ပြထားပါသည်။
-            </p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-white p-6 rounded-lg shadow-sm">
-              <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">
-                အဖွဲ့ဝင်များ ခွဲဝေမှု
-              </h3>
-              <div class="chart-container h-64 max-h-[300px]">
-                <canvas id="teamChart"></canvas>
+      <section class="relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-cyan-50 to-transparent dark:from-brand-900/20 dark:via-cyan-900/10 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 relative">
+          <div class="grid lg:grid-cols-2 items-center gap-8">
+            <div>
+              <h1 class="text-3xl sm:text-4xl font-bold tracking-tight animate-fade-in-up">Discover products you’ll love</h1>
+              <p class="mt-3 text-neutral-600 dark:text-neutral-300 animate-fade-in-up" style="animation-delay:120ms">Browse a curated selection across categories. Search, filter, and sort to find the perfect match.</p>
+              <div class="mt-6 flex flex-wrap gap-3">
+                <span class="inline-flex items-center rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/40 dark:text-brand-200 px-3 py-1 text-sm animate-scale-in" style="animation-delay:200ms">Fast shipping</span>
+                <span class="inline-flex items-center rounded-full bg-cyan-100 text-cyan-700 dark:bg-cyan-800/40 dark:text-cyan-200 px-3 py-1 text-sm animate-scale-in" style="animation-delay:260ms">Handpicked quality</span>
+                <span class="inline-flex items-center rounded-full bg-purple-100 text-purple-700 dark:bg-purple-800/40 dark:text-purple-200 px-3 py-1 text-sm animate-scale-in" style="animation-delay:320ms">Great value</span>
               </div>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm">
-              <h3 class="text-xl font-bold mb-4 text-gray-800">
-                အသုံးပြုမည့် နည်းပညာများ
-              </h3>
-              <ul class="space-y-3">
-                <li class="flex items-center">
-                  <span class="mr-3 text-blue-500 text-lg">🌐</span
-                  ><b>Frontend:</b> React.js
-                </li>
-                <li class="flex items-center">
-                  <span class="mr-3 text-blue-500 text-lg">⚙️</span
-                  ><b>Backend:</b> Python (Django)
-                </li>
-                <li class="flex items-center">
-                  <span class="mr-3 text-blue-500 text-lg">🗃️</span
-                  ><b>Database:</b> MySQL
-                </li>
-                <li class="flex items-center">
-                  <span class="mr-3 text-blue-500 text-lg">☁️</span
-                  ><b>Cloud Hosting:</b> AWS, Google Cloud, or DigitalOcean
-                </li>
-                <li class="flex items-center">
-                  <span class="mr-3 text-blue-500 text-lg">🛠️</span
-                  ><b>Tools:</b> Git
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Risks Section -->
-        <div id="risks" class="content-section">
-          <div class="text-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">
-              အန္တရာယ်စီမံခန့်ခွဲမှု
-            </h2>
-            <p class="text-gray-600 mt-2">
-              ဖြစ်နိုင်ခြေရှိသော အန္တရာယ်များနှင့် ၎င်းတို့ကို လျှော့ချရန်
-              နည်းလမ်းများကို လေ့လာပါ။ Risk တစ်ခုကိုနှိပ်၍ Mitigation Strategy
-              ကို ကြည့်ရှုနိုင်ပါသည်။
-            </p>
-          </div>
-          <div class="space-y-4">
-            <div class="risk-item bg-white rounded-lg shadow-sm">
-              <button
-                class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center"
-              >
-                <span>Scope Creep: လုပ်ဆောင်ချက်များ တိုးပွားလာခြင်း</span>
-                <span class="arrow transform transition-transform">▼</span>
-              </button>
-              <div class="risk-details p-4 border-t border-gray-200 hidden">
-                <p>
-                  <b>Mitigation:</b> တိကျသော Scope Definition ကို
-                  ထိန်းသိမ်းခြင်း၊ Change Request Process ကို သတ်မှတ်ခြင်း။
-                </p>
-              </div>
-            </div>
-            <div class="risk-item bg-white rounded-lg shadow-sm">
-              <button
-                class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center"
-              >
-                <span>Timeline Delays: အချိန်ဇယားလွဲချော်ခြင်း</span>
-                <span class="arrow transform transition-transform">▼</span>
-              </button>
-              <div class="risk-details p-4 border-t border-gray-200 hidden">
-                <p>
-                  <b>Mitigation:</b> အချိန်ဇယားကို လက်တွေ့ကျကျ ခန့်မှန်းခြင်း၊
-                  Buffer Time ထည့်သွင်းခြင်း၊ ပြဿနာများကို စောစီးစွာ
-                  ဖော်ထုတ်ဖြေရှင်းခြင်း။
-                </p>
-              </div>
-            </div>
-            <div class="risk-item bg-white rounded-lg shadow-sm">
-              <button
-                class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center"
-              >
-                <span>Budget Overruns: ဘတ်ဂျက်ကျော်လွန်ခြင်း</span>
-                <span class="arrow transform transition-transform">▼</span>
-              </button>
-              <div class="risk-details p-4 border-t border-gray-200 hidden">
-                <p>
-                  <b>Mitigation:</b> အသေးစိတ် ဘတ်ဂျက် ရေးဆွဲခြင်း၊
-                  ကုန်ကျစရိတ်များကို ပုံမှန်စောင့်ကြည့်ခြင်း၊ မလိုအပ်သော
-                  ကုန်ကျစရိတ်များ လျှော့ချခြင်း။
-                </p>
-              </div>
-            </div>
-            <div class="risk-item bg-white rounded-lg shadow-sm">
-              <button
-                class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center"
-              >
-                <span>Security Vulnerabilities: လုံခြုံရေးအားနည်းချက်များ</span>
-                <span class="arrow transform transition-transform">▼</span>
-              </button>
-              <div class="risk-details p-4 border-t border-gray-200 hidden">
-                <p>
-                  <b>Mitigation:</b> Security Best Practices များကို
-                  လိုက်နာခြင်း၊ ပုံမှန် Security Audit ပြုလုပ်ခြင်း၊ Penetration
-                  Testing လုပ်ဆောင်ခြင်း။
-                </p>
-              </div>
-            </div>
-            <div class="risk-item bg-white rounded-lg shadow-sm">
-              <button
-                class="w-full text-left p-4 font-bold text-gray-800 flex justify-between items-center"
-              >
-                <span>Low User Adoption: အသုံးပြုသူနည်းပါးခြင်း</span>
-                <span class="arrow transform transition-transform">▼</span>
-              </button>
-              <div class="risk-details p-4 border-t border-gray-200 hidden">
-                <p>
-                  <b>Mitigation:</b> User-centric Design ကို အလေးထားခြင်း၊ Beta
-                  Testing ပြုလုပ်ခြင်း၊ Marketing Strategy ကောင်းမွန်စွာ
-                  ရေးဆွဲခြင်း။
-                </p>
+            <div class="lg:justify-self-end">
+              <div class="relative rounded-2xl bg-white dark:bg-neutral-900 p-1 shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800 animate-fade-in-up-slow" style="animation-delay:200ms">
+                <img class="rounded-xl w-full h-64 object-cover" src="https://picsum.photos/seed/aurora/1024/640" alt="Catalogue hero">
               </div>
             </div>
           </div>
         </div>
+      </section>
+
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div class="mt-4 grid gap-4 sm:grid-cols-12">
+          <div class="sm:col-span-5">
+            <label for="search" class="sr-only">Search products</label>
+            <div class="relative">
+              <input id="search" type="text" placeholder="Search products..." class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 pl-10 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400">🔎</span>
+            </div>
+          </div>
+          <div class="sm:col-span-3">
+            <label for="category" class="sr-only">Category</label>
+            <select id="category" class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              <option value="">All categories</option>
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="price" class="sr-only">Price</label>
+            <select id="price" class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              <option value="">Any price</option>
+              <option value="0-50">$0–$50</option>
+              <option value="50-100">$50–$100</option>
+              <option value="100-250">$100–$250</option>
+              <option value="250-9999">$250+</option>
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="sort" class="sr-only">Sort</label>
+            <select id="sort" class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              <option value="relevance">Sort by relevance</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating-desc">Rating: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mt-2 flex flex-wrap gap-2" id="activeFilters"></div>
+
+        <div class="mt-4 flex justify-end">
+          <div class="inline-flex rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden">
+            <button id="modeGrid" class="px-3 py-2 text-sm font-medium bg-brand-600 text-white">Grid</button>
+            <button id="modeBook" class="px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100">Book</button>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="grid"></div>
+
+        <div id="book" class="mt-6 hidden">
+          <div class="relative mx-auto max-w-5xl">
+            <div class="book aspect-[3/2] mx-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800 overflow-hidden">
+              <div id="bookStack" class="relative w-full h-full"></div>
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent"></div>
+              <div class="absolute top-3 inset-x-0 flex justify-center">
+                <div class="inline-flex rounded-full bg-white/80 dark:bg-neutral-900/70 backdrop-blur ring-1 ring-neutral-200/70 dark:ring-neutral-800 overflow-hidden">
+                  <button id="modeSingle" class="px-3 py-1.5 text-xs font-medium bg-brand-600 text-white">Single</button>
+                  <button id="modeMulti" class="px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-100">Gallery</button>
+                </div>
+              </div>
+            </div>
+            <div class="absolute inset-y-0 left-0 flex items-center">
+              <button id="prevBook" class="m-2 rounded-full bg-white/70 dark:bg-neutral-900/70 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-9 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors">‹</button>
+            </div>
+            <div class="absolute inset-y-0 right-0 flex items-center">
+              <button id="nextBook" class="m-2 rounded-full bg-white/70 dark:bg-neutral-900/70 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-9 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors">›</button>
+            </div>
+            <div class="absolute bottom-3 inset-x-0 text-center text-xs text-neutral-600 dark:text-neutral-300">
+              <span id="bookProgress"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 text-center text-neutral-600 dark:text-neutral-300 animate-fade-in-up" id="empty" hidden>No products match your filters.</div>
       </main>
+
+      <footer class="border-t border-neutral-200/70 dark:border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-sm text-neutral-600 dark:text-neutral-300">
+          <div class="flex items-center justify-between">
+            <p>© <span id="year"></span> Aurora Catalogue</p>
+            <p>Built with TailwindCSS</p>
+          </div>
+        </div>
+      </footer>
     </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const tabs = document.querySelectorAll(".tab-button");
-        const contents = document.querySelectorAll(".content-section");
+      const products = [
+        { id: 1, name: 'AirWave Headphones', price: 129, rating: 4.6, category: 'Electronics', image: 'https://picsum.photos/seed/headphones/600/400', badge: 'Bestseller' },
+        { id: 2, name: 'Nimbus Smartwatch', price: 199, rating: 4.4, category: 'Electronics', image: 'https://picsum.photos/seed/smartwatch/600/400', badge: 'New' },
+        { id: 3, name: 'Serene Soy Candle', price: 24, rating: 4.8, category: 'Home', image: 'https://picsum.photos/seed/candle/600/400' },
+        { id: 4, name: 'Velvet Throw Blanket', price: 59, rating: 4.5, category: 'Home', image: 'https://picsum.photos/seed/blanket/600/400' },
+        { id: 5, name: 'Cascade Water Bottle', price: 38, rating: 4.3, category: 'Sports', image: 'https://picsum.photos/seed/bottle/600/400' },
+        { id: 6, name: 'Pulse Running Shoes', price: 129, rating: 4.7, category: 'Sports', image: 'https://picsum.photos/seed/shoes/600/400', badge: 'Limited' },
+        { id: 7, name: 'Lumen Table Lamp', price: 89, rating: 4.2, category: 'Home', image: 'https://picsum.photos/seed/lamp/600/400' },
+        { id: 8, name: 'Silk Scarf', price: 45, rating: 4.4, category: 'Fashion', image: 'https://picsum.photos/seed/scarf/600/400' },
+        { id: 9, name: 'Matte Lipstick', price: 22, rating: 4.1, category: 'Beauty', image: 'https://picsum.photos/seed/lipstick/600/400' },
+        { id: 10, name: 'Eco Tote Bag', price: 35, rating: 4.3, category: 'Fashion', image: 'https://picsum.photos/seed/tote/600/400' },
+        { id: 11, name: 'Zen Yoga Mat', price: 79, rating: 4.6, category: 'Sports', image: 'https://picsum.photos/seed/yoga/600/400' },
+        { id: 12, name: 'Quartz Wall Clock', price: 64, rating: 4.0, category: 'Home', image: 'https://picsum.photos/seed/clock/600/400' }
+      ]
 
-        tabs.forEach((tab) => {
-          tab.addEventListener("click", () => {
-            tabs.forEach((item) => item.classList.remove("tab-active"));
-            tab.classList.add("tab-active");
+      const categories = [...new Set(products.map(p => p.category))]
+      const state = { search: '', category: '', price: '', sort: 'relevance', view: 'grid', gallery: 'single' }
 
-            const target = tab.getAttribute("data-tab");
-            contents.forEach((content) => {
-              if (content.id === target) {
-                content.classList.add("active");
-              } else {
-                content.classList.remove("active");
-              }
-            });
-          });
-        });
+      const grid = document.getElementById('grid')
+      const empty = document.getElementById('empty')
+      const search = document.getElementById('search')
+      const category = document.getElementById('category')
+      const price = document.getElementById('price')
+      const sort = document.getElementById('sort')
+      const activeFilters = document.getElementById('activeFilters')
+      const year = document.getElementById('year')
+      const modeGrid = document.getElementById('modeGrid')
+      const modeBook = document.getElementById('modeBook')
+      const bookEl = document.getElementById('book')
+      const bookStack = document.getElementById('bookStack')
+      const prevBook = document.getElementById('prevBook')
+      const nextBook = document.getElementById('nextBook')
+      const bookProgress = document.getElementById('bookProgress')
+      const modeSingle = document.getElementById('modeSingle')
+      const modeMulti = document.getElementById('modeMulti')
+      let bookIndex = 0
+      let downBookX = null
 
-        const riskItems = document.querySelectorAll(".risk-item button");
-        riskItems.forEach((item) => {
-          item.addEventListener("click", () => {
-            const details = item.nextElementSibling;
-            const arrow = item.querySelector(".arrow");
-            details.classList.toggle("hidden");
-            arrow.classList.toggle("rotate-180");
-          });
-        });
+      categories.forEach(c => {
+        const opt = document.createElement('option')
+        opt.value = c
+        opt.textContent = c
+        category.appendChild(opt)
+      })
 
-        const ganttData = {
-          labels: [
-            "စီစဉ်ခြင်းနှင့် သုတေသန",
-            "ဒီဇိုင်းနှင့် UI/UX",
-            "Backend Development",
-            "Frontend Development",
-            "စမ်းသပ်ခြင်း (Testing)",
-            "စတင်အသုံးပြုခြင်း (Deployment)",
-            "ထောက်ပံ့ခြင်းနှင့် ပြုပြင်ထိန်းသိမ်းခြင်း",
-          ],
-          datasets: [
-            {
-              label: "ကြာချိန် (ပတ်)",
-              data: [
-                [0, 2],
-                [2, 5],
-                [5, 11],
-                [5, 11],
-                [11, 14],
-                [14, 15],
-                [15, 21],
-              ],
-              backgroundColor: [
-                "rgba(59, 130, 246, 0.5)",
-                "rgba(16, 185, 129, 0.5)",
-                "rgba(239, 68, 68, 0.5)",
-                "rgba(249, 115, 22, 0.5)",
-                "rgba(139, 92, 246, 0.5)",
-                "rgba(217, 70, 239, 0.5)",
-                "rgba(107, 114, 128, 0.5)",
-              ],
-              borderColor: [
-                "rgb(59, 130, 246)",
-                "rgb(16, 185, 129)",
-                "rgb(239, 68, 68)",
-                "rgb(249, 115, 22)",
-                "rgb(139, 92, 246)",
-                "rgb(217, 70, 239)",
-                "rgb(107, 114, 128)",
-              ],
-              borderWidth: 1,
-              barPercentage: 0.6,
-            },
-          ],
-        };
+      year.textContent = new Date().getFullYear()
 
-        const ganttConfig = {
-          type: "bar",
-          data: ganttData,
-          options: {
-            indexAxis: "y",
-            maintainAspectRatio: false,
-            responsive: true,
-            plugins: {
-              legend: {
-                display: false,
-              },
-              tooltip: {
-                callbacks: {
-                  label: function (context) {
-                    const start = context.raw[0];
-                    const end = context.raw[1];
-                    const duration = end - start;
-                    return `${context.label}: ${duration} ပတ် (ပတ် ${
-                      start + 1
-                    } မှ ပတ် ${end} ထိ)`;
-                  },
-                },
-              },
-            },
-            scales: {
-              x: {
-                min: 0,
-                max: 22,
-                title: {
-                  display: true,
-                  text: "အချိန်ကာလ (ပတ်)",
-                },
-              },
-              y: {
-                ticks: {
-                  autoSkip: false,
-                  callback: function (value, index, values) {
-                    const label = this.getLabelForValue(value);
-                    if (label.length > 16) {
-                      return label.match(/.{1,16}/g);
-                    }
-                    return label;
-                  },
-                },
-              },
-            },
-          },
-        };
+      search.addEventListener('input', e => { state.search = e.target.value.trim().toLowerCase(); render() })
+      category.addEventListener('change', e => { state.category = e.target.value; render() })
+      price.addEventListener('change', e => { state.price = e.target.value; render() })
+      sort.addEventListener('change', e => { state.sort = e.target.value; render() })
+      modeGrid.addEventListener('click', () => { state.view = 'grid'; render() })
+      modeBook.addEventListener('click', () => { state.view = 'book'; render() })
+      modeSingle.addEventListener('click', () => { state.gallery = 'single'; render() })
+      modeMulti.addEventListener('click', () => { state.gallery = 'multi'; render() })
 
-        const ganttCtx = document.getElementById("ganttChart").getContext("2d");
-        new Chart(ganttCtx, ganttConfig);
+      function applyFilters(list) {
+        let result = list.filter(p => p.name.toLowerCase().includes(state.search))
+        if (state.category) result = result.filter(p => p.category === state.category)
+        if (state.price) {
+          const [min, max] = state.price.split('-').map(Number)
+          result = result.filter(p => p.price >= min && p.price <= max)
+        }
+        switch (state.sort) {
+          case 'price-asc': result.sort((a,b) => a.price - b.price); break
+          case 'price-desc': result.sort((a,b) => b.price - a.price); break
+          case 'rating-desc': result.sort((a,b) => b.rating - a.rating); break
+        }
+        return result
+      }
 
-        const teamData = {
-          labels: [
-            "Developer (Frontend/Backend)",
-            "Project Manager",
-            "UI/UX Designer",
-            "QA Tester",
-          ],
-          datasets: [
-            {
-              data: [5, 1, 1, 1], // Assuming 2 backend, 2 frontend devs
-              backgroundColor: [
-                "rgba(59, 130, 246, 0.7)",
-                "rgba(239, 68, 68, 0.7)",
-                "rgba(16, 185, 129, 0.7)",
-                "rgba(249, 115, 22, 0.7)",
-              ],
-              hoverOffset: 4,
-            },
-          ],
-        };
+      function pageImage(p) {
+        if (!p) {
+          return `<div class="h-full grid place-items-center text-neutral-500 dark:text-neutral-400 text-sm">End</div>`
+        }
+        const m = p.image.match(/seed\/([^/]+)\//)
+        const base = m ? m[1] : 'photo'
+        if (state.gallery === 'multi') {
+          const seeds = [base, base + '-1', base + '-2', base + '-3']
+          const thumbs = seeds.map((s, i) => `
+            <img data-seed="${s}" src="https://picsum.photos/seed/${s}/200/150" alt="${p.name}" class="gallery-thumb ${i===0 ? 'ring-2 ring-brand-500' : ''} w-16 h-16 rounded-lg object-cover cursor-pointer">
+          `).join('')
+          return `
+            <div class="h-full p-4">
+              <div class="flex flex-col h-full">
+                <div class="relative rounded-2xl overflow-hidden ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft aspect-[4/3] bg-neutral-100 dark:bg-neutral-900">
+                  <img src="https://picsum.photos/seed/${seeds[0]}/1200/900" alt="${p.name}" class="gallery-main absolute inset-0 w-full h-full object-cover object-center">
+                  ${p.badge ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>` : ''}
+                  <div class="absolute inset-x-0 bottom-0 p-3">
+                    <div class="rounded-lg bg-black/30 dark:bg-black/30 backdrop-blur px-3 py-1.5 text-xs text-white">${p.name}</div>
+                  </div>
+                </div>
+                <div class="mt-3 flex gap-2 overflow-x-auto pb-2">
+                  ${thumbs}
+                </div>
+              </div>
+            </div>
+          `
+        } else {
+          return `
+            <div class="h-full p-4">
+              <div class="relative rounded-2xl overflow-hidden ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft aspect-[4/3] bg-neutral-100 dark:bg-neutral-900">
+                <img src="${p.image}" alt="${p.name}" class="absolute inset-0 w-full h-full object-cover object-center">
+                ${p.badge ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>` : ''}
+                <div class="absolute inset-x-0 bottom-0 p-3">
+                  <div class="rounded-lg bg-black/30 dark:bg-black/30 backdrop-blur px-3 py-1.5 text-xs text-white">${p.name}</div>
+                </div>
+              </div>
+            </div>
+          `
+        }
+      }
 
-        const teamConfig = {
-          type: "doughnut",
-          data: teamData,
-          options: {
-            maintainAspectRatio: false,
-            responsive: true,
-            plugins: {
-              legend: {
-                position: "bottom",
-              },
-            },
-          },
-        };
+      function pageText(p) {
+        if (!p) {
+          return `<div class="h-full grid place-items-center text-neutral-500 dark:text-neutral-400 text-sm">End</div>`
+        }
+        return `
+          <div class="h-full p-6 sm:p-8">
+            <div class="flex flex-col justify-center h-full">
+              <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">${p.name}</h2>
+              <div class="mt-2 h-1 w-16 bg-brand-600 rounded-full"></div>
+              <div class="mt-3 inline-flex items-center gap-2">
+                <span class="rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-sm">${p.category}</span>
+                <span class="inline-flex items-center text-amber-400 text-sm">${'★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating))}</span>
+              </div>
+              <div class="mt-5 text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-md">
+                Premium, hand‑picked quality designed for everyday use. Built with durable materials and crafted for comfort—perfect for gifts or personal use.
+              </div>
+              <ul class="mt-5 space-y-2 text-sm text-neutral-700 dark:text-neutral-300">
+                <li>✓ Quality guaranteed</li>
+                <li>✓ Fast shipping</li>
+                <li>✓ Great value</li>
+              </ul>
+              <div class="mt-6 grid grid-cols-2 gap-4 max-w-md">
+                <div class="rounded-xl bg-neutral-100 dark:bg-neutral-800/60 p-4 text-sm">
+                  <div class="text-neutral-500 dark:text-neutral-400">Price</div>
+                  <div class="text-2xl font-bold">$${p.price}</div>
+                </div>
+                <div class="rounded-xl bg-neutral-100 dark:bg-neutral-800/60 p-4 text-sm">
+                  <div class="text-neutral-500 dark:text-neutral-400">Rating</div>
+                  <div class="font-semibold">${p.rating.toFixed(1)} / 5</div>
+                </div>
+              </div>
+              <div class="mt-6 flex items-center gap-3">
+                <button class="rounded-lg px-5 py-2.5 text-sm font-medium bg-gradient-to-r from-brand-600 to-cyan-600 text-white hover:from-brand-700 hover:to-cyan-700 transition-colors">Buy now</button>
+                <button class="rounded-lg px-5 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Wishlist</button>
+              </div>
+            </div>
+          </div>
+        `
+      }
 
-        const teamCtx = document.getElementById("teamChart").getContext("2d");
-        new Chart(teamCtx, teamConfig);
-      });
+      function chunk(arr, size) {
+        const out = []
+        for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size))
+        return out
+      }
+
+      function buildBook(list) {
+        bookStack.innerHTML = ''
+        const spreads = chunk(list, 1)
+        spreads.forEach((group, idx) => {
+          const p = group[0]
+          const leftItem = pageImage(p)
+          const rightItem = pageText(p)
+          const spread = document.createElement('div')
+          spread.className = 'spread'
+          spread.style.zIndex = String(spreads.length - idx)
+          spread.innerHTML = `
+            <div class="page page-left bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_rgba(0,0,0,0.06)]">${leftItem}</div>
+            <div class="page page-right bg-white dark:bg-neutral-900 border-l border-neutral-200 dark:border-neutral-800 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_rgba(0,0,0,0.06)]">${rightItem}</div>
+          `
+          bookStack.appendChild(spread)
+          const main = spread.querySelector('.gallery-main')
+          const thumbs = spread.querySelectorAll('.gallery-thumb')
+          if (main && thumbs.length) {
+            thumbs.forEach(t => {
+              t.addEventListener('click', () => {
+                const seed = t.getAttribute('data-seed')
+                main.setAttribute('src', 'https://picsum.photos/seed/' + seed + '/1200/900')
+                thumbs.forEach(x => { x.classList.remove('ring-2','ring-brand-500') })
+                t.classList.add('ring-2','ring-brand-500')
+              })
+            })
+          }
+        })
+        bookIndex = 0
+        bookProgress.textContent = spreads.length ? (bookIndex + 1) + ' / ' + spreads.length : ''
+      }
+
+      function turn(dir) {
+        const spreads = Array.from(bookStack.children)
+        if (!spreads.length) return
+        if (dir > 0 && bookIndex < spreads.length - 1) {
+          const current = spreads[bookIndex]
+          const right = current.querySelector('.page-right')
+          right.classList.add('animate-flip-right')
+          right.addEventListener('animationend', () => {
+            current.style.display = 'none'
+            bookIndex++
+            bookProgress.textContent = (bookIndex + 1) + ' / ' + spreads.length
+          }, { once: true })
+        } else if (dir < 0 && bookIndex > 0) {
+          const prev = spreads[bookIndex - 1]
+          prev.style.display = ''
+          const left = prev.querySelector('.page-left')
+          left.classList.add('animate-flip-left')
+          left.addEventListener('animationend', () => {
+            bookIndex--
+            bookProgress.textContent = (bookIndex + 1) + ' / ' + spreads.length
+          }, { once: true })
+        }
+      }
+
+      prevBook.addEventListener('click', () => turn(-1))
+      nextBook.addEventListener('click', () => turn(1))
+      bookEl.addEventListener('pointerdown', e => { downBookX = e.clientX })
+      bookEl.addEventListener('pointerup', e => {
+        if (downBookX == null) return
+        const dx = e.clientX - downBookX
+        if (Math.abs(dx) > 40) turn(dx < 0 ? 1 : -1)
+        downBookX = null
+      })
+      document.addEventListener('keydown', e => {
+        if (state.view !== 'book') return
+        if (e.key === 'ArrowRight') turn(1)
+        if (e.key === 'ArrowLeft') turn(-1)
+      })
+
+      function renderFilters() {
+        activeFilters.innerHTML = ''
+        const makeChip = (label, onClear) => {
+          const btn = document.createElement('button')
+          btn.className = 'inline-flex items-center gap-2 rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-700 animate-fade-in-up'
+          btn.style.animationDelay = '80ms'
+          btn.innerHTML = label + ' ✕'
+          btn.addEventListener('click', onClear)
+          activeFilters.appendChild(btn)
+        }
+        if (state.search) makeChip('Search: ' + state.search, () => { search.value = ''; state.search=''; render() })
+        if (state.category) makeChip('Category: ' + state.category, () => { category.value=''; state.category=''; render() })
+        if (state.price) makeChip('Price: ' + state.price.replace('-', '–'), () => { price.value=''; state.price=''; render() })
+        if (state.sort !== 'relevance') makeChip('Sort: ' + sort.options[sort.selectedIndex].text, () => { sort.value='relevance'; state.sort='relevance'; render() })
+      }
+
+      function cardHTML(p) {
+        const badge = p.badge ? '<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">'+p.badge+'</span>' : ''
+        return `
+          <article class="group rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 overflow-hidden hover:shadow-soft transition-shadow duration-300 will-change-transform">
+            <div class="relative">
+              ${badge}
+              <img src="${p.image}" alt="${p.name}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-[1.03]">
+            </div>
+            <div class="p-4">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="font-semibold tracking-tight transition-colors duration-300 group-hover:text-brand-600 dark:group-hover:text-brand-400">${p.name}</h3>
+                <div class="text-right">
+                  <div class="text-lg font-bold">$${p.price}</div>
+                  <div class="text-xs text-neutral-500 dark:text-neutral-400">Rating ${p.rating.toFixed(1)}★</div>
+                </div>
+              </div>
+              <div class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">${p.category}</div>
+              <div class="mt-4 flex items-center justify-between">
+                <button class="rounded-lg px-3 py-2 text-sm font-medium bg-brand-600 text-white hover:bg-brand-700 transition-colors">View</button>
+                <button class="rounded-lg px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Wishlist</button>
+              </div>
+            </div>
+          </article>
+        `
+      }
+
+      function render() {
+        const list = applyFilters(products)
+        renderFilters()
+        if (state.view === 'grid') {
+          modeGrid.className = 'px-3 py-2 text-sm font-medium bg-brand-600 text-white'
+          modeBook.className = 'px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100'
+          bookEl.classList.add('hidden')
+          grid.classList.remove('hidden')
+          grid.innerHTML = list.map(cardHTML).join('')
+          Array.from(grid.children).forEach((el, i) => {
+            el.classList.add('opacity-0')
+            el.style.animationDelay = `${i * 60}ms`
+            el.classList.add('animate-fade-in-up')
+            el.addEventListener('animationend', () => {
+              el.classList.remove('opacity-0')
+            }, { once: true })
+          })
+          empty.hidden = list.length !== 0
+        } else {
+          modeBook.className = 'px-3 py-2 text-sm font-medium bg-brand-600 text-white'
+          modeGrid.className = 'px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100'
+          grid.classList.add('hidden')
+          empty.hidden = true
+          bookEl.classList.remove('hidden')
+          if (modeSingle && modeMulti) {
+            if (state.gallery === 'single') {
+              modeSingle.className = 'px-3 py-1.5 text-xs font-medium bg-brand-600 text-white'
+              modeMulti.className = 'px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-100'
+            } else {
+              modeMulti.className = 'px-3 py-1.5 text-xs font-medium bg-brand-600 text-white'
+              modeSingle.className = 'px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-100'
+            }
+          }
+          buildBook(list)
+        }
+      }
+
+      const themeToggle = document.getElementById('themeToggle')
+      const themeIcon = document.getElementById('themeIcon')
+      const root = document.documentElement
+      const persisted = localStorage.getItem('theme')
+      if (persisted === 'dark' || (!persisted && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark')
+        themeIcon.textContent = '☀️'
+      }
+      themeToggle.addEventListener('click', () => {
+        const isDark = root.classList.toggle('dark')
+        localStorage.setItem('theme', isDark ? 'dark' : 'light')
+        themeIcon.textContent = isDark ? '☀️' : '🌙'
+        themeIcon.classList.add('animate-rotate-in')
+        themeIcon.addEventListener('animationend', () => {
+          themeIcon.classList.remove('animate-rotate-in')
+        }, { once: true })
+      })
+
+      render()
     </script>
   </body>
 </html>
