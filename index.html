@@ -83,14 +83,15 @@
       .page-right { right: 0; transform-origin: left; }
       @media (max-width: 640px) {
         .page { width: 100%; }
-        #book { position: fixed; inset: 0; z-index: 40; }
-        #book > .relative { width: 100vw; height: 100dvh; max-width: none; margin: 0; }
-        #book .book { width: 100vw; height: 100dvh; border-radius: 0; }
+        #book { position: relative; inset: auto; z-index: auto; }
+        #book > .relative { width: 100vw; max-width: none; margin: 0; min-height: 100vh; min-height: 100dvh; min-height: 100svh; }
+        #book .book { width: 100vw; height: auto; min-height: 100vh; min-height: 100dvh; min-height: 100svh; border-radius: 0; }
         #book .pointer-events-none { display: none; }
-        #prevBook, #nextBook { position: absolute; bottom: calc(env(safe-area-inset-bottom) + 12px); width: 3rem; height: 3rem; }
+        #prevBook, #nextBook { position: absolute; bottom: calc(env(safe-area-inset-bottom) + 16px); width: 3.5rem; height: 3.5rem; border-radius: 9999px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
         #prevBook { left: 12px; }
         #nextBook { right: 12px; }
         #closeBook { position: absolute; top: calc(env(safe-area-inset-top) + 12px); right: 12px; }
+        #bookProgress { display: inline-block; padding: 6px 10px; background: rgba(0,0,0,0.08); color: inherit; border-radius: 9999px; backdrop-filter: blur(6px); }
       }
     </style>
   </head>
@@ -280,7 +281,12 @@
       modeSingle.addEventListener('click', () => { state.gallery = 'single'; render() })
       modeMulti.addEventListener('click', () => { state.gallery = 'multi'; render() })
       if (closeBook) closeBook.addEventListener('click', () => { state.view = 'grid'; render() })
-      window.addEventListener('resize', () => { if (state.view === 'book') render() })
+      let resizeTimer = null
+      window.addEventListener('resize', () => {
+        if (state.view !== 'book') return
+        clearTimeout(resizeTimer)
+        resizeTimer = setTimeout(() => render(), 160)
+      })
 
       function applyFilters(list) {
         let result = list.filter(p => p.name.toLowerCase().includes(state.search))
@@ -404,7 +410,7 @@
             })()
           : `
             <div class="relative rounded-xl overflow-hidden ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft aspect-[4/3] bg-neutral-100 dark:bg-neutral-900">
-              <img src="${p.image}" alt="${p.name}" class="absolute inset-0 w-full h-full object-cover object-center">
+              <img loading="lazy" decoding="async" src="${p.image}" alt="${p.name}" class="absolute inset-0 w-full h-full object-cover object-center">
               ${badge}
             </div>
           `
@@ -427,10 +433,12 @@
                   <div class="font-semibold">${p.rating.toFixed(1)} / 5</div>
                 </div>
               </div>
-              <div class="mt-4 flex items-center gap-2">
-                <button class="rounded-lg px-4 py-2 text-sm font-medium bg-brand-600 text-white">Buy</button>
-                <button class="rounded-lg px-4 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800">Wishlist</button>
-              </div>
+            </div>
+          </div>
+          <div class="fixed inset-x-0 bottom-0 z-50">
+            <div class="mx-3 mb-[calc(env(safe-area-inset-bottom)+12px)] rounded-full bg-white/90 dark:bg-neutral-900/90 ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft backdrop-blur px-3 py-2 flex items-center justify-center gap-3">
+              <button class="rounded-full px-5 py-2 text-sm font-medium bg-brand-600 text-white">Buy</button>
+              <button class="rounded-full px-5 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800">Wishlist</button>
             </div>
           </div>
         `
@@ -505,7 +513,7 @@
       bookEl.addEventListener('pointerup', e => {
         if (downBookX == null) return
         const dx = e.clientX - downBookX
-        if (Math.abs(dx) > 40) turn(dx < 0 ? 1 : -1)
+        if (Math.abs(dx) > 28) turn(dx < 0 ? 1 : -1)
         downBookX = null
       })
       document.addEventListener('keydown', e => {
@@ -536,7 +544,7 @@
           <article class="group rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 overflow-hidden hover:shadow-soft transition-shadow duration-300 will-change-transform">
             <div class="relative">
               ${badge}
-              <img src="${p.image}" alt="${p.name}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-[1.03]">
+              <img loading="lazy" decoding="async" src="${p.image}" alt="${p.name}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-[1.03]">
             </div>
             <div class="p-4">
               <div class="flex items-start justify-between gap-3">
@@ -576,7 +584,7 @@
           })
           empty.hidden = list.length !== 0
         } else {
-          document.body.style.overflow = 'hidden'
+          document.body.style.overflow = 'auto'
           modeBook.className = 'px-3 py-2 text-sm font-medium bg-brand-600 text-white'
           modeGrid.className = 'px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100'
           grid.classList.add('hidden')
