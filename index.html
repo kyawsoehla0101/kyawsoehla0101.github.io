@@ -1,93 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Catalogue</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
-        darkMode: 'class',
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
               brand: {
-                50: '#eef9ff',
-                100: '#d9f0ff',
-                200: '#b9e4ff',
-                300: '#87d3ff',
-                400: '#4fbaff',
-                500: '#1f9eff',
-                600: '#0f7fe3',
-                700: '#1063b5',
-                800: '#124f8f',
-                900: '#123f72'
-              }
+                50: "#eef9ff",
+                100: "#d9f0ff",
+                200: "#b9e4ff",
+                300: "#87d3ff",
+                400: "#4fbaff",
+                500: "#1f9eff",
+                600: "#0f7fe3",
+                700: "#1063b5",
+                800: "#124f8f",
+                900: "#123f72",
+              },
             },
             boxShadow: {
-              soft: '0 10px 30px rgba(2, 132, 199, 0.15)'
+              soft: "0 10px 30px rgba(2, 132, 199, 0.15)",
             },
             keyframes: {
-              'fade-in-up': {
-                '0%': { opacity: '0', transform: 'translateY(8px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' }
+              "fade-in-up": {
+                "0%": { opacity: "0", transform: "translateY(8px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
               },
-              'scale-in': {
-                '0%': { opacity: '0', transform: 'scale(0.96)' },
-                '100%': { opacity: '1', transform: 'scale(1)' }
+              "scale-in": {
+                "0%": { opacity: "0", transform: "scale(0.96)" },
+                "100%": { opacity: "1", transform: "scale(1)" },
               },
-              'flip-right': {
-                '0%': { transform: 'rotateY(0deg)' },
-                '100%': { transform: 'rotateY(-180deg)' }
+              "flip-right": {
+                "0%": { transform: "rotateY(0deg)" },
+                "100%": { transform: "rotateY(-180deg)" },
               },
-              'flip-left': {
-                '0%': { transform: 'rotateY(0deg)' },
-                '100%': { transform: 'rotateY(180deg)' }
+              "flip-left": {
+                "0%": { transform: "rotateY(0deg)" },
+                "100%": { transform: "rotateY(180deg)" },
               },
               float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-8px)' }
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-8px)" },
               },
               shimmer: {
-                '0%': { backgroundPosition: '-200% 0' },
-                '100%': { backgroundPosition: '200% 0' }
+                "0%": { backgroundPosition: "-200% 0" },
+                "100%": { backgroundPosition: "200% 0" },
               },
-              'rotate-in': {
-                '0%': { transform: 'rotate(-90deg)', opacity: '0' },
-                '100%': { transform: 'rotate(0deg)', opacity: '1' }
-              }
+              "rotate-in": {
+                "0%": { transform: "rotate(-90deg)", opacity: "0" },
+                "100%": { transform: "rotate(0deg)", opacity: "1" },
+              },
             },
             animation: {
-              'fade-in-up': 'fade-in-up 500ms ease-out both',
-              'fade-in-up-slow': 'fade-in-up 800ms ease-out both',
-              'scale-in': 'scale-in 300ms ease-out both',
-              'flip-right': 'flip-right 700ms ease-in-out both',
-              'flip-left': 'flip-left 700ms ease-in-out both',
-              float: 'float 6s ease-in-out infinite',
-              shimmer: 'shimmer 2s linear infinite',
-              'rotate-in': 'rotate-in 300ms ease-out both'
-            }
-          }
-        }
-      }
+              "fade-in-up": "fade-in-up 500ms ease-out both",
+              "fade-in-up-slow": "fade-in-up 800ms ease-out both",
+              "scale-in": "scale-in 300ms ease-out both",
+              "flip-right": "flip-right 700ms ease-in-out both",
+              "flip-left": "flip-left 700ms ease-in-out both",
+              float: "float 6s ease-in-out infinite",
+              shimmer: "shimmer 2s linear infinite",
+              "rotate-in": "rotate-in 300ms ease-out both",
+            },
+          },
+        },
+      };
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      html, body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-      .book { perspective: 1400px; }
-      .spread { position: absolute; inset: 0; }
-      .page { position: absolute; top: 0; width: 50%; height: 100%; transform-style: preserve-3d; backface-visibility: hidden; }
-      .page-left { left: 0; transform-origin: right; }
-      .page-right { right: 0; transform-origin: left; }
+      html,
+      body {
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, sans-serif;
+      }
+      .book {
+        perspective: 1400px;
+      }
+      .spread {
+        position: absolute;
+        inset: 0;
+      }
+      .page {
+        position: absolute;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+      }
+      .page-left {
+        left: 0;
+        transform-origin: right;
+      }
+      .page-right {
+        right: 0;
+        transform-origin: left;
+      }
       @media (max-width: 640px) {
-        .page { width: 100%; }
-        #book { position: relative; inset: auto; z-index: auto; }
-        #book > .relative { width: 100vw; max-width: none; margin: 0; min-height: 100vh; min-height: 100dvh; min-height: 100svh; }
-        #book .book { width: 100vw; height: auto; min-height: 100vh; min-height: 100dvh; min-height: 100svh; border-radius: 0; }
-        #book .pointer-events-none { display: none; }
-        #prevBook, #nextBook {
+        .page {
+          width: 100%;
+        }
+        #book {
+          position: relative;
+          inset: auto;
+          z-index: auto;
+        }
+        #book > .relative {
+          width: 100vw;
+          max-width: none;
+          margin: 0;
+          min-height: 100vh;
+          min-height: 100dvh;
+          min-height: 100svh;
+        }
+        #book .book {
+          width: 100vw;
+          height: auto;
+          min-height: 100vh;
+          min-height: 100dvh;
+          min-height: 100svh;
+          border-radius: 0;
+        }
+        #book .pointer-events-none {
+          display: none;
+        }
+        #prevBook,
+        #nextBook {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
@@ -98,30 +146,67 @@
           border-radius: 9999px;
           touch-action: manipulation;
         }
-        #prevBook { left: 10px; }
-        #nextBook { right: 10px; }
-        #closeBook { position: absolute; top: calc(env(safe-area-inset-top) + 12px); right: 12px; }
-        #bookProgress { display: inline-block; padding: 6px 10px; background: rgba(0,0,0,0.08); color: inherit; border-radius: 9999px; backdrop-filter: blur(6px); }
-        #tapLeft, #tapRight { touch-action: manipulation; }
-        #tapLeft, #tapRight { width: 35vw; }
+        #prevBook {
+          left: 10px;
+        }
+        #nextBook {
+          right: 10px;
+        }
+        #closeBook {
+          position: absolute;
+          top: calc(env(safe-area-inset-top) + 12px);
+          right: 12px;
+        }
+        #bookProgress {
+          display: inline-block;
+          padding: 6px 10px;
+          background: rgba(0, 0, 0, 0.08);
+          color: inherit;
+          border-radius: 9999px;
+          backdrop-filter: blur(6px);
+        }
+        #tapLeft,
+        #tapRight {
+          touch-action: manipulation;
+        }
+        #tapLeft,
+        #tapRight {
+          width: 35vw;
+        }
       }
       @media (orientation: landscape) and (max-width: 900px) {
-        #tapLeft, #tapRight { width: 25vw; }
+        #tapLeft,
+        #tapRight {
+          width: 25vw;
+        }
       }
     </style>
   </head>
-  <body class="bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
+  <body
+    class="bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100"
+  >
     <div class="min-h-screen">
-      <header class="sticky top-0 z-30 backdrop-blur bg-white/70 dark:bg-neutral-950/70 border-b border-neutral-200/70 dark:border-neutral-800">
+      <header
+        class="sticky top-0 z-30 backdrop-blur bg-white/70 dark:bg-neutral-950/70 border-b border-neutral-200/70 dark:border-neutral-800"
+      >
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex items-center justify-between h-16">
             <div class="flex items-center gap-3">
-              <div class="size-9 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 shadow-soft animate-float"></div>
-              <div class="text-lg font-bold tracking-tight animate-fade-in-up">TECTC Catalogue</div>
+              <div
+                class="size-9 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 shadow-soft animate-float"
+              ></div>
+              <div class="text-lg font-bold tracking-tight animate-fade-in-up">
+                TECTC Catalogue
+              </div>
             </div>
             <div class="flex items-center gap-2">
-              <button id="themeToggle" class="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
-                <span id="themeIcon" aria-hidden="true" class="inline-block">🌙</span>
+              <button
+                id="themeToggle"
+                class="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+              >
+                <span id="themeIcon" aria-hidden="true" class="inline-block"
+                  >🌙</span
+                >
                 <span>Toggle theme</span>
               </button>
             </div>
@@ -130,21 +215,54 @@
       </header>
 
       <section class="relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-cyan-50 to-transparent dark:from-brand-900/20 dark:via-cyan-900/10 pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 relative">
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-brand-50 via-cyan-50 to-transparent dark:from-brand-900/20 dark:via-cyan-900/10 pointer-events-none"
+        ></div>
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 relative"
+        >
           <div class="grid lg:grid-cols-2 items-center gap-8">
             <div>
-              <h1 class="text-3xl sm:text-4xl font-bold tracking-tight animate-fade-in-up">Discover products you’ll love</h1>
-              <p class="mt-3 text-neutral-600 dark:text-neutral-300 animate-fade-in-up" style="animation-delay:120ms">Browse a curated selection across categories. Search, filter, and sort to find the perfect match.</p>
+              <h1
+                class="text-3xl sm:text-4xl font-bold tracking-tight animate-fade-in-up"
+              >
+                Discover products you’ll love
+              </h1>
+              <p
+                class="mt-3 text-neutral-600 dark:text-neutral-300 animate-fade-in-up"
+                style="animation-delay: 120ms"
+              >
+                Browse a curated selection across categories. Search, filter,
+                and sort to find the perfect match.
+              </p>
               <div class="mt-6 flex flex-wrap gap-3">
-                <span class="inline-flex items-center rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/40 dark:text-brand-200 px-3 py-1 text-sm animate-scale-in" style="animation-delay:200ms">Fast shipping</span>
-                <span class="inline-flex items-center rounded-full bg-cyan-100 text-cyan-700 dark:bg-cyan-800/40 dark:text-cyan-200 px-3 py-1 text-sm animate-scale-in" style="animation-delay:260ms">Handpicked quality</span>
-                <span class="inline-flex items-center rounded-full bg-purple-100 text-purple-700 dark:bg-purple-800/40 dark:text-purple-200 px-3 py-1 text-sm animate-scale-in" style="animation-delay:320ms">Great value</span>
+                <span
+                  class="inline-flex items-center rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/40 dark:text-brand-200 px-3 py-1 text-sm animate-scale-in"
+                  style="animation-delay: 200ms"
+                  >Fast shipping</span
+                >
+                <span
+                  class="inline-flex items-center rounded-full bg-cyan-100 text-cyan-700 dark:bg-cyan-800/40 dark:text-cyan-200 px-3 py-1 text-sm animate-scale-in"
+                  style="animation-delay: 260ms"
+                  >Handpicked quality</span
+                >
+                <span
+                  class="inline-flex items-center rounded-full bg-purple-100 text-purple-700 dark:bg-purple-800/40 dark:text-purple-200 px-3 py-1 text-sm animate-scale-in"
+                  style="animation-delay: 320ms"
+                  >Great value</span
+                >
               </div>
             </div>
             <div class="lg:justify-self-end">
-              <div class="relative rounded-2xl p-1 isolate shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800 animate-fade-in-up-slow bg-gradient-to-br from-brand-100 via-cyan-100 to-transparent dark:from-brand-900/40 dark:via-cyan-900/30" style="animation-delay:200ms">
-                <img class="rounded-xl w-full h-64 object-cover mix-blend-darken dark:mix-blend-lighten opacity-95" src="https://www.totalit.co.zw/wp-content/uploads/2018/05/Materiels.png" alt="Catalogue">
+              <div
+                class="relative rounded-2xl p-1 isolate shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800 animate-fade-in-up-slow bg-gradient-to-br from-brand-100 via-cyan-100 to-transparent dark:from-brand-900/40 dark:via-cyan-900/30"
+                style="animation-delay: 200ms"
+              >
+                <img
+                  class="rounded-xl w-full h-64 object-cover mix-blend-darken dark:mix-blend-lighten opacity-95"
+                  src="https://www.totalit.co.zw/wp-content/uploads/2018/05/Materiels.png"
+                  alt="Catalogue"
+                />
               </div>
             </div>
           </div>
@@ -156,19 +274,32 @@
           <div class="sm:col-span-5">
             <label for="search" class="sr-only">Search products</label>
             <div class="relative">
-              <input id="search" type="text" placeholder="Search products..." class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 pl-10 focus:outline-none focus:ring-2 focus:ring-brand-500">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"></span>
+              <input
+                id="search"
+                type="text"
+                placeholder="Search products..."
+                class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 pl-10 focus:outline-none focus:ring-2 focus:ring-brand-500"
+              />
+              <span
+                class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"
+              ></span>
             </div>
           </div>
           <div class="sm:col-span-3">
             <label for="category" class="sr-only">Category</label>
-            <select id="category" class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <select
+              id="category"
+              class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500"
+            >
               <option value="">All categories</option>
             </select>
           </div>
           <div class="sm:col-span-2">
             <label for="price" class="sr-only">Price</label>
-            <select id="price" class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <select
+              id="price"
+              class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500"
+            >
               <option value="">Any price</option>
               <option value="0-50">$0–$50</option>
               <option value="50-100">$50–$100</option>
@@ -178,7 +309,10 @@
           </div>
           <div class="sm:col-span-2">
             <label for="sort" class="sr-only">Sort</label>
-            <select id="sort" class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <select
+              id="sort"
+              class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500"
+            >
               <option value="relevance">Sort by relevance</option>
               <option value="price-asc">Price: Low to High</option>
               <option value="price-desc">Price: High to Low</option>
@@ -190,61 +324,149 @@
         <div class="mt-2 flex flex-wrap gap-2" id="activeFilters"></div>
 
         <div class="mt-4 flex justify-end">
-          <div class="inline-flex rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden">
-            <button id="modeGrid" class="px-3 py-2 text-sm font-medium bg-brand-600 text-white">Grid</button>
-            <button id="modeBook" class="px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100">Book</button>
+          <div
+            class="inline-flex rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden"
+          >
+            <button
+              id="modeGrid"
+              class="px-3 py-2 text-sm font-medium bg-brand-600 text-white"
+            >
+              Grid
+            </button>
+            <button
+              id="modeBook"
+              class="px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100"
+            >
+              Book
+            </button>
           </div>
         </div>
 
-        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="grid"></div>
+        <div
+          class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          id="grid"
+        ></div>
 
         <div id="book" class="mt-6 hidden">
           <div class="relative mx-auto max-w-12xl">
-            <div class="book aspect-[2/3] sm:aspect-[3/2] mx-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800 overflow-hidden">
+            <div
+              class="book aspect-[2/3] sm:aspect-[3/2] mx-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800 overflow-hidden"
+            >
               <div id="bookStack" class="relative w-full h-full"></div>
-              <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent"></div>
+              <div
+                class="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent"
+              ></div>
               <div class="absolute top-3 inset-x-0 flex justify-center">
-                <div class="inline-flex rounded-full bg-white/80 dark:bg-neutral-900/70 backdrop-blur ring-1 ring-neutral-200/70 dark:ring-neutral-800 overflow-hidden">
-                  <button id="modeSingle" class="px-3 py-1.5 text-xs font-medium bg-brand-600 text-white">Single</button>
-                  <button id="modeMulti" class="px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-100">Gallery</button>
+                <div
+                  class="inline-flex rounded-full bg-white/80 dark:bg-neutral-900/70 backdrop-blur ring-1 ring-neutral-200/70 dark:ring-neutral-800 overflow-hidden"
+                >
+                  <button
+                    id="modeSingle"
+                    class="px-3 py-1.5 text-xs font-medium bg-brand-600 text-white"
+                  >
+                    Single
+                  </button>
+                  <button
+                    id="modeMulti"
+                    class="px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-100"
+                  >
+                    Gallery
+                  </button>
                 </div>
               </div>
               <div class="absolute top-3 right-3 sm:hidden">
-                <button id="closeBook" class="rounded-full bg-white/80 dark:bg-neutral-900/80 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-9 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors">✕</button>
+                <button
+                  id="closeBook"
+                  class="rounded-full bg-white/80 dark:bg-neutral-900/80 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-9 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors"
+                >
+                  ✕
+                </button>
               </div>
-              <div id="tapLeft" class="sm:hidden absolute inset-y-0 left-0 w-1/3 active:bg-black/5" aria-label="Previous page">
-                <span class="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-neutral-500/80 dark:text-neutral-400/80 text-xl">‹</span>
+              <div
+                id="tapLeft"
+                class="sm:hidden absolute inset-y-0 left-0 w-1/3 active:bg-black/5"
+                aria-label="Previous page"
+              >
+                <span
+                  class="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-neutral-500/80 dark:text-neutral-400/80 text-xl"
+                  >‹</span
+                >
               </div>
-              <div id="tapRight" class="sm:hidden absolute inset-y-0 right-0 w-1/3 active:bg-black/5" aria-label="Next page">
-                <span class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-neutral-500/80 dark:text-neutral-400/80 text-xl">›</span>
+              <div
+                id="tapRight"
+                class="sm:hidden absolute inset-y-0 right-0 w-1/3 active:bg-black/5"
+                aria-label="Next page"
+              >
+                <span
+                  class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-neutral-500/80 dark:text-neutral-400/80 text-xl"
+                  >›</span
+                >
               </div>
             </div>
             <div class="absolute inset-y-0 left-0 flex items-center">
-              <button id="prevBook" class="m-2 rounded-full bg-white/70 dark:bg-neutral-900/70 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-9 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors">‹</button>
+              <button
+                id="prevBook"
+                class="m-2 rounded-full bg-white/70 dark:bg-neutral-900/70 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-9 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors"
+              >
+                ‹
+              </button>
             </div>
             <div class="absolute inset-y-0 right-0 flex items-center">
-              <button id="nextBook" class="m-2 rounded-full bg-white/70 dark:bg-neutral-900/70 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-9 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors">›</button>
+              <button
+                id="nextBook"
+                class="m-2 rounded-full bg-white/70 dark:bg-neutral-900/70 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-9 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors"
+              >
+                ›
+              </button>
             </div>
-            <div class="absolute bottom-3 inset-x-0 text-center text-xs text-neutral-600 dark:text-neutral-300">
+            <div
+              class="absolute bottom-3 inset-x-0 text-center text-xs text-neutral-600 dark:text-neutral-300"
+            >
               <span id="bookProgress"></span>
             </div>
           </div>
         </div>
 
-        <div class="mt-6 text-center text-neutral-600 dark:text-neutral-300 animate-fade-in-up" id="empty" hidden>No products match your filters.</div>
+        <div
+          class="mt-6 text-center text-neutral-600 dark:text-neutral-300 animate-fade-in-up"
+          id="empty"
+          hidden
+        >
+          No products match your filters.
+        </div>
       </main>
-      <div id="detailModal" class="fixed inset-0 z-40 hidden" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
-        <div id="detailOverlay" class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
-        <div class="relative mx-auto max-w-5xl sm:max-w-6xl p-6 sm:p-8 h-full overflow-y-auto">
-          <div class="relative rounded-2xl bg-white dark:bg-neutral-900 shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800">
-            <button id="detailClose" class="absolute top-3 right-3 rounded-full bg-white/80 dark:bg-neutral-900/80 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-9 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors">✕</button>
+      <div
+        id="detailModal"
+        class="fixed inset-0 z-40 hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="detailTitle"
+      >
+        <div
+          id="detailOverlay"
+          class="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        ></div>
+        <div
+        <div class="relative mx-auto max-w-lg sm:max-w-3xl lg:max-w-5xl p-4 sm:p-6 h-full max-h-[88vh] overflow-hidden">
+        >
+          <div
+            class="relative rounded-2xl bg-white dark:bg-neutral-900 shadow-soft ring-1 ring-neutral-200/70 dark:ring-neutral-800"
+          >
+            <button
+              id="detailClose"
+              class="fixed top-[calc(env(safe-area-inset-top)+12px)] right-3 sm:right-6 z-50 rounded-full bg-white/80 dark:bg-neutral-900/80 ring-1 ring-neutral-200/70 dark:ring-neutral-800 size-10 grid place-items-center hover:bg-white dark:hover:bg-neutral-900 transition-colors"
+            >
+              ✕
+            </button>
             <div id="detailBody" class="p-4 sm:p-6"></div>
           </div>
         </div>
       </div>
 
       <footer class="border-t border-neutral-200/70 dark:border-neutral-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-sm text-neutral-600 dark:text-neutral-300">
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-sm text-neutral-600 dark:text-neutral-300"
+        >
           <div class="flex items-center justify-between">
             <p>© <span id="year"></span> TECTC Catalogue</p>
             <p>All rights reserved.</p>
@@ -253,159 +475,350 @@
       </footer>
     </div>
 
+    <script src="assets/data/products.js"></script>
     <script>
-      const products = [
-        { id: 1, name: 'Lenovo IdeaPad Slim 3 i5 13th Gen', price: 3500000, rating: 4.7, category: 'Computers', image: 'assets/img/lenovo.jpg', gallery: ['assets/img/lenovo.jpg','https://picsum.photos/seed/lenovo1/1200/900','https://picsum.photos/seed/lenovo2/1200/900'], badge: 'Bestseller', specs: [
-          { label: 'CPU', value: 'Intel Core i5 13th Gen' },
-          { label: 'RAM', value: '16GB DDR5' },
-          { label: 'Storage', value: '512GB NVMe SSD' },
-          { label: 'Display', value: '15.6" FHD' },
-          { label: 'OS', value: 'Windows 11' }
-        ] },
-        { id: 2, name: 'Gaming Desktop', price: 1599, rating: 4.6, category: 'Computers', image: 'https://picsum.photos/seed/desktop/600/400', gallery: ['https://picsum.photos/seed/desktop/1200/900','https://picsum.photos/seed/desktop-1/1200/900','https://picsum.photos/seed/desktop-2/1200/900'], badge: 'Limited', specs: [
-          { label: 'CPU', value: 'AMD Ryzen 7' },
-          { label: 'GPU', value: 'NVIDIA RTX 4070' },
-          { label: 'RAM', value: '32GB DDR5' },
-          { label: 'Storage', value: '1TB NVMe SSD' }
-        ] },
-        { id: 3, name: 'Ultrawide Monitor', price: 399, rating: 4.5, category: 'Computers', image: 'https://picsum.photos/seed/monitor/600/400', specs: [
-          { label: 'Size', value: '34"' },
-          { label: 'Resolution', value: '3440×1440' },
-          { label: 'Refresh', value: '144Hz' },
-          { label: 'Panel', value: 'IPS' }
-        ] },
-        { id: 4, name: 'Mechanical Keyboard', price: 129, rating: 4.4, category: 'Computers', image: 'https://picsum.photos/seed/keyboard/600/400', specs: [
-          { label: 'Switch', value: 'Brown' },
-          { label: 'Layout', value: 'TKL' },
-          { label: 'Backlight', value: 'RGB' }
-        ] },
-        { id: 5, name: 'Wireless Mouse', price: 69, rating: 4.3, category: 'Computers', image: 'https://picsum.photos/seed/mouse/600/400', specs: [
-          { label: 'Sensor', value: 'Optical' },
-          { label: 'DPI', value: '8000' },
-          { label: 'Battery', value: 'Rechargeable' }
-        ] },
-        { id: 6, name: 'USB‑C Dock', price: 149, rating: 4.2, category: 'Computers', image: 'https://picsum.photos/seed/dock/600/400', specs: [
-          { label: 'Ports', value: 'HDMI/USB-A/Ethernet' },
-          { label: 'Power', value: '100W PD' }
-        ] },
-        { id: 7, name: 'Android Smartphone', price: 799, rating: 4.5, category: 'Phones', image: 'https://picsum.photos/seed/android/600/400', gallery: ['https://picsum.photos/seed/android/1200/900','https://picsum.photos/seed/android-1/1200/900','https://picsum.photos/seed/android-2/1200/900'], badge: 'New', specs: [
-          { label: 'Chip', value: 'Snapdragon 8 Gen 2' },
-          { label: 'RAM', value: '12GB' },
-          { label: 'Storage', value: '256GB' },
-          { label: 'Display', value: '6.7" OLED 120Hz' }
-        ] },
-        { id: 8, name: 'iPhone 15', price: 999, rating: 4.6, category: 'Phones', image: 'https://picsum.photos/seed/iphone/600/400', gallery: ['https://picsum.photos/seed/iphone/1200/900','https://picsum.photos/seed/iphone-1/1200/900','https://picsum.photos/seed/iphone-2/1200/900'], badge: 'Bestseller', specs: [
-          { label: 'Chip', value: 'A16 Bionic' },
-          { label: 'Storage', value: '128GB' },
-          { label: 'Display', value: '6.1" OLED' },
-          { label: 'Camera', value: '48MP' }
-        ] },
-        { id: 9, name: 'Tablet Pro', price: 649, rating: 4.4, category: 'Phones', image: 'https://picsum.photos/seed/tablet/600/400', specs: [
-          { label: 'Chip', value: 'M2' },
-          { label: 'Display', value: '11" 120Hz' },
-          { label: 'Storage', value: '256GB' }
-        ] },
-        { id: 10, name: 'Smartwatch', price: 249, rating: 4.3, category: 'Phones', image: 'https://picsum.photos/seed/smartwatch/600/400', specs: [
-          { label: 'Battery', value: '18h' },
-          { label: 'Water', value: '5ATM' },
-          { label: 'Sensors', value: 'HR/GPS' }
-        ] },
-        { id: 11, name: 'Phone Case', price: 29, rating: 4.1, category: 'Phones', image: 'https://picsum.photos/seed/phonecase/600/400', specs: [
-          { label: 'Material', value: 'TPU' },
-          { label: 'Color', value: 'Black' }
-        ] },
-        { id: 12, name: 'Wireless Earbuds', price: 119, rating: 4.2, category: 'Phones', image: 'https://picsum.photos/seed/earbuds/600/400', specs: [
-          { label: 'Battery', value: '24h with case' },
-          { label: 'ANC', value: 'Hybrid ANC' },
-          { label: 'Codec', value: 'AAC' }
-        ] }
-      ]
+      const TELEGRAM_SELLER = "kyawsoehla0101";
+      const products =
+        window.products && Array.isArray(window.products)
+          ? window.products
+          : [
+        {
+          id: 1,
+          name: "Lenovo IdeaPad Slim 3 i5 13th Gen",
+          price: 3500000,
+          rating: 4.7,
+          category: "Computers",
+          image: "assets/img/lenovo.jpg",
+          gallery: [
+            "assets/img/lenovo.jpg",
+            "assets/img/v1.jpg",
+            "assets/img/v2.jpg",
+          ],
+          badge: "Bestseller",
+          specs: [
+            { label: "CPU", value: "Intel Core i5 13th Gen" },
+            { label: "RAM", value: "16GB DDR5" },
+            { label: "Storage", value: "512GB NVMe SSD" },
+            { label: "Display", value: '15.6" FHD' },
+            { label: "OS", value: "Windows 11" },
+          ],
+        },
+        {
+          id: 2,
+          name: "ASUS Vivobook 16, Intel Core i5-13420H Processor",
+          price: 1599,
+          rating: 4.6,
+          category: "Computers",
+          image: "assets/img/asusvivo16.jpg",
+          gallery: [
+            "assets/img/asusvivo16.jpg",
+            "assets/img/v1.jpg",
+            "assets/img/v2.jpg",
+            "assets/img/v2.jpg",
+            "assets/img/v2.jpg",
+          ],
+          badge: "Limited",
+          specs: [
+            { label: "CPU", value: "AMD Ryzen 7" },
+            { label: "GPU", value: "NVIDIA RTX 4070" },
+            { label: "RAM", value: "32GB DDR5" },
+            { label: "Storage", value: "1TB NVMe SSD" },
+          ],
+        },
+        {
+          id: 3,
+          name: "Ultrawide Monitor",
+          price: 399,
+          rating: 4.5,
+          category: "Computers",
+          image: "https://picsum.photos/seed/monitor/600/400",
+          specs: [
+            { label: "Size", value: '34"' },
+            { label: "Resolution", value: "3440×1440" },
+            { label: "Refresh", value: "144Hz" },
+            { label: "Panel", value: "IPS" },
+          ],
+        },
+        {
+          id: 4,
+          name: "Mechanical Keyboard",
+          price: 129,
+          rating: 4.4,
+          category: "Computers",
+          image: "https://picsum.photos/seed/keyboard/600/400",
+          specs: [
+            { label: "Switch", value: "Brown" },
+            { label: "Layout", value: "TKL" },
+            { label: "Backlight", value: "RGB" },
+          ],
+        },
+        {
+          id: 5,
+          name: "Wireless Mouse",
+          price: 69,
+          rating: 4.3,
+          category: "Computers",
+          image: "https://picsum.photos/seed/mouse/600/400",
+          specs: [
+            { label: "Sensor", value: "Optical" },
+            { label: "DPI", value: "8000" },
+            { label: "Battery", value: "Rechargeable" },
+          ],
+        },
+        {
+          id: 6,
+          name: "USB‑C Dock",
+          price: 149,
+          rating: 4.2,
+          category: "Computers",
+          image: "https://picsum.photos/seed/dock/600/400",
+          specs: [
+            { label: "Ports", value: "HDMI/USB-A/Ethernet" },
+            { label: "Power", value: "100W PD" },
+          ],
+        },
+        {
+          id: 7,
+          name: "Android Smartphone",
+          price: 799,
+          rating: 4.5,
+          category: "Phones",
+          image: "https://picsum.photos/seed/android/600/400",
+          gallery: [
+            "https://picsum.photos/seed/android/1200/900",
+            "https://picsum.photos/seed/android-1/1200/900",
+            "https://picsum.photos/seed/android-2/1200/900",
+          ],
+          badge: "New",
+          specs: [
+            { label: "Chip", value: "Snapdragon 8 Gen 2" },
+            { label: "RAM", value: "12GB" },
+            { label: "Storage", value: "256GB" },
+            { label: "Display", value: '6.7" OLED 120Hz' },
+          ],
+        },
+        {
+          id: 8,
+          name: "iPhone 15",
+          price: 999,
+          rating: 4.6,
+          category: "Phones",
+          image: "https://picsum.photos/seed/iphone/600/400",
+          gallery: [
+            "https://picsum.photos/seed/iphone/1200/900",
+            "https://picsum.photos/seed/iphone-1/1200/900",
+            "https://picsum.photos/seed/iphone-2/1200/900",
+          ],
+          badge: "Bestseller",
+          specs: [
+            { label: "Chip", value: "A16 Bionic" },
+            { label: "Storage", value: "128GB" },
+            { label: "Display", value: '6.1" OLED' },
+            { label: "Camera", value: "48MP" },
+          ],
+        },
+        {
+          id: 9,
+          name: "Tablet Pro",
+          price: 649,
+          rating: 4.4,
+          category: "Phones",
+          image: "https://picsum.photos/seed/tablet/600/400",
+          specs: [
+            { label: "Chip", value: "M2" },
+            { label: "Display", value: '11" 120Hz' },
+            { label: "Storage", value: "256GB" },
+          ],
+        },
+        {
+          id: 10,
+          name: "Smartwatch",
+          price: 249,
+          rating: 4.3,
+          category: "Phones",
+          image: "https://picsum.photos/seed/smartwatch/600/400",
+          specs: [
+            { label: "Battery", value: "18h" },
+            { label: "Water", value: "5ATM" },
+            { label: "Sensors", value: "HR/GPS" },
+          ],
+        },
+        {
+          id: 11,
+          name: "Phone Case",
+          price: 29,
+          rating: 4.1,
+          category: "Phones",
+          image: "https://picsum.photos/seed/phonecase/600/400",
+          specs: [
+            { label: "Material", value: "TPU" },
+            { label: "Color", value: "Black" },
+          ],
+        },
+        {
+          id: 12,
+          name: "Wireless Earbuds",
+          price: 119,
+          rating: 4.2,
+          category: "Phones",
+          image: "https://picsum.photos/seed/earbuds/600/400",
+          specs: [
+            { label: "Battery", value: "24h with case" },
+            { label: "ANC", value: "Hybrid ANC" },
+            { label: "Codec", value: "AAC" },
+          ],
+        },
+      ];
 
-      const categories = [...new Set(products.map(p => p.category))]
-      const state = { search: '', category: '', sort: 'relevance', view: 'grid', gallery: 'single' }
+      const categories = [...new Set(products.map((p) => p.category))];
+      const state = {
+        search: "",
+        category: "",
+        sort: "relevance",
+        view: "grid",
+        gallery: "single",
+      };
 
-      const grid = document.getElementById('grid')
-      const empty = document.getElementById('empty')
-      const search = document.getElementById('search')
-      const category = document.getElementById('category')
-      const sort = document.getElementById('sort')
-      const activeFilters = document.getElementById('activeFilters')
-      const year = document.getElementById('year')
-      const modeGrid = document.getElementById('modeGrid')
-      const modeBook = document.getElementById('modeBook')
-      const bookEl = document.getElementById('book')
-      const bookStack = document.getElementById('bookStack')
-      const prevBook = document.getElementById('prevBook')
-      const nextBook = document.getElementById('nextBook')
-      const bookProgress = document.getElementById('bookProgress')
-      const modeSingle = document.getElementById('modeSingle')
-      const modeMulti = document.getElementById('modeMulti')
-      function formatPrice(n) { try { return 'Ks' + Number(n).toLocaleString() } catch { return 'Ks' + n } }
-      const closeBook = document.getElementById('closeBook')
-      const tapLeft = document.getElementById('tapLeft')
-      const tapRight = document.getElementById('tapRight')
-      const bookDots = document.getElementById('bookDots')
-      let bookIndex = 0
-      let downBookX = null
-      let dragging = false
-      let dragW = 0
+      const grid = document.getElementById("grid");
+      const empty = document.getElementById("empty");
+      const search = document.getElementById("search");
+      const category = document.getElementById("category");
+      const sort = document.getElementById("sort");
+      const activeFilters = document.getElementById("activeFilters");
+      const year = document.getElementById("year");
+      const modeGrid = document.getElementById("modeGrid");
+      const modeBook = document.getElementById("modeBook");
+      const bookEl = document.getElementById("book");
+      const bookStack = document.getElementById("bookStack");
+      const prevBook = document.getElementById("prevBook");
+      const nextBook = document.getElementById("nextBook");
+      const bookProgress = document.getElementById("bookProgress");
+      const modeSingle = document.getElementById("modeSingle");
+      const modeMulti = document.getElementById("modeMulti");
+      function formatPrice(n) {
+        try {
+          return "Ks" + Number(n).toLocaleString();
+        } catch {
+          return "Ks" + n;
+        }
+      }
+      const closeBook = document.getElementById("closeBook");
+      const tapLeft = document.getElementById("tapLeft");
+      const tapRight = document.getElementById("tapRight");
+      const bookDots = document.getElementById("bookDots");
+      let bookIndex = 0;
+      let downBookX = null;
+      let dragging = false;
+      let dragW = 0;
 
-      categories.forEach(c => {
-        const opt = document.createElement('option')
-        opt.value = c
-        opt.textContent = c
-        category.appendChild(opt)
-      })
+      categories.forEach((c) => {
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        category.appendChild(opt);
+      });
 
-      year.textContent = new Date().getFullYear()
+      year.textContent = new Date().getFullYear();
 
-      search.addEventListener('input', e => { state.search = e.target.value.trim().toLowerCase(); render() })
-      category.addEventListener('change', e => { state.category = e.target.value; render() })
-      sort.addEventListener('change', e => { state.sort = e.target.value; render() })
-      modeGrid.addEventListener('click', () => { state.view = 'grid'; render() })
-      modeBook.addEventListener('click', () => { state.view = 'book'; render() })
-      modeSingle.addEventListener('click', () => { state.gallery = 'single'; render() })
-      modeMulti.addEventListener('click', () => { state.gallery = 'multi'; render() })
-      if (closeBook) closeBook.addEventListener('click', () => { state.view = 'grid'; render() })
-      if (tapLeft) tapLeft.addEventListener('click', () => turn(-1))
-      if (tapRight) tapRight.addEventListener('click', () => turn(1))
-      let resizeTimer = null
-      window.addEventListener('resize', () => {
-        if (state.view !== 'book') return
-        clearTimeout(resizeTimer)
-        resizeTimer = setTimeout(() => render(), 160)
-      })
+      search.addEventListener("input", (e) => {
+        state.search = e.target.value.trim().toLowerCase();
+        render();
+      });
+      category.addEventListener("change", (e) => {
+        state.category = e.target.value;
+        render();
+      });
+      sort.addEventListener("change", (e) => {
+        state.sort = e.target.value;
+        render();
+      });
+      modeGrid.addEventListener("click", () => {
+        state.view = "grid";
+        render();
+      });
+      modeBook.addEventListener("click", () => {
+        state.view = "book";
+        render();
+      });
+      modeSingle.addEventListener("click", () => {
+        state.gallery = "single";
+        render();
+      });
+      modeMulti.addEventListener("click", () => {
+        state.gallery = "multi";
+        render();
+      });
+      if (closeBook)
+        closeBook.addEventListener("click", () => {
+          state.view = "grid";
+          render();
+        });
+      if (tapLeft) tapLeft.addEventListener("click", () => turn(-1));
+      if (tapRight) tapRight.addEventListener("click", () => turn(1));
+      let resizeTimer = null;
+      window.addEventListener("resize", () => {
+        if (state.view !== "book") return;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => render(), 160);
+      });
 
       function applyFilters(list) {
-        let result = list.filter(p => p.name.toLowerCase().includes(state.search))
-        if (state.category) result = result.filter(p => p.category === state.category)
+        let result = list.filter((p) =>
+          p.name.toLowerCase().includes(state.search)
+        );
+        if (state.category)
+          result = result.filter((p) => p.category === state.category);
         switch (state.sort) {
-          case 'price-asc': result.sort((a,b) => a.price - b.price); break
-          case 'price-desc': result.sort((a,b) => b.price - a.price); break
-          case 'rating-desc': result.sort((a,b) => b.rating - a.rating); break
+          case "price-asc":
+            result.sort((a, b) => a.price - b.price);
+            break;
+          case "price-desc":
+            result.sort((a, b) => b.price - a.price);
+            break;
+          case "rating-desc":
+            result.sort((a, b) => b.rating - a.rating);
+            break;
         }
-        return result
+        return result;
       }
 
       function pageImage(p) {
         if (!p) {
-          return `<div class="h-full grid place-items-center text-neutral-500 dark:text-neutral-400 text-sm">End</div>`
+          return `<div class="h-full grid place-items-center text-neutral-500 dark:text-neutral-400 text-sm">End</div>`;
         }
-        const m = p.image.match(/seed\/([^/]+)\//)
-        const base = m ? m[1] : 'photo'
-        if (state.gallery === 'multi') {
-          const seeds = [base, base + '-1', base + '-2', base + '-3']
-          const thumbs = seeds.map((s, i) => `
-            <img data-seed="${s}" src="https://picsum.photos/seed/${s}/200/150" alt="${p.name}" class="gallery-thumb ${i===0 ? 'ring-2 ring-brand-500' : ''} w-16 h-16 rounded-lg object-cover cursor-pointer">
-          `).join('')
+        const m = p.image.match(/seed\/([^/]+)\//);
+        const base = m ? m[1] : "photo";
+        if (state.gallery === "multi") {
+          const seeds = [base, base + "-1", base + "-2", base + "-3"];
+          const thumbs = seeds
+            .map(
+              (s, i) => `
+            <img data-seed="${s}" src="https://picsum.photos/seed/${s}/200/150" alt="${
+                p.name
+              }" class="gallery-thumb ${
+                i === 0 ? "ring-2 ring-brand-500" : ""
+              } w-16 h-16 rounded-lg object-cover cursor-pointer">
+          `
+            )
+            .join("");
           return `
             <div class="h-full p-4">
               <div class="flex flex-col h-full">
                 <div class="relative rounded-2xl overflow-hidden ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft aspect-[4/3] bg-neutral-100 dark:bg-neutral-900">
-                  <img src="https://picsum.photos/seed/${seeds[0]}/1200/900" alt="${p.name}" class="gallery-main absolute inset-0 w-full h-full object-cover object-center">
-                  ${p.badge ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>` : ''}
+                  <img src="https://picsum.photos/seed/${
+                    seeds[0]
+                  }/1200/900" alt="${
+            p.name
+          }" class="gallery-main absolute inset-0 w-full h-full object-cover object-center">
+                  ${
+                    p.badge
+                      ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>`
+                      : ""
+                  }
                   <div class="absolute inset-x-0 bottom-0 p-3">
-                    <div class="rounded-lg bg-black/30 dark:bg-black/30 backdrop-blur px-3 py-1.5 text-xs text-white">${p.name}</div>
+                    <div class="rounded-lg bg-black/30 dark:bg-black/30 backdrop-blur px-3 py-1.5 text-xs text-white">${
+                      p.name
+                    }</div>
                   </div>
                 </div>
                 <div class="mt-3 flex gap-2 overflow-x-auto pb-2">
@@ -413,7 +826,7 @@
                 </div>
               </div>
             </div>
-          `
+          `;
         } else {
           return `
             <div class="h-full p-4">
@@ -422,49 +835,73 @@
                      src="https://picsum.photos/seed/${base}/768/576"
                      srcset="https://picsum.photos/seed/${base}/480/360 480w, https://picsum.photos/seed/${base}/768/576 768w, https://picsum.photos/seed/${base}/1200/900 1200w"
                      sizes="(max-width: 640px) 100vw, 50vw"
-                     alt="${p.name}" class="absolute inset-0 w-full h-full object-cover object-center">
-                ${p.badge ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>` : ''}
+                     alt="${
+                       p.name
+                     }" class="absolute inset-0 w-full h-full object-cover object-center">
+                ${
+                  p.badge
+                    ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>`
+                    : ""
+                }
                 <div class="absolute inset-x-0 bottom-0 p-3">
-                  <div class="rounded-lg bg-black/30 dark:bg-black/30 backdrop-blur px-3 py-1.5 text-xs text-white">${p.name}</div>
+                  <div class="rounded-lg bg-black/30 dark:bg-black/30 backdrop-blur px-3 py-1.5 text-xs text-white">${
+                    p.name
+                  }</div>
                 </div>
               </div>
             </div>
-          `
+          `;
         }
       }
 
       function pageText(p) {
         if (!p) {
-          return `<div class="h-full grid place-items-center text-neutral-500 dark:text-neutral-400 text-sm">End</div>`
+          return `<div class="h-full grid place-items-center text-neutral-500 dark:text-neutral-400 text-sm">End</div>`;
         }
         return `
           <div class="h-full p-6 sm:p-8">
             <div class="flex flex-col justify-center h-full">
-              <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">${p.name}</h2>
+              <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">${
+                p.name
+              }</h2>
               <div class="mt-2 h-1 w-16 bg-brand-600 rounded-full"></div>
               <div class="mt-3 inline-flex items-center gap-2">
-                <span class="rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-sm">${p.category}</span>
-                <span class="inline-flex items-center text-amber-400 text-sm">${'★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating))}</span>
+                <span class="rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-sm">${
+                  p.category
+                }</span>
+                <span class="inline-flex items-center text-amber-400 text-sm">${
+                  "★".repeat(Math.round(p.rating)) +
+                  "☆".repeat(5 - Math.round(p.rating))
+                }</span>
               </div>
               <div class="mt-5 text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-md">
                 Premium, hand‑picked quality designed for everyday use. Built with durable materials and crafted for comfort—perfect for gifts or personal use.
               </div>
-              ${p.specs && p.specs.length ? `
+              ${
+                p.specs && p.specs.length
+                  ? `
                 <div class="mt-5 grid grid-cols-2 gap-3 max-w-md">
-                  ${p.specs.slice(0,4).map(s => `
+                  ${p.specs
+                    .slice(0, 4)
+                    .map(
+                      (s) => `
                     <div class="rounded-xl bg-neutral-100 dark:bg-neutral-800/60 p-4 text-sm">
                       <div class="text-neutral-500 dark:text-neutral-400">${s.label}</div>
                       <div class="font-semibold">${s.value}</div>
                     </div>
-                  `).join('')}
+                  `
+                    )
+                    .join("")}
                 </div>
-              ` : `
+              `
+                  : `
                 <ul class="mt-5 space-y-2 text-sm text-neutral-700 dark:text-neutral-300">
                   <li>✓ Quality guaranteed</li>
                   <li>✓ Fast shipping</li>
                   <li>✓ Great value</li>
                 </ul>
-              `}
+              `
+              }
               <div class="mt-6 grid grid-cols-2 gap-4 max-w-md">
                 <div class="rounded-xl bg-neutral-100 dark:bg-neutral-800/60 p-4 text-sm">
                   <div class="text-neutral-500 dark:text-neutral-400">Price</div>
@@ -477,27 +914,40 @@
               </div>
               <div class="mt-6 flex items-center gap-3">
                 <button class="rounded-lg px-5 py-2.5 text-sm font-medium bg-gradient-to-r from-brand-600 to-cyan-600 text-white hover:from-brand-700 hover:to-cyan-700 transition-colors">Buy now</button>
-                <button class="rounded-lg px-5 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Wishlist</button>
+                <button class="hidden rounded-lg px-5 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Wishlist</button>
               </div>
             </div>
           </div>
-        `
+        `;
       }
       function pageMobile(p) {
         if (!p) {
-          return `<div class="h-full grid place-items-center text-neutral-500 dark:text-neutral-400 text-sm">End</div>`
+          return `<div class="h-full grid place-items-center text-neutral-500 dark:text-neutral-400 text-sm">End</div>`;
         }
-        const badge = p.badge ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>` : ''
-        const stars = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating))
-        const m = p.image.match(/seed\/([^/]+)\//)
-        const base = m ? m[1] : 'photo'
-        const imageBlock = state.gallery === 'multi'
-          ? (() => {
-              const seeds = [base, base + '-1', base + '-2', base + '-3']
-              const thumbs = seeds.map((s, i) => `
-                <img data-seed="${s}" src="https://picsum.photos/seed/${s}/200/150" alt="${p.name}" class="gallery-thumb ${i===0 ? 'ring-2 ring-brand-500' : ''} w-16 h-16 rounded-lg object-cover cursor-pointer">
-              `).join('')
-              return `
+        const badge = p.badge
+          ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>`
+          : "";
+        const stars =
+          "★".repeat(Math.round(p.rating)) +
+          "☆".repeat(5 - Math.round(p.rating));
+        const m = p.image.match(/seed\/([^/]+)\//);
+        const base = m ? m[1] : "photo";
+        const imageBlock =
+          state.gallery === "multi"
+            ? (() => {
+                const seeds = [base, base + "-1", base + "-2", base + "-3"];
+                const thumbs = seeds
+                  .map(
+                    (s, i) => `
+                <img data-seed="${s}" src="https://picsum.photos/seed/${s}/200/150" alt="${
+                      p.name
+                    }" class="gallery-thumb ${
+                      i === 0 ? "ring-2 ring-brand-500" : ""
+                    } w-16 h-16 rounded-lg object-cover cursor-pointer">
+              `
+                  )
+                  .join("");
+                return `
                 <div class="relative rounded-xl overflow-hidden ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft aspect-[4/3] bg-neutral-100 dark:bg-neutral-900">
                   <img loading="lazy" decoding="async"
                        src="https://picsum.photos/seed/${seeds[0]}/1200/900"
@@ -509,21 +959,23 @@
                 <div class="mt-3 flex gap-2 overflow-x-auto pb-2">
                   ${thumbs}
                 </div>
-              `
-            })()
-          : `
+              `;
+              })()
+            : `
             <div class="relative rounded-xl overflow-hidden ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft aspect-[4/3] bg-neutral-100 dark:bg-neutral-900">
               <img loading="lazy" decoding="async" src="${p.image}" alt="${p.name}" class="absolute inset-0 w-full h-full object-cover object-center">
               ${badge}
             </div>
-          `
+          `;
         return `
           <div class="h-full overflow-auto p-4">
             ${imageBlock}
             <div class="mt-4">
               <h2 class="text-2xl font-bold tracking-tight">${p.name}</h2>
               <div class="mt-2 inline-flex items-center gap-2">
-                <span class="rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-xs">${p.category}</span>
+                <span class="rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-xs">${
+                  p.category
+                }</span>
                 <span class="inline-flex items-center text-amber-400 text-xs">${stars}</span>
               </div>
               <div class="mt-3 grid grid-cols-2 gap-3">
@@ -541,373 +993,622 @@
           <div class="fixed inset-x-0 bottom-0 z-50">
             <div class="mx-3 mb-[calc(env(safe-area-inset-bottom)+12px)] rounded-full bg-white/90 dark:bg-neutral-900/90 ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft backdrop-blur px-3 py-2 flex items-center justify-center gap-3">
               <button class="rounded-full px-5 py-2 text-sm font-medium bg-brand-600 text-white">Buy</button>
-              <button class="rounded-full px-5 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800">Wishlist</button>
+        <button class="hidden rounded-full px-5 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800">Wishlist</button>
             </div>
           </div>
-        `
+        `;
       }
 
       function chunk(arr, size) {
-        const out = []
-        for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size))
-        return out
+        const out = [];
+        for (let i = 0; i < arr.length; i += size)
+          out.push(arr.slice(i, i + size));
+        return out;
       }
 
       function buildBook(list) {
-        bookStack.innerHTML = ''
-        const spreads = chunk(list, 1)
-        const isMobile = window.matchMedia('(max-width: 640px)').matches
+        bookStack.innerHTML = "";
+        const spreads = chunk(list, 1);
+        const isMobile = window.matchMedia("(max-width: 640px)").matches;
         spreads.forEach((group, idx) => {
-          const p = group[0]
-          const leftItem = isMobile ? pageMobile(p) : pageImage(p)
-          const rightItem = isMobile ? '' : pageText(p)
-          const spread = document.createElement('div')
-          spread.className = 'spread'
-          spread.style.zIndex = String(spreads.length - idx)
+          const p = group[0];
+          const leftItem = isMobile ? pageMobile(p) : pageImage(p);
+          const rightItem = isMobile ? "" : pageText(p);
+          const spread = document.createElement("div");
+          spread.className = "spread";
+          spread.style.zIndex = String(spreads.length - idx);
           spread.innerHTML = `
             <div class="page page-left bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_rgba(0,0,0,0.06)]">${leftItem}</div>
-            ${rightItem ? `<div class="page page-right bg-white dark:bg-neutral-900 border-l border-neutral-200 dark:border-neutral-800 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_rgba(0,0,0,0.06)]">${rightItem}</div>` : ''}
-          `
-          bookStack.appendChild(spread)
-          const main = spread.querySelector('.gallery-main')
-          const thumbs = spread.querySelectorAll('.gallery-thumb')
+            ${
+              rightItem
+                ? `<div class="page page-right bg-white dark:bg-neutral-900 border-l border-neutral-200 dark:border-neutral-800 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_rgba(0,0,0,0.06)]">${rightItem}</div>`
+                : ""
+            }
+          `;
+          bookStack.appendChild(spread);
+          const main = spread.querySelector(".gallery-main");
+          const thumbs = spread.querySelectorAll(".gallery-thumb");
           if (main && thumbs.length) {
-            thumbs.forEach(t => {
-              t.addEventListener('click', () => {
-                const seed = t.getAttribute('data-seed')
-                main.setAttribute('src', 'https://picsum.photos/seed/' + seed + '/1200/900')
-                thumbs.forEach(x => { x.classList.remove('ring-2','ring-brand-500') })
-                t.classList.add('ring-2','ring-brand-500')
-              })
-            })
+            thumbs.forEach((t) => {
+              t.addEventListener("click", () => {
+                const seed = t.getAttribute("data-seed");
+                main.setAttribute(
+                  "src",
+                  "https://picsum.photos/seed/" + seed + "/1200/900"
+                );
+                thumbs.forEach((x) => {
+                  x.classList.remove("ring-2", "ring-brand-500");
+                });
+                t.classList.add("ring-2", "ring-brand-500");
+              });
+            });
           }
-        })
-        bookIndex = 0
-          bookProgress.textContent = spreads.length ? (bookIndex + 1) + ' / ' + spreads.length : ''
-          if (bookDots) {
-          bookDots.innerHTML = spreads.map((_, i) => `<button data-i="${i}" class="${i===bookIndex?'size-3.5 bg-brand-600':'size-3 bg-neutral-300 dark:bg-neutral-700'} rounded-full"></button>`).join('')
-          Array.from(bookDots.children).forEach(btn => {
-            btn.addEventListener('click', () => {
-              const i = Number(btn.getAttribute('data-i'))
-              goto(i)
-            })
-          })
-          }
+        });
+        bookIndex = 0;
+        bookProgress.textContent = spreads.length
+          ? bookIndex + 1 + " / " + spreads.length
+          : "";
+        if (bookDots) {
+          bookDots.innerHTML = spreads
+            .map(
+              (_, i) =>
+                `<button data-i="${i}" class="${
+                  i === bookIndex
+                    ? "size-3.5 bg-brand-600"
+                    : "size-3 bg-neutral-300 dark:bg-neutral-700"
+                } rounded-full"></button>`
+            )
+            .join("");
+          Array.from(bookDots.children).forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const i = Number(btn.getAttribute("data-i"));
+              goto(i);
+            });
+          });
+        }
       }
 
       function goto(i) {
-        const spreads = Array.from(bookStack.children)
-        if (!spreads.length) return
+        const spreads = Array.from(bookStack.children);
+        if (!spreads.length) return;
         spreads.forEach((s, idx) => {
-          s.style.display = idx < i ? 'none' : ''
-        })
-        bookIndex = Math.min(Math.max(i, 0), spreads.length - 1)
-        bookProgress.textContent = (bookIndex + 1) + ' / ' + spreads.length
+          s.style.display = idx < i ? "none" : "";
+        });
+        bookIndex = Math.min(Math.max(i, 0), spreads.length - 1);
+        bookProgress.textContent = bookIndex + 1 + " / " + spreads.length;
         if (bookDots) {
           Array.from(bookDots.children).forEach((b, idx) => {
-            b.className = (idx===bookIndex ? 'size-3.5 bg-brand-600' : 'size-3 bg-neutral-300 dark:bg-neutral-700') + ' rounded-full'
-          })
+            b.className =
+              (idx === bookIndex
+                ? "size-3.5 bg-brand-600"
+                : "size-3 bg-neutral-300 dark:bg-neutral-700") +
+              " rounded-full";
+          });
         }
       }
 
       function turn(dir) {
-        const spreads = Array.from(bookStack.children)
-        if (!spreads.length) return
+        const spreads = Array.from(bookStack.children);
+        if (!spreads.length) return;
         if (dir > 0 && bookIndex < spreads.length - 1) {
-          const current = spreads[bookIndex]
-          const target = current.querySelector('.page-right') || current.querySelector('.page-left')
-          target.classList.add('animate-flip-right')
-          target.addEventListener('animationend', () => {
-            current.style.display = 'none'
-            bookIndex++
-            bookProgress.textContent = (bookIndex + 1) + ' / ' + spreads.length
-            if (bookDots) {
-              Array.from(bookDots.children).forEach((b, idx) => {
-                b.className = 'size-2.5 rounded-full ' + (idx===bookIndex ? 'bg-brand-600' : 'bg-neutral-300 dark:bg-neutral-700')
-              })
-            }
-          }, { once: true })
+          const current = spreads[bookIndex];
+          const target =
+            current.querySelector(".page-right") ||
+            current.querySelector(".page-left");
+          target.classList.add("animate-flip-right");
+          target.addEventListener(
+            "animationend",
+            () => {
+              current.style.display = "none";
+              bookIndex++;
+              bookProgress.textContent = bookIndex + 1 + " / " + spreads.length;
+              if (bookDots) {
+                Array.from(bookDots.children).forEach((b, idx) => {
+                  b.className =
+                    "size-2.5 rounded-full " +
+                    (idx === bookIndex
+                      ? "bg-brand-600"
+                      : "bg-neutral-300 dark:bg-neutral-700");
+                });
+              }
+            },
+            { once: true }
+          );
         } else if (dir < 0 && bookIndex > 0) {
-          const prev = spreads[bookIndex - 1]
-          prev.style.display = ''
-          const left = prev.querySelector('.page-left')
-          left.classList.add('animate-flip-left')
-          left.addEventListener('animationend', () => {
-            bookIndex--
-            bookProgress.textContent = (bookIndex + 1) + ' / ' + spreads.length
-            if (bookDots) {
-              Array.from(bookDots.children).forEach((b, idx) => {
-                b.className = 'size-2.5 rounded-full ' + (idx===bookIndex ? 'bg-brand-600' : 'bg-neutral-300 dark:bg-neutral-700')
-              })
-            }
-          }, { once: true })
+          const prev = spreads[bookIndex - 1];
+          prev.style.display = "";
+          const left = prev.querySelector(".page-left");
+          left.classList.add("animate-flip-left");
+          left.addEventListener(
+            "animationend",
+            () => {
+              bookIndex--;
+              bookProgress.textContent = bookIndex + 1 + " / " + spreads.length;
+              if (bookDots) {
+                Array.from(bookDots.children).forEach((b, idx) => {
+                  b.className =
+                    "size-2.5 rounded-full " +
+                    (idx === bookIndex
+                      ? "bg-brand-600"
+                      : "bg-neutral-300 dark:bg-neutral-700");
+                });
+              }
+            },
+            { once: true }
+          );
         }
       }
 
-      prevBook.addEventListener('click', () => turn(-1))
-      nextBook.addEventListener('click', () => turn(1))
-      bookEl.addEventListener('pointerdown', e => {
-        downBookX = e.clientX
-        dragging = true
-        dragW = bookEl.clientWidth || 1
-      })
-      bookEl.addEventListener('pointermove', e => {
-        if (!dragging || downBookX == null) return
-        const dx = e.clientX - downBookX
-        const spreads = Array.from(bookStack.children)
-        if (!spreads.length) return
-        const current = spreads[bookIndex]
-        const right = current.querySelector('.page-right')
-        const left = current.querySelector('.page-left')
-        const t = dx < 0 ? (right || left) : (left || right)
-        if (!t) return
-        let angle = 0
+      prevBook.addEventListener("click", () => turn(-1));
+      nextBook.addEventListener("click", () => turn(1));
+      bookEl.addEventListener("pointerdown", (e) => {
+        downBookX = e.clientX;
+        dragging = true;
+        dragW = bookEl.clientWidth || 1;
+      });
+      bookEl.addEventListener("pointermove", (e) => {
+        if (!dragging || downBookX == null) return;
+        const dx = e.clientX - downBookX;
+        const spreads = Array.from(bookStack.children);
+        if (!spreads.length) return;
+        const current = spreads[bookIndex];
+        const right = current.querySelector(".page-right");
+        const left = current.querySelector(".page-left");
+        const t = dx < 0 ? right || left : left || right;
+        if (!t) return;
+        let angle = 0;
         if (dx < 0) {
-          angle = Math.max(-170, Math.min(0, (dx / dragW) * 180))
+          angle = Math.max(-170, Math.min(0, (dx / dragW) * 180));
         } else if (dx > 0) {
-          angle = Math.min(170, Math.max(0, (dx / dragW) * 180))
+          angle = Math.min(170, Math.max(0, (dx / dragW) * 180));
         }
-        t.style.transition = 'transform 0s'
-        t.style.transform = 'rotateY(' + angle + 'deg)'
-        t.style.willChange = 'transform'
-      })
-      bookEl.addEventListener('pointerup', e => {
-        if (downBookX == null) return
-        const dx = e.clientX - downBookX
-        const spreads = Array.from(bookStack.children)
-        const current = spreads[bookIndex]
-        const right = current?.querySelector('.page-right')
-        const left = current?.querySelector('.page-left')
-        const t = dx < 0 ? (right || left) : (left || right)
+        t.style.transition = "transform 0s";
+        t.style.transform = "rotateY(" + angle + "deg)";
+        t.style.willChange = "transform";
+      });
+      bookEl.addEventListener("pointerup", (e) => {
+        if (downBookX == null) return;
+        const dx = e.clientX - downBookX;
+        const spreads = Array.from(bookStack.children);
+        const current = spreads[bookIndex];
+        const right = current?.querySelector(".page-right");
+        const left = current?.querySelector(".page-left");
+        const t = dx < 0 ? right || left : left || right;
         if (t) {
-          t.style.transition = ''
-          t.style.transform = ''
-          t.style.willChange = ''
+          t.style.transition = "";
+          t.style.transform = "";
+          t.style.willChange = "";
         }
-        const threshold = Math.min(80, Math.max(24, (dragW || bookEl.clientWidth || 320) * 0.1))
-        if (Math.abs(dx) > threshold) turn(dx < 0 ? 1 : -1)
-        downBookX = null
-        dragging = false
-      })
-      bookEl.addEventListener('pointercancel', () => {
-        const spreads = Array.from(bookStack.children)
-        const current = spreads[bookIndex]
-        const right = current?.querySelector('.page-right')
-        const left = current?.querySelector('.page-left')
-        const t = right || left
+        const threshold = Math.min(
+          80,
+          Math.max(24, (dragW || bookEl.clientWidth || 320) * 0.1)
+        );
+        if (Math.abs(dx) > threshold) turn(dx < 0 ? 1 : -1);
+        downBookX = null;
+        dragging = false;
+      });
+      bookEl.addEventListener("pointercancel", () => {
+        const spreads = Array.from(bookStack.children);
+        const current = spreads[bookIndex];
+        const right = current?.querySelector(".page-right");
+        const left = current?.querySelector(".page-left");
+        const t = right || left;
         if (t) {
-          t.style.transition = ''
-          t.style.transform = ''
-          t.style.willChange = ''
+          t.style.transition = "";
+          t.style.transform = "";
+          t.style.willChange = "";
         }
-        downBookX = null
-        dragging = false
-      })
-      document.addEventListener('keydown', e => {
-        if (state.view !== 'book') return
-        if (e.key === 'ArrowRight') turn(1)
-        if (e.key === 'ArrowLeft') turn(-1)
-      })
+        downBookX = null;
+        dragging = false;
+      });
+      document.addEventListener("keydown", (e) => {
+        if (state.view !== "book") return;
+        if (e.key === "ArrowRight") turn(1);
+        if (e.key === "ArrowLeft") turn(-1);
+      });
 
       function renderFilters() {
-        activeFilters.innerHTML = ''
+        activeFilters.innerHTML = "";
         const makeChip = (label, onClear) => {
-          const btn = document.createElement('button')
-          btn.className = 'inline-flex items-center gap-2 rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-700 animate-fade-in-up'
-          btn.style.animationDelay = '80ms'
-          btn.innerHTML = label + ' ✕'
-          btn.addEventListener('click', onClear)
-          activeFilters.appendChild(btn)
-        }
-        if (state.search) makeChip('Search: ' + state.search, () => { search.value = ''; state.search=''; render() })
-        if (state.category) makeChip('Category: ' + state.category, () => { category.value=''; state.category=''; render() })
-        if (state.sort !== 'relevance') makeChip('Sort: ' + sort.options[sort.selectedIndex].text, () => { sort.value='relevance'; state.sort='relevance'; render() })
+          const btn = document.createElement("button");
+          btn.className =
+            "inline-flex items-center gap-2 rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-700 animate-fade-in-up";
+          btn.style.animationDelay = "80ms";
+          btn.innerHTML = label + " ✕";
+          btn.addEventListener("click", onClear);
+          activeFilters.appendChild(btn);
+        };
+        if (state.search)
+          makeChip("Search: " + state.search, () => {
+            search.value = "";
+            state.search = "";
+            render();
+          });
+        if (state.category)
+          makeChip("Category: " + state.category, () => {
+            category.value = "";
+            state.category = "";
+            render();
+          });
+        if (state.sort !== "relevance")
+          makeChip("Sort: " + sort.options[sort.selectedIndex].text, () => {
+            sort.value = "relevance";
+            state.sort = "relevance";
+            render();
+          });
       }
 
       function cardHTML(p) {
-        const badge = p.badge ? '<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">'+p.badge+'</span>' : ''
+        const badge = p.badge
+          ? '<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">' +
+            p.badge +
+            "</span>"
+          : "";
         return `
           <article class="group rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 overflow-hidden hover:shadow-soft transition-shadow duration-300 will-change-transform">
             <div class="relative">
               ${badge}
-              <img loading="lazy" decoding="async" src="${p.image}" alt="${p.name}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-[1.03]">
+              <img loading="lazy" decoding="async" src="${p.image}" alt="${
+          p.name
+        }" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-[1.03]">
             </div>
             <div class="p-4">
-              <h3 class="font-semibold tracking-tight transition-colors duration-300 group-hover:text-brand-600 dark:group-hover:text-brand-400">${p.name}</h3>
-              <div class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">${p.category}</div>
+              <h3 class="font-semibold tracking-tight transition-colors duration-300 group-hover:text-brand-600 dark:group-hover:text-brand-400">${
+                p.name
+              }</h3>
+              <div class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">${
+                p.category
+              }</div>
               <div class="mt-4 flex items-center justify-between">
-                <button class="view-btn rounded-lg px-3 py-2 text-sm font-medium bg-brand-600 text-white hover:bg-brand-700 transition-colors" data-id="${p.id}">View</button>
+                <button class="view-btn rounded-lg px-3 py-2 text-sm font-medium bg-brand-600 text-white hover:bg-brand-700 transition-colors" data-id="${
+                  p.id
+                }">View</button>
                 <div class="text-lg font-bold">${formatPrice(p.price)}</div>
               </div>
             </div>
           </article>
-        `
+        `;
       }
 
       function render() {
-        const list = applyFilters(products)
-        renderFilters()
-        if (state.view === 'grid') {
-          document.body.style.overflow = 'auto'
-          modeGrid.className = 'px-3 py-2 text-sm font-medium bg-brand-600 text-white'
-          modeBook.className = 'px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100'
-          bookEl.classList.add('hidden')
-          grid.classList.remove('hidden')
-          grid.innerHTML = list.map(cardHTML).join('')
+        const list = applyFilters(products);
+        renderFilters();
+        if (state.view === "grid") {
+          document.body.style.overflow = "auto";
+          modeGrid.className =
+            "px-3 py-2 text-sm font-medium bg-brand-600 text-white";
+          modeBook.className =
+            "px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100";
+          bookEl.classList.add("hidden");
+          grid.classList.remove("hidden");
+          grid.innerHTML = list.map(cardHTML).join("");
           Array.from(grid.children).forEach((el, i) => {
-            el.classList.add('opacity-0')
-            el.style.animationDelay = `${i * 60}ms`
-            el.classList.add('animate-fade-in-up')
-            el.addEventListener('animationend', () => {
-              el.classList.remove('opacity-0')
-            }, { once: true })
-          })
-          Array.from(grid.querySelectorAll('.view-btn')).forEach(btn => {
-            btn.addEventListener('click', () => {
-              const id = Number(btn.getAttribute('data-id'))
-              const p = products.find(x => x.id === id)
-              if (p) openDetail(p)
-            })
-          })
-          empty.hidden = list.length !== 0
+            el.classList.add("opacity-0");
+            el.style.animationDelay = `${i * 60}ms`;
+            el.classList.add("animate-fade-in-up");
+            el.addEventListener(
+              "animationend",
+              () => {
+                el.classList.remove("opacity-0");
+              },
+              { once: true }
+            );
+          });
+          Array.from(grid.querySelectorAll(".view-btn")).forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const id = Number(btn.getAttribute("data-id"));
+              const p = products.find((x) => x.id === id);
+              if (p) openDetail(p);
+            });
+          });
+          empty.hidden = list.length !== 0;
         } else {
-          document.body.style.overflow = 'auto'
-          modeBook.className = 'px-3 py-2 text-sm font-medium bg-brand-600 text-white'
-          modeGrid.className = 'px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100'
-          grid.classList.add('hidden')
-          empty.hidden = true
-          bookEl.classList.remove('hidden')
+          document.body.style.overflow = "auto";
+          modeBook.className =
+            "px-3 py-2 text-sm font-medium bg-brand-600 text-white";
+          modeGrid.className =
+            "px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100";
+          grid.classList.add("hidden");
+          empty.hidden = true;
+          bookEl.classList.remove("hidden");
           if (modeSingle && modeMulti) {
-            if (state.gallery === 'single') {
-              modeSingle.className = 'px-3 py-1.5 text-xs font-medium bg-brand-600 text-white'
-              modeMulti.className = 'px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-100'
+            if (state.gallery === "single") {
+              modeSingle.className =
+                "px-3 py-1.5 text-xs font-medium bg-brand-600 text-white";
+              modeMulti.className =
+                "px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-100";
             } else {
-              modeMulti.className = 'px-3 py-1.5 text-xs font-medium bg-brand-600 text-white'
-              modeSingle.className = 'px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-100'
+              modeMulti.className =
+                "px-3 py-1.5 text-xs font-medium bg-brand-600 text-white";
+              modeSingle.className =
+                "px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-100";
             }
           }
-          buildBook(list)
+          buildBook(list);
         }
       }
-      const detailModal = document.getElementById('detailModal')
-      const detailBody = document.getElementById('detailBody')
-      const detailClose = document.getElementById('detailClose')
-      const detailOverlay = document.getElementById('detailOverlay')
-      let lastFocus = null
+      const detailModal = document.getElementById("detailModal");
+      const detailBody = document.getElementById("detailBody");
+      const detailClose = document.getElementById("detailClose");
+      const detailOverlay = document.getElementById("detailOverlay");
+      let lastFocus = null;
       function openDetail(p) {
-        const stars = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating))
-        const specItems = (p.specs && p.specs.length) ? p.specs.map(s => `
+        const stars =
+          "★".repeat(Math.round(p.rating)) +
+          "☆".repeat(5 - Math.round(p.rating));
+        const specItems =
+          p.specs && p.specs.length
+            ? p.specs
+                .map(
+                  (s) => `
           <div class="rounded-xl bg-neutral-100 dark:bg-neutral-800/60 p-4 text-sm">
             <div class="text-neutral-500 dark:text-neutral-400">${s.label}</div>
             <div class="font-semibold">${s.value}</div>
           </div>
-        `).join('') : ''
-        const rightCol = specItems ? `
-          <div class="sm:col-span-2">
-            <h3 class="text-lg font-semibold">Specifications</h3>
-            <div class="mt-3 grid grid-cols-1 gap-3">
-              ${specItems}
+        `
+                )
+                .join("")
+            : "";
+        const rightCol = `
+          <div class="sm:col-span-2 relative">
+            <div id="detailZoom" class="hidden absolute top-3 left-3 right-3 rounded-2xl ring-1 ring-neutral-200/70 dark:ring-neutral-800 bg-neutral-100 dark:bg-neutral-900 h-56 sm:h-64 lg:h-72 overflow-hidden pointer-events-none"></div>
+            <h2 id="detailTitle" class="text-2xl sm:text-3xl font-bold tracking-tight">${
+              p.name
+            }</h2>
+            <div class="mt-2 inline-flex items-center gap-2">
+              <span class="rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-sm">${
+                p.category
+              }</span>
             </div>
+            <div class="mt-4 text-neutral-700 dark:text-neutral-300 leading-relaxed">
+              Premium, hand‑picked quality designed for everyday use. Built with durable materials and crafted for comfort.
+            </div>
+            ${
+              specItems
+                ? `
+              <div class="mt-6">
+                <h3 class="text-lg font-semibold">Specifications</h3>
+                <div class="mt-3 grid grid-cols-1 gap-3">
+                  ${specItems}
+                </div>
+              </div>
+            `
+                : ""
+            }
           </div>
-        ` : ''
-        const seedMatch = (p.image || '').match(/seed\/([^/]+)\//)
-        const base = seedMatch ? seedMatch[1] : null
-        const imageSeeds = base ? [base, `${base}-1`, `${base}-2`] : null
-        const gallery = (Array.isArray(p.gallery) && p.gallery.length)
-          ? p.gallery
-          : (imageSeeds
-            ? imageSeeds.map(s => `https://picsum.photos/seed/${s}/1200/900`)
-            : [p.image])
-        const thumbs = (Array.isArray(p.gallery) && p.gallery.length)
-          ? p.gallery.map(u => u.includes('picsum.photos/seed/') ? u.replace(/\/\d+\/\d+$/, '/200/150') : u)
-          : (imageSeeds
-            ? imageSeeds.map(s => `https://picsum.photos/seed/${s}/200/150`)
-            : [p.image])
+        `;
+        const seedMatch = (p.image || "").match(/seed\/([^/]+)\//);
+        const base = seedMatch ? seedMatch[1] : null;
+        const imageSeeds = base ? [base, `${base}-1`, `${base}-2`] : null;
+        const gallery =
+          Array.isArray(p.gallery) && p.gallery.length
+            ? p.gallery
+            : imageSeeds
+            ? imageSeeds.map((s) => `assets/img/${s}.jpg`)
+            : [p.image];
+        const thumbs =
+          Array.isArray(p.gallery) && p.gallery.length
+            ? p.gallery.map((u) =>
+                u.includes("picsum.photos/seed/")
+                  ? u.replace(/\/\d+\/\d+$/, "/200/150")
+                  : u
+              )
+            : imageSeeds
+            ? imageSeeds.map((s) => `assets/img/${s}.jpg`)
+            : [p.image];
         detailBody.innerHTML = `
           <div class="grid sm:grid-cols-5 gap-6">
             <div class="sm:col-span-3">
               <div class="relative rounded-2xl overflow-hidden ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft bg-neutral-100 dark:bg-neutral-900">
-                <img id="detailMain" src="${gallery[0]}" alt="${p.name}" class="w-full h-72 sm:h-[32rem] object-cover object-center">
-                ${p.badge ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>` : ''}
+                <img id="detailMain" src="${gallery[0]}" alt="${
+          p.name
+        }" class="w-full h-[40vh] sm:h-[50vh] lg:h-[56vh] object-cover object-center cursor-zoom-in">
+                ${
+                  p.badge
+                    ? `<span class="absolute left-3 top-3 rounded-full bg-brand-100 text-brand-700 dark:bg-brand-800/50 dark:text-brand-200 px-2 py-1 text-xs">${p.badge}</span>`
+                    : ""
+                }
               </div>
               <div class="mt-3 flex gap-2 overflow-x-auto pb-1">
-                ${thumbs.map((u, i) => `
-                  <img data-index="${i}" src="${u}" alt="${p.name}" class="detail-thumb ${i===0 ? 'ring-2 ring-brand-500' : ''} w-16 h-16 rounded-lg object-cover cursor-pointer">
-                `).join('')}
+                ${thumbs
+                  .map(
+                    (u, i) => `
+                  <img data-index="${i}" src="${u}" alt="${
+                      p.name
+                    }" class="detail-thumb ${
+                      i === 0 ? "ring-2 ring-brand-500" : ""
+                    } w-14 h-14 sm:w-16 sm:h-16 rounded-lg object-cover cursor-pointer">
+                `
+                  )
+                  .join("")}
               </div>
               <div class="mt-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/60 px-4 py-3 flex items-center justify-between">
                 <div class="text-2xl font-bold">${formatPrice(p.price)}</div>
                 <div class="inline-flex items-center text-amber-400">${stars}</div>
               </div>
-              <div class="mt-4">
-                <h2 id="detailTitle" class="text-2xl sm:text-3xl font-bold tracking-tight">${p.name}</h2>
-                <div class="mt-2 inline-flex items-center gap-2">
-                  <span class="rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-sm">${p.category}</span>
-                </div>
-                <div class="mt-4 text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                  Premium, hand‑picked quality designed for everyday use. Built with durable materials and crafted for comfort.
-                </div>
-                <div class="mt-6 flex items-center gap-3">
-                  <button class="rounded-lg px-5 py-2.5 text-sm font-medium bg-gradient-to-r from-brand-600 to-cyan-600 text-white hover:from-brand-700 hover:to-cyan-700 transition-colors">Buy now</button>
-                  <button class="rounded-lg px-5 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Wishlist</button>
-                </div>
+              <div class="mt-6 flex items-center gap-3">
+                <button class="buy-now rounded-lg px-5 py-2.5 text-sm font-medium bg-gradient-to-r from-brand-600 to-cyan-600 text-white hover:from-brand-700 hover:to-cyan-700 transition-colors">Buy now</button>
+                <button class="hidden rounded-lg px-5 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Wishlist</button>
               </div>
             </div>
             ${rightCol}
           </div>
-        `
-        const main = detailBody.querySelector('#detailMain')
-        const thumbsEls = detailBody.querySelectorAll('.detail-thumb')
+        `;
+        const main = detailBody.querySelector("#detailMain");
+        const thumbsEls = detailBody.querySelectorAll(".detail-thumb");
         thumbsEls.forEach((t, i) => {
-          t.addEventListener('click', () => {
+          t.addEventListener("click", () => {
             if (main) {
-              main.classList.add('opacity-0','transition-opacity','duration-200')
-              main.src = gallery[i]
+              main.classList.add(
+                "opacity-0",
+                "transition-opacity",
+                "duration-200"
+              );
+              main.src = gallery[i];
               main.onload = () => {
-                main.classList.remove('opacity-0')
+                main.classList.remove("opacity-0");
+              };
+              const zoomBox = detailBody.querySelector("#detailZoom");
+              if (zoomBox) {
+                zoomBox.style.backgroundImage = `url(${main.src})`;
               }
             }
-            thumbsEls.forEach(el => {
-              el.classList.remove('ring-2', 'ring-brand-500')
-            })
-            t.classList.add('ring-2', 'ring-brand-500')
-          })
-        })
-        detailModal.classList.remove('hidden')
-        lastFocus = document.activeElement
-        document.body.style.overflow = 'hidden'
-        if (detailClose) detailClose.focus()
+            thumbsEls.forEach((el) => {
+              el.classList.remove("ring-2", "ring-brand-500");
+            });
+            t.classList.add("ring-2", "ring-brand-500");
+          });
+        });
+        if (main && main.parentElement) {
+          const lens = document.createElement("div");
+          lens.id = "detailLens";
+          lens.className =
+            "pointer-events-none hidden absolute rounded-full ring-2 ring-brand-500 shadow-soft";
+          lens.style.width = "8rem";
+          lens.style.height = "8rem";
+          lens.style.left = "0px";
+          lens.style.top = "0px";
+          lens.style.backgroundRepeat = "no-repeat";
+          main.parentElement.appendChild(lens);
+          const zoom = 2.5;
+          const update = (e) => {
+            const rect = main.getBoundingClientRect();
+            const isTouch = e.touches && e.touches[0];
+            const x = isTouch ? e.touches[0].clientX : e.clientX;
+            const y = isTouch ? e.touches[0].clientY : e.clientY;
+            const cx = Math.max(rect.left, Math.min(x, rect.right));
+            const cy = Math.max(rect.top, Math.min(y, rect.bottom));
+            const lensHalf = lens.offsetWidth / 2;
+            const lx = cx - rect.left - lensHalf;
+            const ly = cy - rect.top - lensHalf;
+            const maxX = rect.width - lens.offsetWidth;
+            const maxY = rect.height - lens.offsetHeight;
+            lens.style.left = `${Math.max(0, Math.min(maxX, lx))}px`;
+            lens.style.top = `${Math.max(0, Math.min(maxY, ly))}px`;
+            const bgW = rect.width * zoom;
+            const bgH = rect.height * zoom;
+            lens.style.backgroundImage = `url(${main.src})`;
+            lens.style.backgroundSize = `${bgW}px ${bgH}px`;
+            const bx = (cx - rect.left) * zoom - lensHalf;
+            const by = (cy - rect.top) * zoom - lensHalf;
+            lens.style.backgroundPosition = `-${bx}px -${by}px`;
+            const zoomBox = detailBody.querySelector("#detailZoom");
+            if (zoomBox) {
+              const zW = zoomBox.clientWidth;
+              const zH = zoomBox.clientHeight;
+              zoomBox.style.backgroundImage = `url(${main.src})`;
+              zoomBox.style.backgroundRepeat = "no-repeat";
+              zoomBox.style.backgroundSize = `${bgW}px ${bgH}px`;
+              const zx = (cx - rect.left) * zoom - zW / 2;
+              const zy = (cy - rect.top) * zoom - zH / 2;
+              zoomBox.style.backgroundPosition = `-${zx}px -${zy}px`;
+            }
+          };
+          main.addEventListener("mouseenter", () => {
+            lens.classList.remove("hidden");
+            const zoomBox = detailBody.querySelector("#detailZoom");
+            if (zoomBox) zoomBox.classList.remove("hidden");
+          });
+          main.addEventListener("mouseleave", () => {
+            lens.classList.add("hidden");
+            const zoomBox = detailBody.querySelector("#detailZoom");
+            if (zoomBox) zoomBox.classList.add("hidden");
+          });
+          main.addEventListener("mousemove", update);
+          main.addEventListener(
+            "touchstart",
+            (e) => {
+              lens.classList.remove("hidden");
+              const zoomBox = detailBody.querySelector("#detailZoom");
+              if (zoomBox) zoomBox.classList.remove("hidden");
+              update(e);
+            },
+            { passive: true }
+          );
+          main.addEventListener("touchmove", update, { passive: true });
+          main.addEventListener("touchend", () => {
+            lens.classList.add("hidden");
+            const zoomBox = detailBody.querySelector("#detailZoom");
+            if (zoomBox) zoomBox.classList.add("hidden");
+          });
+        }
+        Array.from(detailBody.querySelectorAll("button")).forEach((btn) => {
+          const txt = (btn.textContent || "").trim().toLowerCase();
+          if (txt.includes("buy")) {
+            btn.addEventListener("click", () => {
+              const baseImg =
+                Array.isArray(p.gallery) && p.gallery.length
+                  ? p.gallery[0]
+                  : p.image;
+              const imgUrl = /^https?:\/\//.test(baseImg)
+                ? baseImg
+                : new URL(baseImg, location.origin).href;
+              const msg = `Order: ${p.name} - ${formatPrice(
+                p.price
+              )}\nImage: ${imgUrl}`;
+              const appLink = `tg://resolve?domain=${TELEGRAM_SELLER}&text=${encodeURIComponent(
+                msg
+              )}`;
+              const webLink = `https://t.me/${TELEGRAM_SELLER}`;
+              try {
+                navigator.clipboard.writeText(msg);
+              } catch {}
+              const a = document.createElement("a");
+              a.href = appLink;
+              document.body.appendChild(a);
+              a.click();
+              setTimeout(() => {
+                window.open(webLink, "_blank");
+                document.body.removeChild(a);
+              }, 150);
+            });
+          }
+        });
+        detailModal.classList.remove("hidden");
+        lastFocus = document.activeElement;
+        document.body.style.overflow = "hidden";
+        if (detailClose) detailClose.focus();
       }
       function closeDetail() {
-        detailModal.classList.add('hidden')
-        document.body.style.overflow = 'auto'
-        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus()
+        detailModal.classList.add("hidden");
+        document.body.style.overflow = "auto";
+        if (lastFocus && typeof lastFocus.focus === "function")
+          lastFocus.focus();
       }
-      if (detailClose) detailClose.addEventListener('click', closeDetail)
-      if (detailOverlay) detailOverlay.addEventListener('click', closeDetail)
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') closeDetail()
-      })
+      if (detailClose) detailClose.addEventListener("click", closeDetail);
+      if (detailOverlay) detailOverlay.addEventListener("click", closeDetail);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeDetail();
+      });
 
-      const themeToggle = document.getElementById('themeToggle')
-      const themeIcon = document.getElementById('themeIcon')
-      const root = document.documentElement
-      const persisted = localStorage.getItem('theme')
-      if (persisted === 'dark' || (!persisted && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        root.classList.add('dark')
-        themeIcon.textContent = '☀️'
+      const themeToggle = document.getElementById("themeToggle");
+      const themeIcon = document.getElementById("themeIcon");
+      const root = document.documentElement;
+      const persisted = localStorage.getItem("theme");
+      if (
+        persisted === "dark" ||
+        (!persisted &&
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        root.classList.add("dark");
+        themeIcon.textContent = "☀️";
       }
-      themeToggle.addEventListener('click', () => {
-        const isDark = root.classList.toggle('dark')
-        localStorage.setItem('theme', isDark ? 'dark' : 'light')
-        themeIcon.textContent = isDark ? '☀️' : '🌙'
-        themeIcon.classList.add('animate-rotate-in')
-        themeIcon.addEventListener('animationend', () => {
-          themeIcon.classList.remove('animate-rotate-in')
-        }, { once: true })
-      })
+      themeToggle.addEventListener("click", () => {
+        const isDark = root.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        themeIcon.textContent = isDark ? "☀️" : "🌙";
+        themeIcon.classList.add("animate-rotate-in");
+        themeIcon.addEventListener(
+          "animationend",
+          () => {
+            themeIcon.classList.remove("animate-rotate-in");
+          },
+          { once: true }
+        );
+      });
 
-      render()
+      render();
     </script>
   </body>
 </html>
