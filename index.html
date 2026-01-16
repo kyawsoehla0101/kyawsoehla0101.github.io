@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Catalogue</title>
+    <title>SR Showroom Catalogue</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -193,10 +193,10 @@
           <div class="flex items-center justify-between h-16">
             <div class="flex items-center gap-3">
               <div
-                class="size-9 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 shadow-soft animate-float"
-              ></div>
+                class="size-9 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 shadow-soft animate-float grid place-items-center text-white font-extrabold"
+              >SR</div>
               <div class="text-lg font-bold tracking-tight animate-fade-in-up">
-                TECTC Catalogue
+              Showroom Catalogue
               </div>
             </div>
             <div class="flex items-center gap-2">
@@ -301,10 +301,10 @@
               class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
               <option value="">Any price</option>
-              <option value="0-50">$0–$50</option>
-              <option value="50-100">$50–$100</option>
-              <option value="100-250">$100–$250</option>
-              <option value="250-9999">$250+</option>
+              <option value="0-50000">Ks 0–50000</option>
+              <option value="50000-100000">Ks 50000–100000</option>
+              <option value="100000-250000">Ks 100000–250000</option>
+              <option value="250000-999999999">Ks 250000+</option>
             </select>
           </div>
           <div class="sm:col-span-2">
@@ -458,7 +458,7 @@
             >
               ✕
             </button>
-            <div id="detailBody" class="p-4 sm:p-6"></div>
+            <div id="detailBody" class="p-4 sm:p-6 overflow-y-auto max-h-[72vh] sm:max-h-[80vh]"></div>
           </div>
         </div>
       </div>
@@ -468,7 +468,7 @@
           class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-sm text-neutral-600 dark:text-neutral-300"
         >
           <div class="flex items-center justify-between">
-            <p>© <span id="year"></span> TECTC Catalogue</p>
+            <p>© <span id="year"></span> Our Catalogue</p>
             <p>All rights reserved.</p>
           </div>
         </div>
@@ -674,6 +674,7 @@
       const state = {
         search: "",
         category: "",
+        price: "",
         sort: "relevance",
         view: "grid",
         gallery: "single",
@@ -683,6 +684,7 @@
       const empty = document.getElementById("empty");
       const search = document.getElementById("search");
       const category = document.getElementById("category");
+      const price = document.getElementById("price");
       const sort = document.getElementById("sort");
       const activeFilters = document.getElementById("activeFilters");
       const year = document.getElementById("year");
@@ -728,6 +730,10 @@
         state.category = e.target.value;
         render();
       });
+      price.addEventListener("change", (e) => {
+        state.price = e.target.value;
+        render();
+      });
       sort.addEventListener("change", (e) => {
         state.sort = e.target.value;
         render();
@@ -768,6 +774,16 @@
         );
         if (state.category)
           result = result.filter((p) => p.category === state.category);
+        if (state.price) {
+          const m = state.price.match(/^(\d+)-(\d+)$/);
+          if (m) {
+            const min = parseInt(m[1], 10);
+            const max = parseInt(m[2], 10);
+            result = result.filter(
+              (p) => typeof p.price === "number" && p.price >= min && p.price <= max
+            );
+          }
+        }
         switch (state.sort) {
           case "price-asc":
             result.sort((a, b) => a.price - b.price);
@@ -1230,6 +1246,15 @@
             state.category = "";
             render();
           });
+        if (state.price)
+          makeChip(
+            "Price: " + (price ? price.options[price.selectedIndex].text : state.price),
+            () => {
+              if (price) price.value = "";
+              state.price = "";
+              render();
+            }
+          );
         if (state.sort !== "relevance")
           makeChip("Sort: " + sort.options[sort.selectedIndex].text, () => {
             sort.value = "relevance";
@@ -1367,10 +1392,11 @@
               specItems
                 ? `
               <div class="mt-6">
-                <h3 class="text-lg font-semibold">Specifications</h3>
-                <div class="mt-3 grid grid-cols-1 gap-3">
-                  ${specItems}
-                </div>
+                <button id="detailSpecsToggle" class="w-full flex items-center justify-between rounded-xl bg-neutral-100 dark:bg-neutral-800/60 px-4 py-3 sm:hidden">
+                  <span class="text-lg font-semibold">Specifications</span>
+                  <span id="detailSpecsChevron" class="transition-transform">▾</span>
+                </button>
+                <div id="detailSpecsPanel" class="mt-3 grid grid-cols-1 gap-3 hidden sm:grid">${specItems}</div>
               </div>
             `
                 : ""
@@ -1436,6 +1462,20 @@
         `;
         const main = detailBody.querySelector("#detailMain");
         const thumbsEls = detailBody.querySelectorAll(".detail-thumb");
+        const specToggle = detailBody.querySelector("#detailSpecsToggle");
+        const specPanel = detailBody.querySelector("#detailSpecsPanel");
+        const specChevron = detailBody.querySelector("#detailSpecsChevron");
+        if (specToggle && specPanel) {
+          specToggle.addEventListener("click", () => {
+            const isHidden = specPanel.classList.contains("hidden");
+            if (isHidden) {
+              specPanel.classList.remove("hidden");
+            } else {
+              specPanel.classList.add("hidden");
+            }
+            if (specChevron) specChevron.classList.toggle("rotate-180");
+          });
+        }
         thumbsEls.forEach((t, i) => {
           t.addEventListener("click", () => {
             if (main) {

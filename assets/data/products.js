@@ -19,7 +19,7 @@ window.products = [
   {
     id: 2,
     name: "ASUS Vivobook 16, Intel Core i5-13420H Processor",
-    price: 1599,
+    price: 5000000,
     rating: 4.6,
     category: "Computers",
     image: "assets/img/asusvivo16.jpg",
@@ -35,7 +35,7 @@ window.products = [
   {
     id: 3,
     name: "Ultrawide Monitor",
-    price: 399,
+    price: 3200000,
     rating: 4.5,
     category: "Computers",
     image: "https://picsum.photos/seed/monitor/600/400",
@@ -49,7 +49,7 @@ window.products = [
   {
     id: 4,
     name: "Mechanical Keyboard",
-    price: 129,
+    price: 6000000,
     rating: 4.4,
     category: "Computers",
     image: "https://picsum.photos/seed/keyboard/600/400",
