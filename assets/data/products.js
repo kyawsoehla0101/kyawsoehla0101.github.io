@@ -38,7 +38,7 @@ window.products = [
     price: 3200000,
     rating: 4.5,
     category: "Computers",
-    image: "https://picsum.photos/seed/monitor/600/400",
+    image: "assets/img/pad7.jpg",
     specs: [
       { label: "Size", value: '34"' },
       { label: "Resolution", value: "3440×1440" },
@@ -52,7 +52,7 @@ window.products = [
     price: 6000000,
     rating: 4.4,
     category: "Computers",
-    image: "https://picsum.photos/seed/keyboard/600/400",
+    image: "assets/img/pad7.jpg",
     specs: [
       { label: "Switch", value: "Brown" },
       { label: "Layout", value: "TKL" },
