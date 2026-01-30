@@ -270,36 +270,28 @@
       </section>
 
       <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div class="mt-4 grid gap-4 sm:grid-cols-12">
-          <div class="sm:col-span-5">
-            <label for="search" class="sr-only">Search products</label>
-            <div class="relative">
-              <input
-                id="search"
-                type="text"
-                placeholder="Search products..."
-                class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 pl-10 focus:outline-none focus:ring-2 focus:ring-brand-500"
-              />
-              <span
-                class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"
-              ></span>
+        <div class="mt-4 flex flex-col gap-4">
+          <div class="grid gap-4 sm:grid-cols-12">
+            <div class="sm:col-span-6">
+              <label for="search" class="sr-only">Search products</label>
+              <div class="relative">
+                <input
+                  id="search"
+                  type="text"
+                  placeholder="Search products..."
+                  class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 pl-10 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                />
+                <span
+                  class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"
+                ></span>
+              </div>
             </div>
-          </div>
-          <div class="sm:col-span-3">
-            <label for="category" class="sr-only">Category</label>
-            <select
-              id="category"
-              class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500"
-            >
-              <option value="">All categories</option>
-            </select>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="price" class="sr-only">Price</label>
-            <select
-              id="price"
-              class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500"
-            >
+            <div class="sm:col-span-3">
+              <label for="price" class="sr-only">Price</label>
+              <select
+                id="price"
+                class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500"
+              >
               <option value="">Any price</option>
               <option value="0-50000">Ks 0–50000</option>
               <option value="50000-100000">Ks 50000–100000</option>
@@ -463,21 +455,104 @@
         </div>
       </div>
 
-      <footer class="border-t border-neutral-200/70 dark:border-neutral-800">
+      <div
+        id="cartModal"
+        class="relative z-[1001] hidden"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
+      >
         <div
-          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-sm text-neutral-600 dark:text-neutral-300"
-        >
-          <div class="flex items-center justify-between">
-            <p>© <span id="year"></span> Our Catalogue</p>
-            <p>All rights reserved.</p>
+          id="cartOverlay"
+          class="fixed inset-0 bg-neutral-900/30 backdrop-blur-sm transition-opacity"
+        ></div>
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+          <div
+            class="flex min-h-full items-center justify-center p-4 text-center sm:p-0"
+          >
+            <div
+              class="relative transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 text-left shadow-soft transition-all sm:my-8 sm:w-full sm:max-w-lg border border-neutral-200 dark:border-neutral-800"
+            >
+              <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xl font-bold">Shopping Cart</h3>
+                  <button
+                    id="cartClose"
+                    class="text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div id="cartItems" class="space-y-4 max-h-[60vh] overflow-y-auto">
+                   <!-- Items go here -->
+                </div>
+                <div class="mt-6 border-t border-neutral-200 dark:border-neutral-800 pt-4">
+                   <div class="flex justify-between font-bold text-lg mb-4">
+                      <span>Total</span>
+                      <span id="cartTotal">Ks 0</span>
+                   </div>
+                   <button id="cartCheckout" class="w-full rounded-xl bg-brand-600 py-3 text-white font-bold hover:bg-brand-700 transition-colors">
+                      Order via Telegram
+                   </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="border-t border-neutral-200/70 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h3 class="font-bold text-lg mb-4">About Us</h3>
+              <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+                We provide high-quality gadgets and accessories. 
+                Our mission is to bring the best products to your doorstep.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg mb-4">Contact</h3>
+              <ul class="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+                <li>📞 09-123456789</li>
+                <li>📧 contact@example.com</li>
+                <li>📍 Yangon, Myanmar</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg mb-4">Follow Us</h3>
+              <div class="flex gap-4">
+                <a href="#" class="text-neutral-600 dark:text-neutral-400 hover:text-brand-600 transition-colors">Facebook</a>
+                <a href="#" class="text-neutral-600 dark:text-neutral-400 hover:text-brand-600 transition-colors">Telegram</a>
+              </div>
+            </div>
+          </div>
+          <div class="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800 flex flex-col sm:flex-row justify-between items-center text-sm text-neutral-500">
+            <p>© <span id="year"></span> Our Catalogue. All rights reserved.</p>
           </div>
         </div>
       </footer>
     </div>
 
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[2000] translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+      <div class="bg-neutral-900/90 dark:bg-white/90 text-white dark:text-neutral-900 px-4 py-2 rounded-full shadow-lg backdrop-blur text-sm font-medium">
+        <span id="toastMsg"></span>
+      </div>
+    </div>
     <script src="assets/data/products.js"></script>
     <script>
       const TELEGRAM_SELLER = "kyawsoehla0101";
+
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        const m = document.getElementById("toastMsg");
+        if (!t || !m) return;
+        m.textContent = msg;
+        t.classList.remove("translate-y-20", "opacity-0");
+        setTimeout(() => {
+          t.classList.add("translate-y-20", "opacity-0");
+        }, 2000);
+      }
     
 
       const categories = [...new Set(products.map((p) => p.category))];
@@ -488,12 +563,131 @@
         sort: "relevance",
         view: "grid",
         gallery: "single",
+        wishlist: new Set(JSON.parse(localStorage.getItem("wishlist") || "[]")),
+        cart: new Map(JSON.parse(localStorage.getItem("cart") || "[]")),
       };
+
+      function updateCartBadge() {
+        const badge = document.getElementById("cartBadge");
+        if (!badge) return;
+        let count = 0;
+        for (const qty of state.cart.values()) count += qty;
+        
+        if (count > 0) {
+            badge.textContent = count;
+            badge.classList.remove("opacity-0");
+        } else {
+            badge.classList.add("opacity-0");
+        }
+      }
+
+      function addToCart(id, qty = 1) {
+        const current = state.cart.get(id) || 0;
+        state.cart.set(id, current + qty);
+        saveCart();
+        showToast("Added to cart");
+        updateCartBadge();
+      }
+      
+      function removeFromCart(id) {
+        state.cart.delete(id);
+        saveCart();
+        renderCartItems();
+        updateCartBadge();
+      }
+
+      function updateCartQty(id, delta) {
+        const current = state.cart.get(id) || 0;
+        const newQty = current + delta;
+        if (newQty <= 0) {
+            removeFromCart(id);
+        } else {
+            state.cart.set(id, newQty);
+            saveCart();
+            renderCartItems();
+            updateCartBadge();
+        }
+      }
+
+      function saveCart() {
+        localStorage.setItem("cart", JSON.stringify([...state.cart]));
+      }
+
+      function renderCartItems() {
+        const container = document.getElementById("cartItems");
+        const totalEl = document.getElementById("cartTotal");
+        if (!container) return;
+        
+        container.innerHTML = "";
+        let total = 0;
+        
+        if (state.cart.size === 0) {
+            container.innerHTML = `<div class="text-center text-neutral-500 py-8">Your cart is empty</div>`;
+            totalEl.textContent = formatPrice(0);
+            return;
+        }
+
+        for (const [id, qty] of state.cart) {
+            const p = products.find(x => x.id === id);
+            if (!p) continue;
+            
+            total += p.price * qty;
+            
+            const div = document.createElement("div");
+            div.className = "flex gap-4 items-center";
+            div.innerHTML = `
+                <img src="${p.image}" class="w-16 h-16 rounded-lg object-cover bg-neutral-100 dark:bg-neutral-800">
+                <div class="flex-1 min-w-0">
+                    <div class="font-medium truncate">${p.name}</div>
+                    <div class="text-sm text-neutral-500">${formatPrice(p.price)}</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="cart-dec w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center hover:bg-neutral-200 dark:hover:bg-neutral-700">-</button>
+                    <span class="w-4 text-center text-sm">${qty}</span>
+                    <button class="cart-inc w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center hover:bg-neutral-200 dark:hover:bg-neutral-700">+</button>
+                </div>
+            `;
+            
+            div.querySelector(".cart-dec").addEventListener("click", () => updateCartQty(id, -1));
+            div.querySelector(".cart-inc").addEventListener("click", () => updateCartQty(id, 1));
+            
+            container.appendChild(div);
+        }
+        
+        totalEl.textContent = formatPrice(total);
+      }
+
+      function toggleWishlist(id) {
+        if (state.wishlist.has(id)) {
+          state.wishlist.delete(id);
+          showToast("Removed from wishlist");
+        } else {
+          state.wishlist.add(id);
+          showToast("Added to wishlist");
+        }
+        localStorage.setItem("wishlist", JSON.stringify([...state.wishlist]));
+
+        if (state.category === 'wishlist') {
+            render();
+        }
+      }
+
+      function updateWishlistBtn(btn, id) {
+        const isSaved = state.wishlist.has(id);
+        if (isSaved) {
+            btn.textContent = "♥ Saved";
+            btn.classList.add("text-brand-600", "dark:text-brand-400");
+        } else {
+            btn.textContent = "Wishlist";
+            btn.classList.remove("text-brand-600", "dark:text-brand-400");
+        }
+      }
+
 
       const grid = document.getElementById("grid");
       const empty = document.getElementById("empty");
       const search = document.getElementById("search");
-      const category = document.getElementById("category");
+      const categoryChips = document.getElementById("categoryChips");
       const price = document.getElementById("price");
       const sort = document.getElementById("sort");
       const activeFilters = document.getElementById("activeFilters");
@@ -540,23 +734,53 @@
       let dragging = false;
       let dragW = 0;
 
-      categories.forEach((c) => {
-        const opt = document.createElement("option");
-        opt.value = c;
-        opt.textContent = c;
-        category.appendChild(opt);
-      });
+      function renderCategoryChips() {
+        if (!categoryChips) return;
+        categoryChips.innerHTML = "";
+        
+        const allCats = ["All", ...categories, "Wishlist"];
+        
+        allCats.forEach(cat => {
+          const isWishlist = cat === "Wishlist";
+          const isActive = isWishlist ? state.category === "wishlist" : (cat === "All" ? state.category === "" : state.category === cat);
+          
+          const btn = document.createElement("button");
+          btn.className = `whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+            isActive 
+              ? "bg-brand-600 text-white" 
+              : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+          }`;
+          
+          if (isWishlist) {
+              btn.innerHTML = "♥ Wishlist";
+          } else {
+              btn.textContent = cat;
+          }
+          
+          btn.addEventListener("click", () => {
+            if (isWishlist) {
+              state.category = "wishlist";
+            } else if (cat === "All") {
+              state.category = "";
+            } else {
+              state.category = cat;
+            }
+            renderCategoryChips();
+            render();
+          });
+          
+          categoryChips.appendChild(btn);
+        });
+      }
+
+      renderCategoryChips();
 
       year.textContent = new Date().getFullYear();
 
       search.addEventListener("input", (e) => {
-        state.search = e.target.value.trim().toLowerCase();
-        render();
-      });
-      category.addEventListener("change", (e) => {
-        state.category = e.target.value;
-        render();
-      });
+          state.search = e.target.value.trim().toLowerCase();
+          render();
+        });
       price.addEventListener("change", (e) => {
         state.price = e.target.value;
         render();
@@ -599,8 +823,11 @@
         let result = list.filter((p) =>
           p.name.toLowerCase().includes(state.search)
         );
-        if (state.category)
+        if (state.category === "wishlist") {
+          result = result.filter((p) => state.wishlist.has(p.id));
+        } else if (state.category) {
           result = result.filter((p) => p.category === state.category);
+        }
         if (state.price) {
           const m = state.price.match(/^(\d+)-(\d+)$/);
           if (m) {
@@ -771,7 +998,10 @@
               </div>
               <div class="mt-6 flex items-center gap-3">
                 <button class="book-buy rounded-lg px-5 py-2.5 text-sm font-medium bg-gradient-to-r from-brand-600 to-cyan-600 text-white hover:from-brand-700 hover:to-cyan-700 transition-colors">Buy now</button>
-                <button class="hidden rounded-lg px-5 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Wishlist</button>
+                <button class="book-wishlist rounded-lg px-5 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Wishlist</button>
+                <button class="book-share rounded-lg px-3 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                </button>
               </div>
             </div>
           </div>
@@ -873,8 +1103,12 @@
           </div>
           <div class="fixed inset-x-0 bottom-0 z-[1000] pointer-events-auto">
             <div class="mx-3 mb-[calc(env(safe-area-inset-bottom)+12px)] rounded-full bg-white/90 dark:bg-neutral-900/90 ring-1 ring-neutral-200/70 dark:ring-neutral-800 shadow-soft backdrop-blur px-3 py-2 flex items-center justify-center gap-3">
-              <button class="rounded-full px-5 py-2 text-sm font-medium bg-brand-600 text-white">Buy</button>
-        <button class="hidden rounded-full px-5 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800">Wishlist</button>
+              <button class="book-buy rounded-full px-5 py-2 text-sm font-medium bg-brand-600 text-white">Buy</button>
+              <button class="book-cart rounded-full px-5 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800">Cart</button>
+              <button class="book-wishlist rounded-full px-5 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800">Wishlist</button>
+              <button class="book-share rounded-full px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+              </button>
             </div>
           </div>
         `;
@@ -1052,6 +1286,25 @@
                 }
                 render();
               }
+            });
+          }
+
+          const wishlistBtn = spread.querySelector(".book-wishlist");
+          if (wishlistBtn) {
+            updateWishlistBtn(wishlistBtn, p.id);
+            wishlistBtn.addEventListener("click", () => toggleWishlist(p.id));
+          }
+
+          const cartBtn = spread.querySelector(".book-cart");
+          if (cartBtn) {
+            cartBtn.addEventListener("click", () => addToCart(p.id));
+          }
+
+          const shareBtn = spread.querySelector(".book-share");
+          if (shareBtn) {
+            shareBtn.addEventListener("click", () => {
+              const url = window.location.href.split('#')[0] + `#product=${p.id}`;
+              navigator.clipboard.writeText(url).then(() => showToast("Link copied!"));
             });
           }
         });
@@ -1280,9 +1533,14 @@
                 p.category
               }</div>
               <div class="mt-4 flex items-center justify-between">
-                <button class="view-btn rounded-lg px-3 py-2 text-sm font-medium bg-brand-600 text-white hover:bg-brand-700 transition-colors" data-id="${
-                  p.id
-                }">View</button>
+                <div class="flex gap-2">
+                  <button class="view-btn rounded-lg px-3 py-2 text-sm font-medium bg-brand-600 text-white hover:bg-brand-700 transition-colors" data-id="${
+                    p.id
+                  }">View</button>
+                  <button class="cart-add-btn rounded-lg px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors" data-id="${
+                    p.id
+                  }">🛒</button>
+                </div>
                 <div class="text-lg font-bold">${formatPrice(p.price)}</div>
               </div>
             </div>
@@ -1321,6 +1579,13 @@
               if (p) openDetail(p);
             });
           });
+          Array.from(grid.querySelectorAll(".cart-add-btn")).forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              const id = Number(btn.getAttribute("data-id"));
+              addToCart(id);
+            });
+          });
           empty.hidden = list.length !== 0;
         } else {
           document.body.style.overflow = "auto";
@@ -1353,6 +1618,7 @@
       const detailOverlay = document.getElementById("detailOverlay");
       let lastFocus = null;
       function openDetail(p) {
+        window.location.hash = `product=${p.id}`;
         const stars =
           "★".repeat(Math.round(p.rating)) +
           "☆".repeat(5 - Math.round(p.rating));
@@ -1417,6 +1683,30 @@
             : imageSeeds
             ? imageSeeds.map((s) => `assets/img/${s}.jpg`)
             : [p.image];
+
+        // Related Products Logic
+        const related = products
+          .filter((x) => x.category === p.category && x.id !== p.id)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 4);
+        
+        const relatedHTML = related.length ? `
+          <div class="mt-12 border-t border-neutral-200 dark:border-neutral-800 pt-8">
+            <h3 class="text-xl font-bold mb-4">You might also like</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              ${related.map(r => `
+                <div class="group cursor-pointer related-item" data-id="${r.id}">
+                  <div class="aspect-[4/3] rounded-lg bg-neutral-100 dark:bg-neutral-800 overflow-hidden mb-2">
+                    <img src="${r.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                  </div>
+                  <div class="text-sm font-medium truncate">${r.name}</div>
+                  <div class="text-xs text-neutral-500">${formatPrice(r.price)}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : '';
+
         detailBody.innerHTML = `
           <div class="grid sm:grid-cols-5 gap-6">
             <div class="sm:col-span-3">
@@ -1449,12 +1739,46 @@
               </div>
               <div class="mt-6 flex items-center gap-3">
                 <button class="buy-now rounded-lg px-5 py-2.5 text-sm font-medium bg-gradient-to-r from-brand-600 to-cyan-600 text-white hover:from-brand-700 hover:to-cyan-700 transition-colors">Buy now</button>
-                <button class="hidden rounded-lg px-5 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Wishlist</button>
+                <button id="detailWishlistBtn" class="rounded-lg px-5 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Wishlist</button>
+                <button id="detailShareBtn" class="rounded-lg px-3 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors" title="Share">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                </button>
               </div>
             </div>
             ${rightCol}
           </div>
+          ${relatedHTML}
         `;
+        
+        // Initialize Wishlist Button
+        const wishlistBtn = detailBody.querySelector("#detailWishlistBtn");
+        if (wishlistBtn) {
+            updateWishlistBtn(wishlistBtn, p.id);
+            wishlistBtn.addEventListener("click", () => toggleWishlist(p.id));
+        }
+
+        const detailCartBtn = detailBody.querySelector("#detailCartBtn");
+        if (detailCartBtn) {
+            detailCartBtn.addEventListener("click", () => addToCart(p.id));
+        }
+
+        const shareBtn = detailBody.querySelector("#detailShareBtn");
+        if (shareBtn) {
+            shareBtn.addEventListener("click", () => {
+                const url = window.location.href.split('#')[0] + `#product=${p.id}`;
+                navigator.clipboard.writeText(url).then(() => showToast("Link copied!"));
+            });
+        }
+
+        // Initialize Related Products Click
+        detailBody.querySelectorAll(".related-item").forEach(el => {
+            el.addEventListener("click", () => {
+                const id = Number(el.getAttribute("data-id"));
+                const prod = products.find(x => x.id === id);
+                if (prod) openDetail(prod);
+            });
+        });
+
         const main = detailBody.querySelector("#detailMain");
         const thumbsEls = detailBody.querySelectorAll(".detail-thumb");
         const specToggle = detailBody.querySelector("#detailSpecsToggle");
@@ -1605,6 +1929,7 @@
         if (detailClose) detailClose.focus();
       }
       function closeDetail() {
+        history.replaceState(null, null, ' ');
         detailModal.classList.add("hidden");
         document.body.style.overflow = "auto";
         if (lastFocus && typeof lastFocus.focus === "function")
@@ -1642,6 +1967,71 @@
           { once: true }
         );
       });
+
+      const hash = window.location.hash;
+      if (hash.includes("product=")) {
+        const id = Number(hash.split("=")[1]);
+        const p = products.find(x => x.id === id);
+        if (p) openDetail(p);
+      }
+
+      const cartModal = document.getElementById("cartModal");
+      const cartBtn = document.getElementById("cartBtn");
+      const cartClose = document.getElementById("cartClose");
+      const cartOverlay = document.getElementById("cartOverlay");
+      const cartCheckout = document.getElementById("cartCheckout");
+
+      function openCart() {
+        renderCartItems();
+        cartModal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeCart() {
+        cartModal.classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }
+
+      if (cartBtn) cartBtn.addEventListener("click", openCart);
+      if (cartClose) cartClose.addEventListener("click", closeCart);
+      if (cartOverlay) cartOverlay.addEventListener("click", closeCart);
+      
+      if (cartCheckout) {
+        cartCheckout.addEventListener("click", () => {
+             if (state.cart.size === 0) return;
+             
+             let msg = "New Order:\n\n";
+             let total = 0;
+             
+             for (const [id, qty] of state.cart) {
+                 const p = products.find(x => x.id === id);
+                 if (p) {
+                     msg += `${qty}x ${p.name} - ${formatPrice(p.price * qty)}\n`;
+                     total += p.price * qty;
+                 }
+             }
+             
+             msg += `\nTotal: ${formatPrice(total)}`;
+             
+             const appLink = `tg://resolve?domain=${TELEGRAM_SELLER}&text=${encodeURIComponent(msg)}`;
+             const webLink = `https://t.me/${TELEGRAM_SELLER}`;
+             
+             try {
+                navigator.clipboard.writeText(msg);
+             } catch {}
+             
+             const a = document.createElement("a");
+             a.href = appLink;
+             document.body.appendChild(a);
+             a.click();
+             setTimeout(() => {
+                window.open(webLink, "_blank");
+                document.body.removeChild(a);
+             }, 150);
+        });
+      }
+      
+      updateCartBadge();
 
       render();
     </script>
