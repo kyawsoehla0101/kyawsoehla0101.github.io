@@ -201,6 +201,14 @@
             </div>
             <div class="flex items-center gap-2">
               <button
+                id="cartBtn"
+                class="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors relative"
+              >
+                <span>🛒</span>
+                <span class="hidden sm:inline">Cart</span>
+                <span id="cartBadge" class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-600 text-[10px] text-white font-bold opacity-0 transition-opacity">0</span>
+              </button>
+              <button
                 id="themeToggle"
                 class="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
               >
@@ -998,6 +1006,7 @@
               </div>
               <div class="mt-6 flex items-center gap-3">
                 <button class="book-buy rounded-lg px-5 py-2.5 text-sm font-medium bg-gradient-to-r from-brand-600 to-cyan-600 text-white hover:from-brand-700 hover:to-cyan-700 transition-colors">Buy now</button>
+                <button class="book-cart rounded-lg px-5 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Cart</button>
                 <button class="book-wishlist rounded-lg px-5 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Wishlist</button>
                 <button class="book-share rounded-lg px-3 py-2.5 text-sm font-medium bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
